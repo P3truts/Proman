@@ -46,3 +46,15 @@ def get_statuses():
         ;
         """)
     return statuses
+
+
+def insert_board(title):
+    return data_manager.execute_select(
+        """
+        insert  into boards(title)
+        values(%(title)s)
+        ;
+        """
+        , {"title": title},
+        True
+    )

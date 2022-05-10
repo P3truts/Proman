@@ -2,14 +2,16 @@ export const htmlTemplates = {
     board: 1,
     card: 2,
     colBoard: 3,
-    newBoardBtn: 4
+    newBoardBtn: 4,
+    modal:5
 }
 
 export const builderFunctions = {
     [htmlTemplates.board]: boardBuilder,
     [htmlTemplates.card]: cardBuilder,
     [htmlTemplates.colBoard]: colBoardBuilder,
-    [htmlTemplates.newBoardBtn]: newBoardBtn
+    [htmlTemplates.newBoardBtn]: newBoardBtn,
+    [htmlTemplates.modal]: newBoardModalBuilder,
 };
 
 export function htmlFactory(template) {
@@ -51,7 +53,34 @@ function colBoardBuilder(status) {
 function newBoardBtn() {
     return `
         <button type="button" id="new-board-button" class="btn btn-primary"
-        data-bs-toggle="modal" data-bs-target="#exampleModal">ADD BOARD</button>
+        data-bs-toggle="modal" data-bs-target="#new-board-modal">ADD BOARD</button>
+    `
+}
+
+function newBoardModalBuilder(formApi) {
+    return `
+        <div class="modal fade" id="new-board-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Board</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="form-new-board" action=${formApi} method="post">
+                  <div class="mb-3">
+                    <label for="title" class="col-form-label">Board Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
     `
 }
 

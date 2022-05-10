@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 from util import json_response
 import mimetypes
 import queries
@@ -38,6 +38,12 @@ def get_cards_for_board(board_id: int):
     :param board_id: id of the parent board
     """
     return queries.get_cards_for_board(board_id)
+
+
+@app.post("/api/new-board")
+def new_board():
+    title = request.json.get("title") if request.is_json else request.form.get("title")
+    queries.insert_board(title)
 
 
 def main():

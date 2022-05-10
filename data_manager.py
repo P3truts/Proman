@@ -55,6 +55,9 @@ def execute_select(statement, variables=None, fetchall=True):
     with establish_connection() as conn:
         with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cursor:
             cursor.execute(statement, variables)
-            result_set = cursor.fetchall() if fetchall else cursor.fetchone()
+            try:
+                result_set = cursor.fetchall() if fetchall else cursor.fetchone()
+            except Exception as e:
+                print(e)
     return result_set
 
