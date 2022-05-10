@@ -28,7 +28,6 @@ def get_boards():
 
 
 def get_cards_for_board(board_id):
-
     matching_cards = data_manager.execute_select(
         """
         SELECT * FROM cards
@@ -41,7 +40,6 @@ def get_cards_for_board(board_id):
 
 
 def get_statuses():
-
     statuses = data_manager.execute_select(
         """
         select * from statuses
