@@ -1,11 +1,13 @@
 export const htmlTemplates = {
     board: 1,
-    card: 2
+    card: 2,
+    colBoard: 3
 }
 
 export const builderFunctions = {
     [htmlTemplates.board]: boardBuilder,
-    [htmlTemplates.card]: cardBuilder
+    [htmlTemplates.card]: cardBuilder,
+    [htmlTemplates.colBoard]: colBoardBuilder
 };
 
 export function htmlFactory(template) {
@@ -35,7 +37,7 @@ function cardBuilder(card) {
 function colBoardBuilder(status) {
     return `
         <div class="board-column">
-            <div class="board-column-title">${status}</div>
+            <div class="board-column-title">${status.title}</div>
                 <div class="board-column-content"></div>
             </div>
         </div>

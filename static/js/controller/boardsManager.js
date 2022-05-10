@@ -2,11 +2,11 @@ import {dataHandler} from "../data/dataHandler.js";
 import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {cardsManager} from "./cardsManager.js";
+import {statusManager} from "./statusManager.js";
 
 export let boardsManager = {
     loadBoards: async function () {
         const boards = await dataHandler.getBoards();
-        const statuses = await dataHandler.getStatuses()
         for (let board of boards) {
             const boardBuilder = htmlFactory(htmlTemplates.board);
             const content = boardBuilder(board);
@@ -22,5 +22,6 @@ export let boardsManager = {
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    cardsManager.loadCards(boardId);
+    statusManager.loadStatuses(boardId)
+    // cardsManager.loadCards(boardId);
 }
