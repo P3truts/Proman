@@ -12,11 +12,10 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    card = queries.get_boards()
-    return render_template('index.html', card=card)
+    return render_template('index.html')
 
 
-@app.route("/api/boards")
+@app.get("/api/boards")
 @json_response
 def get_boards():
     """
@@ -25,7 +24,13 @@ def get_boards():
     return queries.get_boards()
 
 
-@app.route("/api/boards/<int:board_id>/cards/")
+@app.get("/api/statuses")
+@json_response
+def get_api():
+    return queries.get_statuses()
+
+
+@app.get("/api/boards/<int:board_id>/cards/")
 @json_response
 def get_cards_for_board(board_id: int):
     """
@@ -37,10 +42,6 @@ def get_cards_for_board(board_id: int):
 
 def main():
     app.run(debug=True)
-
-    # # Serving the favicon
-    # with app.app_context():
-    #     app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon/favicon.ico'))
 
 
 if __name__ == '__main__':
