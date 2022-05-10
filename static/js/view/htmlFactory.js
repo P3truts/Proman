@@ -1,13 +1,15 @@
 export const htmlTemplates = {
     board: 1,
     card: 2,
-    colBoard: 3
+    colBoard: 3,
+    newBoardBtn: 4
 }
 
 export const builderFunctions = {
     [htmlTemplates.board]: boardBuilder,
     [htmlTemplates.card]: cardBuilder,
-    [htmlTemplates.colBoard]: colBoardBuilder
+    [htmlTemplates.colBoard]: colBoardBuilder,
+    [htmlTemplates.newBoardBtn]: newBoardBtn
 };
 
 export function htmlFactory(template) {
@@ -44,5 +46,12 @@ function colBoardBuilder(status) {
             </div>
         </div>
 `
+}
+
+function newBoardBtn() {
+    return `
+        <button type="button" id="new-board-button" class="btn btn-primary"
+        data-bs-toggle="modal" data-bs-target="#exampleModal">ADD BOARD</button>
+    `
 }
 

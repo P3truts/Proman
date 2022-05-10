@@ -3,9 +3,17 @@
 }
 
 .title-container {
-    display: inline-flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 960px;
+    margin: 0 auto;
 }
+
+.title-container h1 {
+    font-size: 3em;
+    padding-left: 15px;
+}
+
 
 :root{
     --border-radius: 3px;
