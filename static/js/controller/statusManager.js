@@ -17,8 +17,15 @@ export let statusManager = {
             );
         }
     },
+    unloadStatuses: async function (boardId) {
+        const statuses = await dataHandler.getStatuses();
+        for (let status of statuses) {
+            domManager.removeChild(`.board[data-board-id="${boardId}"] > .board-columns`, '.board-column');
+        }
+    }
 };
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
+    statusManager.unloadStatuses(boardId);
 }
