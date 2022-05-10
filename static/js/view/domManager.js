@@ -15,4 +15,21 @@ export let domManager = {
             console.error("could not find such html element: " + parentIdentifier);
         }
     },
+    removeChild(parentIdentifier, childContent) {
+        const parent = document.querySelector(parentIdentifier);
+        const child = document.querySelector(childContent);
+        if (parent) {
+            child.remove();
+        } else {
+            console.error("could not find such html element: " + parentIdentifier);
+        }
+    },
+    getParent(parentIdentifier) {
+        const parent = document.querySelector(parentIdentifier);
+        if (parent) {
+            return parent;
+        } else {
+            console.error("could not find such html element: " + parentIdentifier);
+        }
+    }
 };
