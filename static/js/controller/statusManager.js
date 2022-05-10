@@ -27,5 +27,9 @@ export let statusManager = {
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    statusManager.unloadStatuses(boardId);
+    const columnsContainer = domManager.getParent(`.board[data-board-id="${boardId}"] > .board-columns`);
+    if (columnsContainer.innerHTML.length > 0) {
+            statusManager.unloadStatuses(boardId);
+    } else {
+    }
 }
