@@ -24,7 +24,9 @@ export function htmlFactory(template) {
 
 function boardBuilder(board) {
     return `<div class="board-container mb-5">
-                <div class="board" data-board-id=${board.id}>${board.title}</div>
+                <div class="board" data-board-id=${board.id}>${board.title}
+                    <div class="board-columns"></div>
+                </div>
                 <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
             </div>`;
 }
@@ -37,7 +39,7 @@ function cardBuilder(card) {
 function colBoardBuilder(status) {
     return `
         <div class="board-column">
-            <div class="board-column-title">${status.title}</div>
+            <div class="board-column-title">${status.title[0].toUpperCase() + status.title.substring(1)}</div>
                 <div class="board-column-content"></div>
             </div>
         </div>
