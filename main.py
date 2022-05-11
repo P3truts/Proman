@@ -46,6 +46,11 @@ def new_board():
     return queries.insert_board(title)
 
 
+@app.get("/api/board/<board_id>")
+def get_board(board_id):
+    return queries.get_board_by_id(board_id)
+
+
 def main():
     app.run(debug=True)
 

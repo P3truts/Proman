@@ -22,7 +22,7 @@ export let buttonManager = {
         const config ={
             id: "edit-board-button",
             src : "./static/assets/edit-btn.png"
-    }
+        }
         const btnBuilder = htmlFactory(htmlTemplates.newBoardBtn);
         const content = btnBuilder(config);
         domManager.addChild(".title-container",content);
