@@ -35,7 +35,7 @@ export let modalManager = {
             try {
                 const editedBoard = await dataHandler.updateBoardTitle({id: boardId, title: title})
                 $(`#${config.id}`).modal('hide')
-                await boardsManager.loadNewBoard(editedBoard)
+                await boardsManager.updateBoard(editedBoard)
             } catch (error) {
                 alert('Operation was not successful! Please try again')
             }

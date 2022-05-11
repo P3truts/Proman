@@ -17,45 +17,32 @@ export let boardsManager = {
     loadNewBoard: function(board) {
         createBoard(board, "beforebegin")
         domManager.addClassToParent(`.board[data-board-id="${board.id}"]`, "border-green")
+    },
+
+    updateBoard: function (board) {
+        console.log(board)
+        document.querySelector(`.board[data-board-id="${board.id}"] > .board-columns`).parentNode.parentNode.remove()
+        createBoard(board, "beforebegin", true)
+        domManager.addClassToParent(`.board[data-board-id="${board.id}"]`, "border-green")
     }
 };
 
-function showHideButtonHandler(clickEvent) {
-    const boardId = clickEvent.target.dataset.boardId;
-    statusManager.loadStatuses(boardId)
-    cardsManager.loadCards(boardId);
-}
-
-function createBoard(board, position) {
+function createBoard(board, position, update=false) {
     const boardBuilder = htmlFactory(htmlTemplates.board);
     const content = boardBuilder(board);
     domManager.addChild("#root", content, position);
     buttonManager.loadEditTitleBoard(board.id)
-    modalManager.loadEditBoardTitleModal(board.id)
+
+    if (!update) {
+        modalManager.loadEditBoardTitleModal(board.id)
+    }
 
     domManager.addEventListener(
         `.toggle-board-button[data-board-id="${board.id}"]`,
         "click",
-        showHideButtonHandler
-    );
-    loadBoard: function (board) {
-        console.log(board);
-        debugger;
-        const boardBuilder = htmlFactory(htmlTemplates.board);
-        const content = boardBuilder(board);
-        domManager.addChild("#root", content);
-        domManager.addEventListener(
-            `.toggle-board-button[data-board-id="${board.id}"]`,
-            "click",
-            showHideButtonHandler
-        );
-        domManager.addEventListener(
-            `.board-title[data-board-id="${board.id}"]`,
-            "click",
-            showHideButtonHandler
-        );
-    },
-};
+        showHideButtonHandler)
+
+}
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;

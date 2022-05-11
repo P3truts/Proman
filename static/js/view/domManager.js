@@ -1,5 +1,5 @@
 export let domManager = {
-    addChild(parentIdentifier, childContent, position = "beforeend") {
+    addChild(parentIdentifier, childContent, position="beforeend") {
         const parent = document.querySelector(parentIdentifier);
         if (parent) {
             parent.insertAdjacentHTML(position, childContent);
