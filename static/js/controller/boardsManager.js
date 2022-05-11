@@ -8,7 +8,6 @@ export let boardsManager = {
     loadBoards: async function () {
         const boards = await dataHandler.getBoards();
         for (let board of boards) {
-            console.log(board)
             const boardBuilder = htmlFactory(htmlTemplates.board);
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
@@ -21,11 +20,10 @@ export let boardsManager = {
     },
 
     loadBoard: function(board) {
-        console.log(board)
-        debugger
         const boardBuilder = htmlFactory(htmlTemplates.board);
         const content = boardBuilder(board);
-        domManager.addChild("#root", content);
+        domManager.addChild("#root", content, "beforebegin");
+        domManager.addClassToParent(`.board[data-board-id="${board.id}"]`, "border-green")
         domManager.addEventListener(
             `.toggle-board-button[data-board-id="${board.id}"]`,
             "click",

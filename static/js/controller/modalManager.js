@@ -16,6 +16,13 @@ async function insertBoard(event) {
         event.preventDefault()
 
         const title = event.target.title.value
-        const newBoard = await dataHandler.createNewBoard({title: title})
-        boardsManager.loadBoard(newBoard)
+        try {
+            const newBoard = await dataHandler.createNewBoard({title: title})
+            $('#new-board-modal').modal('hide')
+            await boardsManager.loadBoard(newBoard)
+        } catch (error) {
+            alert('!We have encountered some error: Retry to create a new board')
+        }
+
+
 }

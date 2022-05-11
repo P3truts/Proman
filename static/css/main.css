@@ -22,6 +22,10 @@
 
 }
 
+.border-green {
+    border: 5px solid green;
+}
+
 #edit-board-button img {
     width: 30px;
     height: 30px;
