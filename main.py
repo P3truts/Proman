@@ -43,7 +43,7 @@ def get_cards_for_board(board_id: int):
 @app.post("/api/new-board")
 def new_board():
     title = request.json.get("title") if request.is_json else request.form.get("title")
-    queries.insert_board(title)
+    return queries.insert_board(title)
 
 
 def main():

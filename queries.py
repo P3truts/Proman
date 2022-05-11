@@ -53,8 +53,9 @@ def insert_board(title):
         """
         insert  into boards(title)
         values(%(title)s)
+        returning id
         ;
         """
         , {"title": title},
-        True
+        fetchall=False
     )

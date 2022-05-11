@@ -61,3 +61,6 @@ def execute_select(statement, variables=None, fetchall=True):
                 print(e)
     return result_set
 
+
+
+
