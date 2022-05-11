@@ -44,15 +44,12 @@ export let statusManager = {
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    console.log(boardId);
     const columnsContainer = domManager.getParent(
         `.board[data-board-id="${boardId}"] > .board-columns[data-board-id="${boardId}"]`
     );
-    console.log(columnsContainer);
-    if (columnsContainer.innerHTML.length > 0) {
+    if (columnsContainer && columnsContainer.innerHTML.length > 0) {
         statusManager.unloadStatuses(boardId);
         columnsContainer.innerHTML = "";
-    } else {
     }
 }
 

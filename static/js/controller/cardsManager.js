@@ -11,8 +11,7 @@ export let cardsManager = {
             const cardBuilder = htmlFactory(htmlTemplates.card);
             const content = cardBuilder(card);
             domManager.addChild(
-                `.board[data-board-id="${boardId}"] > .board-columns > .board-column > 
-            .board-column-content`,
+                `.board[data-board-id="${boardId}"] > .board-column-content`,
                 content
             );
             domManager.addEventListener(
