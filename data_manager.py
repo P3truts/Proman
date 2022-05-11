@@ -4,6 +4,7 @@ import psycopg2.extras
 from dotenv import load_dotenv
 load_dotenv()
 
+
 def establish_connection(connection_data=None):
     """
     Create a database connection based on the :connection_data: parameter
@@ -13,10 +14,12 @@ def establish_connection(connection_data=None):
     if connection_data is None:
         connection_data = get_connection_data()
     try:
-        connect_str = "dbname={} user={} host={} password={}".format(connection_data['dbname'],
-                                                                     connection_data['user'],
-                                                                     connection_data['host'],
-                                                                     connection_data['password'])
+        connect_str = "dbname={} user={} host={} password={}".format(
+            connection_data["dbname"],
+            connection_data["user"],
+            connection_data["host"],
+            connection_data["password"],
+        )
         conn = psycopg2.connect(connect_str)
         conn.autocommit = True
     except psycopg2.DatabaseError as e:
@@ -33,13 +36,13 @@ def get_connection_data(db_name=None):
     :db_name: optional parameter. By default it uses the environment variable value.
     """
     if db_name is None:
-        db_name = os.environ.get('MY_PSQL_DBNAME')
+        db_name = os.environ.get("MY_PSQL_DBNAME")
 
     return {
-        'dbname': db_name,
-        'user': os.environ.get('MY_PSQL_USER'),
-        'host': os.environ.get('MY_PSQL_HOST'),
-        'password': os.environ.get('MY_PSQL_PASSWORD')
+        "dbname": db_name,
+        "user": os.environ.get("MY_PSQL_USER"),
+        "host": os.environ.get("MY_PSQL_HOST"),
+        "password": os.environ.get("MY_PSQL_PASSWORD"),
     }
 
 
@@ -61,7 +64,3 @@ def execute_select(statement, variables=None, fetchall=True):
             except Exception as e:
                 print(e)
     return result_set
-
-
-
-
