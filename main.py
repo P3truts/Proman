@@ -3,7 +3,7 @@ from util import json_response
 import mimetypes
 import queries
 
-mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type("application/javascript", ".js")
 app = Flask(__name__)
 
 
@@ -12,7 +12,7 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    return render_template('index.html')
+    return render_template("index.html")
 
 
 @app.get("/api/boards")
@@ -55,5 +55,5 @@ def main():
     app.run(debug=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
