@@ -3,9 +3,9 @@ export const htmlTemplates = {
     card: 2,
     colBoard: 3,
     newBoardBtn: 4,
-    modal:5,
-    colBtn: 6
-}
+    modal: 5,
+    colBtn: 6,
+};
 
 export const builderFunctions = {
     [htmlTemplates.board]: boardBuilder,
@@ -41,15 +41,16 @@ function cardBuilder(card) {
     return `<div class="card" draggable="true" data-card-id="${card.id}">${card.title}</div>`;
 }
 
-
 function colBoardBuilder(status) {
     return `
         <div class="board-column">
-            <div class="board-column-title">${status.title[0].toUpperCase() + status.title.substring(1)}</div>
+            <div class="board-column-title">${
+                status.title[0].toUpperCase() + status.title.substring(1)
+            }</div>
                 <div class="board-column-content"></div>
             </div>
         </div>
-`
+`;
 }
 
 function newBoardBtn(config) {
@@ -58,9 +59,13 @@ function newBoardBtn(config) {
             ${JSON.stringify(config.modal) ? config.modal : null}
         >
 <!--        data-bs-toggle="modal" data-bs-target="#new-board-modal">-->
-            ${config.name ? config.name : `<img src="${config.src}" alt="edit btn">`}
+            ${
+                config.name
+                    ? config.name
+                    : `<img src="${config.src}" alt="edit btn">`
+            }
         </button>
-    `
+    `;
 }
 
 function newBoardModalBuilder(formApi) {
@@ -87,12 +92,11 @@ function newBoardModalBuilder(formApi) {
             </div>
           </div>
         </div>
-    `
+    `;
 }
 
 function colBtnBuilder(board) {
     return `
                 <button class="add-column-button" data-board-id="${board}">Add Column</button>
-    `
+    `;
 }
-
