@@ -50,10 +50,14 @@ function colBoardBuilder(status) {
 `
 }
 
-function newBoardBtn() {
+function newBoardBtn(config) {
     return `
-        <button type="button" id="new-board-button" class="btn btn-primary"
-        data-bs-toggle="modal" data-bs-target="#new-board-modal">ADD BOARD</button>
+        <button type="button" id=${config.id} class="${config.class}"
+            ${JSON.stringify(config.modal) ? config.modal : null}
+        >
+<!--        data-bs-toggle="modal" data-bs-target="#new-board-modal">-->
+            ${config.name ? config.name : `<img src="${config.src}" alt="edit btn">`}
+        </button>
     `
 }
 

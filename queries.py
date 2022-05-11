@@ -1,6 +1,18 @@
 import data_manager
 
 
+def get_board_by_id(board_id):
+    return data_manager.execute_select(
+        """
+        select * from boards b
+        where b.id = %(board_id)s
+        ;
+        """
+        , {"board_id": board_id},
+        fetchall=False
+    )
+
+
 def get_card_status(status_id):
     """
     Find the first status matching the given id
@@ -53,8 +65,9 @@ def insert_board(title):
         """
         insert  into boards(title)
         values(%(title)s)
+        returning id, title
         ;
         """
         , {"title": title},
-        True
+        fetchall=False
     )

@@ -1,6 +1,7 @@
 import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {dataHandler} from "../data/dataHandler.js";
+import {boardsManager} from "./boardsManager.js";
 
 export let modalManager = {
     loadModal: function () {
@@ -15,8 +16,6 @@ async function insertBoard(event) {
         event.preventDefault()
 
         const title = event.target.title.value
-        await dataHandler.createNewBoard({title: title})
-        console.log('s-a trimis raspunsul')
-        // await dataHandler.getBoards()
-
+        const newBoard = await dataHandler.createNewBoard({title: title})
+        boardsManager.loadBoard(newBoard)
 }
