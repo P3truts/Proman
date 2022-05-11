@@ -8,7 +8,6 @@ export let boardsManager = {
     loadBoards: async function () {
         const boards = await dataHandler.getBoards();
         for (let board of boards) {
-            console.log(board)
             const boardBuilder = htmlFactory(htmlTemplates.board);
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
@@ -31,12 +30,21 @@ export let boardsManager = {
             "click",
             showHideButtonHandler
         );
+        domManager.addEventListener(
+            `.board-title[data-board-id="${board.id}"]`,
+            "click",
+            showHideButtonHandler
+        );
 
     }
 };
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    statusManager.loadStatuses(boardId)
-    cardsManager.loadCards(boardId);
+    const columnsContainer = domManager.getParent(`.board[data-board-id="${boardId}"] > .board-columns`);
+    if (columnsContainer.innerHTML.length > 0) {
+    } else {
+        statusManager.loadStatuses(boardId)
+        cardsManager.loadCards(boardId);
+    }
 }

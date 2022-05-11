@@ -3,7 +3,8 @@ export const htmlTemplates = {
     card: 2,
     colBoard: 3,
     newBoardBtn: 4,
-    modal:5
+    modal:5,
+    colBtn: 6
 }
 
 export const builderFunctions = {
@@ -12,6 +13,7 @@ export const builderFunctions = {
     [htmlTemplates.colBoard]: colBoardBuilder,
     [htmlTemplates.newBoardBtn]: newBoardBtn,
     [htmlTemplates.modal]: newBoardModalBuilder,
+    [htmlTemplates.colBtn]: colBtnBuilder,
 };
 
 export function htmlFactory(template) {
@@ -28,8 +30,8 @@ export function htmlFactory(template) {
 
 function boardBuilder(board) {
     return `<div class="board-container mb-5">
-                <div class="board" data-board-id=${board.id}>${board.title}
-                    <div class="board-columns"></div>
+                <div class="board board-title" data-board-id=${board.id}>${board.title}
+                    <div class="board-columns" data-board-id=${board.id}></div>
                 </div>
                 <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
             </div>`;
@@ -85,6 +87,12 @@ function newBoardModalBuilder(formApi) {
             </div>
           </div>
         </div>
+    `
+}
+
+function colBtnBuilder(board) {
+    return `
+                <button class="add-column-button" data-board-id="${board}">Add Column</button>
     `
 }
 
