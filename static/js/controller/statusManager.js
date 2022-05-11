@@ -9,7 +9,7 @@ export let statusManager = {
             const statusBuilder = htmlFactory(htmlTemplates.colBoard);
             const content = statusBuilder(status);
             domManager.addChild(
-                `.board[data-board-id="${boardId}"] > .board-columns[data-board-id="${boardId}"]`,
+                `.board[data-board-id="${boardId}"] .board-columns[data-board-id="${boardId}"]`,
                 content
             );
             domManager.addEventListener(
@@ -35,7 +35,7 @@ export let statusManager = {
         const statuses = await dataHandler.getStatuses();
         for (let status of statuses) {
             domManager.removeChild(
-                `.board[data-board-id="${boardId}"] > .board-columns[data-board-id="${boardId}"]`,
+                `.board[data-board-id="${boardId}"] .board-columns[data-board-id="${boardId}"]`,
                 ".board-column"
             );
         }
@@ -45,7 +45,7 @@ export let statusManager = {
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
     const columnsContainer = domManager.getParent(
-        `.board[data-board-id="${boardId}"] > .board-columns[data-board-id="${boardId}"]`
+        `.board[data-board-id="${boardId}"] .board-columns[data-board-id="${boardId}"]`
     );
     if (columnsContainer && columnsContainer.innerHTML.length > 0) {
         statusManager.unloadStatuses(boardId);
