@@ -71,3 +71,16 @@ def insert_board(title):
         , {"title": title},
         fetchall=False
     )
+
+
+def update_board_title(id,title):
+    return data_manager.execute_select(
+        """
+        update boards
+        set title = %(title)s
+        where id = %(id)s
+        returning id, title
+        """
+        , {"id": id, "title": title},
+        fetchall=False
+    )

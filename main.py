@@ -51,6 +51,12 @@ def get_board(board_id):
     return queries.get_board_by_id(board_id)
 
 
+@app.post("/api/board/<board_id>")
+def update_board(board_id):
+    title = request.json.get("title") if request.is_json else request.form.get("title")
+    return queries.update_board_title(board_id, title)
+
+
 def main():
     app.run(debug=True)
 

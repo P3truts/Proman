@@ -23,15 +23,13 @@ export let buttonManager = {
             id: `edit-board-button-${boardId}`,
             class: "edit-board-button",
             src : "./static/assets/edit-btn.png",
-            parent: `.board[data-board-id="${boardId}"]`
+            parent: `.board[data-board-id="${boardId}"]`,
+            modal: `data-bs-toggle=modal data-bs-target= #edit-title-board-modal-${boardId}`
         }
         const btnBuilder = htmlFactory(htmlTemplates.newBoardBtn);
         const content = btnBuilder(config);
         domManager.addChild(config.parent, content);
-        domManager.addEventListener(`#${config.id}`, "click", test)
+        domManager.addEventListener(`#${config.id}`, "click")
     }
 };
 
-function test() {
-    console.log('salam')
-}

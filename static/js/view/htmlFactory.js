@@ -61,17 +61,17 @@ function newBtnBuilder(config) {
     `
 }
 
-function newBoardModalBuilder(formApi) {
+function newBoardModalBuilder(config) {
     return `
-        <div class="modal fade" id="new-board-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="${config.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Board</h5>
+                <h5 class="modal-title" id="exampleModalLabel">${config.title}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form id="form-new-board" action=${formApi} method="post">
+                <form id="${config.formId}" action=${config.formApi} method="post">
                   <div class="mb-3">
                     <label for="title" class="col-form-label">Board Title</label>
                     <input type="text" class="form-control" id="title" name="title" required>

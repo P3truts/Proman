@@ -33,6 +33,10 @@ export let domManager = {
         }
     },
 
+    clearElement(element) {
+        document.querySelector(element).innerHTML = ""
+    },
+
     addClassToParent(element, className) {
         document.querySelector(element).parentNode.classList.add(className)
     }
