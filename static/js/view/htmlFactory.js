@@ -10,7 +10,7 @@ export const builderFunctions = {
     [htmlTemplates.board]: boardBuilder,
     [htmlTemplates.card]: cardBuilder,
     [htmlTemplates.colBoard]: colBoardBuilder,
-    [htmlTemplates.newBoardBtn]: newBoardBtn,
+    [htmlTemplates.newBoardBtn]: newBtnBuilder,
     [htmlTemplates.modal]: newBoardModalBuilder,
 };
 
@@ -50,7 +50,7 @@ function colBoardBuilder(status) {
 `
 }
 
-function newBoardBtn(config) {
+function newBtnBuilder(config) {
     return `
         <button type="button" id=${config.id} class="${config.class}"
             ${JSON.stringify(config.modal) ? config.modal : null}

@@ -18,14 +18,20 @@ export let buttonManager = {
     );
 },
 
-    loadEditTitleBoard: function () {
+    loadEditTitleBoard: function (boardId) {
         const config ={
-            id: "edit-board-button",
-            src : "./static/assets/edit-btn.png"
+            id: `edit-board-button-${boardId}`,
+            class: "edit-board-button",
+            src : "./static/assets/edit-btn.png",
+            parent: `.board[data-board-id="${boardId}"]`
         }
         const btnBuilder = htmlFactory(htmlTemplates.newBoardBtn);
         const content = btnBuilder(config);
-        domManager.addChild(".title-container",content);
+        domManager.addChild(config.parent, content);
+        domManager.addEventListener(`#${config.id}`, "click", test)
     }
 };
 
+function test() {
+    console.log('salam')
+}
