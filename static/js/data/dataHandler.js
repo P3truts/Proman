@@ -54,8 +54,7 @@ async function apiPost(url, payload) {
         }
 }
 
-async function apiDelete(url) {
-}
+async function apiDelete(url) {}
 
 async function apiPut(url, data) {
         const request = await fetch(url, {
@@ -71,5 +70,4 @@ async function apiPut(url, data) {
 
 }
 
-async function apiPatch(url) {
-}
+async function apiPatch(url) {}

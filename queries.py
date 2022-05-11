@@ -7,9 +7,9 @@ def get_board_by_id(board_id):
         select * from boards b
         where b.id = %(board_id)s
         ;
-        """
-        , {"board_id": board_id},
-        fetchall=False
+        """,
+        {"board_id": board_id},
+        fetchall=False,
     )
 
 
@@ -24,8 +24,9 @@ def get_card_status(status_id):
         SELECT * FROM statuses s
         WHERE s.id = %(status_id)s
         ;
-        """
-        , {"status_id": status_id})
+        """,
+        {"status_id": status_id},
+    )
 
     return status
 
@@ -45,8 +46,9 @@ def get_cards_for_board(board_id):
         SELECT * FROM cards
         WHERE cards.board_id = %(board_id)s
         ;
-        """
-        , {"board_id": board_id})
+        """,
+        {"board_id": board_id},
+    )
 
     return matching_cards
 
@@ -56,7 +58,8 @@ def get_statuses():
         """
         select * from statuses
         ;
-        """)
+        """
+    )
     return statuses
 
 
@@ -67,9 +70,9 @@ def insert_board(title):
         values(%(title)s)
         returning id, title
         ;
-        """
-        , {"title": title},
-        fetchall=False
+        """,
+        {"title": title},
+        fetchall=False,
     )
 
 

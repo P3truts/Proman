@@ -38,4 +38,33 @@ function createBoard(board, position) {
         "click",
         showHideButtonHandler
     );
+    loadBoard: function (board) {
+        console.log(board);
+        debugger;
+        const boardBuilder = htmlFactory(htmlTemplates.board);
+        const content = boardBuilder(board);
+        domManager.addChild("#root", content);
+        domManager.addEventListener(
+            `.toggle-board-button[data-board-id="${board.id}"]`,
+            "click",
+            showHideButtonHandler
+        );
+        domManager.addEventListener(
+            `.board-title[data-board-id="${board.id}"]`,
+            "click",
+            showHideButtonHandler
+        );
+    },
+};
+
+function showHideButtonHandler(clickEvent) {
+    const boardId = clickEvent.target.dataset.boardId;
+    const columnsContainer = domManager.getParent(
+        `.board[data-board-id="${boardId}"] > .board-columns`
+    );
+    if (columnsContainer.innerHTML.length > 0) {
+    } else {
+        statusManager.loadStatuses(boardId);
+        cardsManager.loadCards(boardId);
+    }
 }
