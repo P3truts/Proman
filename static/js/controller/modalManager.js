@@ -11,11 +11,9 @@ export let modalManager = {
             title: "ADD BOARD",
             formApi: "/api/new-board",
             formId: "form-new-board",
+            parent: "#board-modal-div"
         }
-
-        const modalBuilder = htmlFactory(htmlTemplates.modal);
-        const content = modalBuilder(config);
-        domManager.addChild("#board-modal-div", content);
+        createModal(config)
         domManager.addEventListener(`#${config.formId}`, "submit", insertBoard)
         },
 
@@ -27,19 +25,9 @@ export let modalManager = {
             parent: "#board-modal-div",
             formId: `form-edit-title-${boardId}`,
         }
-        const modalBuilder = htmlFactory(htmlTemplates.modal);
-        const content = modalBuilder(config);
-        domManager.addChild(config.parent, content);
+        createModal(config)
         domManager.addEventListener(`#${config.formId}`, "submit", async (event)=>{
-            event.preventDefault()
-            const title = event.target.title.value
-            try {
-                const editedBoard = await dataHandler.updateBoardTitle({id: boardId, title: title})
-                $(`#${config.id}`).modal('hide')
-                await boardsManager.updateBoard(editedBoard)
-            } catch (error) {
-                alert('Operation was not successful! Please try again')
-            }
+            await editBoardTitle(event,config, boardId)
         })
 
     },
@@ -52,14 +40,18 @@ export let modalManager = {
             parent: "#board-modal-div",
             formId: `form-edit-card-title-${cardId}`,
         }
-        const modalBuilder = htmlFactory(htmlTemplates.modal);
-        const content = modalBuilder(config);
-        domManager.addChild(config.parent, content);
+        createModal(config)
         domManager.addEventListener(`#${config.formId}`, "submit",async(event)=>{
             await editCardTitle(event, boardId, config, cardId)
         })
 
     }
+}
+
+function createModal(config) {
+    const modalBuilder = htmlFactory(htmlTemplates.modal);
+    const content = modalBuilder(config);
+    domManager.addChild(config.parent, content);
 }
 
 async function insertBoard(event) {
@@ -73,6 +65,19 @@ async function insertBoard(event) {
         } catch (error) {
             alert('!We have encountered some error: Retry to create a new board')
         }
+
+}
+
+async function editBoardTitle(event, config, boardId) {
+            event.preventDefault()
+            const title = event.target.title.value
+            try {
+                const editedBoard = await dataHandler.updateBoardTitle({id: boardId, title: title})
+                $(`#${config.id}`).modal('hide')
+                await boardsManager.updateBoard(editedBoard)
+            } catch (error) {
+                alert('Operation was not successful! Please try again')
+            }
 
 }
 
