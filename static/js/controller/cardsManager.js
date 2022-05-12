@@ -8,7 +8,6 @@ let dragItem = null;
 export let cardsManager = {
     loadCards: async function (boardId) {
         const cards = await dataHandler.getCardsByBoardId(boardId);
-        console.log(cards)
         for (let card of cards) {
             createCard(card, boardId)
         }
@@ -94,22 +93,21 @@ function createCard(card, boardId) {
         const cardBuilder = htmlFactory(htmlTemplates.card);
         const content = cardBuilder(card);
         let statusId = card.status_id
-        let columnContent = document.querySelectorAll(".board-column-content")
-                domManager.addChild(
+        console.log(statusId)
+        debugger
+        domManager.addChild(
                    `.board[data-board-id="${boardId}"] > .board-columns > .board-column > .board-column-content[data-idstatus="${statusId}"]`,
                     content
         );
-                modalManager.editCardTitle(card.id, boardId);
+        modalManager.editCardTitle(card.id, boardId);
 
-
-
-                domManager.addEventListener(
+        domManager.addEventListener(
                     `.card[data-card-id="${card.id}"]`,
                     "click",
                     deleteButtonHandler
                 );
 
-                domManager.addEventListener(
+        domManager.addEventListener(
                     `.card[data-card-id="${card.id}"]`,
                     "dblclick",
                     function (){
