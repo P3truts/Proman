@@ -37,11 +37,14 @@ function boardBuilder(board) {
                         data-bs-toggle="modal" data-bs-target="#edit-title-board-modal-${board.id}">
                             <img src="./static/assets/edit-btn.png" alt="edit btn">
                     </button>
-                    <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
+                    <button type="button" id="add-card-btn-${board.id}" class="add-card-btn btn btn-success"
+                        data-bs-toggle="modal" data-bs-target="#add-card-modal-${board.id}">
+                        Add Card
+                    </button>
+                    <button class="toggle-board-button btn btn-success" data-board-id="${board.id}">Show Cards</button>
                     <div class="board-columns"></div>
                 </section>
-            </div>;
-    
+            </div>
     `
 }
 
@@ -84,7 +87,7 @@ function newBoardModalBuilder(config) {
               <div class="modal-body">
                 <form id="${config.formId}" action=${config.formApi} method="post">
                   <div class="mb-3">
-                    <label for="title" class="col-form-label">Board Title</label>
+                    <label for="title" class="col-form-label">${config.label}</label>
                     <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
                   </div>
                   <button type="submit" class="btn btn-primary">Save changes</button>

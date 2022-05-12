@@ -11,8 +11,10 @@ export let modalManager = {
             title: "ADD BOARD",
             formApi: "/api/new-board",
             formId: "form-new-board",
-            parent: "#board-modal-div"
+            parent: "#board-modal-div",
+            label: "Board Title"
         }
+
         createModal(config)
         domManager.addEventListener(`#${config.formId}`, "submit", insertBoard)
         },
@@ -24,13 +26,27 @@ export let modalManager = {
             formApi: `/api/board/${boardId}`,
             parent: "#board-modal-div",
             formId: `form-edit-title-${boardId}`,
+            label: "Board Title"
         }
+
         createModal(config)
         domManager.addEventListener(`#${config.formId}`, "submit", async (event)=>{
             await editBoardTitle(event,config, boardId)
         })
 
     },
+
+    loadNewCardModal(boardId) {
+        const config = {
+            id: `add-card-modal-${boardId}`,
+            title: "ADD Card",
+            formApi: "/api/new-card",
+            formId: "form-new-card",
+            parent: "#board-modal-div",
+            label: "Card Title"
+        }
+        createModal(config)
+    } ,
 
     editCardTitle: function(cardId, boardId) {
         const config = {
@@ -39,6 +55,7 @@ export let modalManager = {
             formApi: `/api/card/${cardId}`,
             parent: "#board-modal-div",
             formId: `form-edit-card-title-${cardId}`,
+            label: "Card Title"
         }
         createModal(config)
         domManager.addEventListener(`#${config.formId}`, "submit",async(event)=>{

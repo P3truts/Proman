@@ -30,7 +30,7 @@ function createBoard(board, position, update=false) {
     const boardBuilder = htmlFactory(htmlTemplates.board);
     const content = boardBuilder(board);
     domManager.addChild("#root", content, position);
-
+    modalManager.loadNewCardModal(board.id)
     if (!update) {
         modalManager.loadEditBoardTitleModal(board.id)
     }
