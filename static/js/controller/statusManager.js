@@ -1,11 +1,12 @@
 import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
+import {buttonManager} from "./buttonManager.js";
 
 export let statusManager = {
     loadStatuses: async function (boardId) {
         const statuses = await dataHandler.getStatuses();
-        console.log(statuses)
+        buttonManager.loadAddCardBtn(boardId)
         for (let status of statuses) {
             const statusBuilder = htmlFactory(htmlTemplates.colBoard);
             const content = statusBuilder(status);
@@ -21,7 +22,9 @@ export let statusManager = {
         }
         const columnButton = htmlFactory(htmlTemplates.colBtn);
         const colBtn = columnButton(boardId);
+
         domManager.addChild(`.board[data-board-id="${boardId}"]`, colBtn);
+
         domManager.addEventListener(
             `.add-column-button[data-board-id="${boardId}"]`,
             "click",

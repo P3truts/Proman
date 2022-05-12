@@ -16,7 +16,6 @@ export let cardsManager = {
     },
 
     updateTitleCard: function (card,boardId) {
-        console.log(card)
         domManager.removeCard(`.card[data-card-id="${card.id}"`)
         createCard(card, boardId)
         document.querySelector(`.card[data-card-id="${card.id}"`).classList.add("border-green")
@@ -25,7 +24,8 @@ export let cardsManager = {
 
     newCard(card, boardId) {
         createCard(card, boardId)
-        document.querySelector(`.card[data-card-id="${card.id}"`).classList.add("border-green")
+        const newCard = document.querySelector(`.card[data-card-id="${card.id}"`)
+        newCard.classList.add("border-green")
         initDragEvents()
 
     }
