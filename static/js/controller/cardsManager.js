@@ -26,6 +26,8 @@ export let cardsManager = {
     newCard(card, boardId) {
         createCard(card, boardId)
         document.querySelector(`.card[data-card-id="${card.id}"`).classList.add("border-green")
+        initDragEvents()
+
     }
 };
 
