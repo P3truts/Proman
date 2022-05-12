@@ -43,31 +43,23 @@ export let modalManager = {
         })
 
     },
-    editCardTitle: function(cardId){
-       const config = {
-           id: `card_title_${cardId}`,
-           title: "Rename Card",
-           formApi:`/api/card/${cardId}`,
-           parent: "#board-modal-div",
-           formId: `form-edit-card-title-${cardId}`,
-       }
-       const modalBuilder = htmlFactory(htmlTemplates.modal);
-       const content = modalBuilder(config);
-       domManager.addChild(config.parent, content);
-       domManager.addEventListener(`#${config.formId}`, "submit", async (event)=>{
-            event.preventDefault()
-            const title = event.target.title.value
-            try {
-                const editedCard = await dataHandler.updateCardTitle({id: cardId, title: title})
-                $(`#${config.id}`).modal('hide')
-                cardsManager.updateCard(editedCard)
-            } catch (error) {
-                alert('Please reload the page!')
-            }
+
+    editCardTitle: function(cardId, boardId) {
+        const config = {
+            id: `card_title_${cardId}`,
+            title: "Rename Card",
+            formApi: `/api/card/${cardId}`,
+            parent: "#board-modal-div",
+            formId: `form-edit-card-title-${cardId}`,
+        }
+        const modalBuilder = htmlFactory(htmlTemplates.modal);
+        const content = modalBuilder(config);
+        domManager.addChild(config.parent, content);
+        domManager.addEventListener(`#${config.formId}`, "submit",async(event)=>{
+            await editCardTitle(event, boardId, config, cardId)
         })
+
     }
-
-
 }
 
 async function insertBoard(event) {
@@ -75,12 +67,26 @@ async function insertBoard(event) {
 
         const title = event.target.title.value
         try {
-            const newBoard = await dataHandler.updateCardTitle({title: title})
+            const newBoard = await dataHandler.createNewBoard({title: title})
             $('#new-board-modal').modal('hide')
             await boardsManager.loadNewBoard(newBoard)
         } catch (error) {
             alert('!We have encountered some error: Retry to create a new board')
         }
+
+}
+
+
+async function editCardTitle(event, boardId, config, cardId) {
+                event.preventDefault()
+            const title = event.target.title.value
+            try {
+                const editedCard = await dataHandler.updateCardTitle({id: cardId, title: title})
+                $(`#${config.id}`).modal('hide')
+                await cardsManager.updateTitleCard(editedCard, boardId)
+            } catch (error) {
+                alert('Please reload the page!')
+            }
 
 }
 

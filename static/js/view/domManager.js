@@ -37,6 +37,10 @@ export let domManager = {
         document.querySelector(element).innerHTML = ""
     },
 
+    removeBoard(element) {
+        document.querySelector(element).parentNode.parentNode.remove()
+    },
+
     addClassToParent(element, className) {
         document.querySelector(element).parentNode.classList.add(className)
     }

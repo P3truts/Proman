@@ -9,30 +9,19 @@ export let cardsManager = {
     loadCards: async function (boardId) {
         const cards = await dataHandler.getCardsByBoardId(boardId);
         for (let card of cards) {
-            const cardBuilder = htmlFactory(htmlTemplates.card);
-            const content = cardBuilder(card);
-            modalManager.editCardTitle(card.id);
-
-            domManager.addChild(
-                `.board[data-board-id="${boardId}"] > .board-columns > .board-column > .board-column-content`,
-                content
-            );
-            domManager.addEventListener(
-                `.card[data-card-id="${card.id}"]`,
-                "click",
-                deleteButtonHandler
-            );
-
-            domManager.addEventListener(
-                `.card[data-card-id="${card.id}"]`,
-                "dblclick",
-                function (){
-                    console.log("rename card")
-                    $(`#card_title_${card.id}`).modal('show')
-                }
-            );
+            createCard(card, boardId)
+            initDragEvents()
         }
 
+    },
+    updateTitleCard: function (card,boardId) {
+        createCard(card, boardId, true)
+        initDragEvents()
+    }
+};
+
+
+function initDragEvents() {
         const cards2 = document.querySelectorAll(".card");
         const columns = document.querySelectorAll(".board-column-content");
         cards2.forEach((card) => {
@@ -45,8 +34,7 @@ export let cardsManager = {
             column.addEventListener("dragleave", dragLeave);
             column.addEventListener("drop", dragDrop);
         });
-    },
-};
+}
 
 function deleteButtonHandler(clickEvent) {}
 
@@ -80,13 +68,27 @@ function dragDrop() {
     this.append(dragItem);
 }
 
-cardsManager.updateCard = (card) => {
-    createCard(card, "beforebegin", true)
-    modalManager.editCardTitle(card.id);
-}
+function createCard(card, boardId,position, update=false) {
+        const cardBuilder = htmlFactory(htmlTemplates.card);
+        const content = cardBuilder(card);
+        modalManager.editCardTitle(card.id, boardId);
 
-function createCard(card, position, update=false) {
-    const cardBuilder = htmlFactory(htmlTemplates.card);
-    const content = cardBuilder(card);
-    domManager.addChild("#.board[data-board-id=\"${boardId}\"] > .board-columns > .board-column > .board-column-content", content, position);
+        domManager.addChild(
+            `.board[data-board-id="${boardId}"] > .board-columns > .board-column > .board-column-content`,
+            content
+        );
+
+        domManager.addEventListener(
+            `.card[data-card-id="${card.id}"]`,
+            "click",
+            deleteButtonHandler
+        );
+
+        domManager.addEventListener(
+            `.card[data-card-id="${card.id}"]`,
+            "dblclick",
+            function (){
+                $(`#card_title_${card.id}`).modal('show')
+            }
+        );
 }
