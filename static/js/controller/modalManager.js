@@ -3,6 +3,7 @@ import {domManager} from "../view/domManager.js";
 import {dataHandler} from "../data/dataHandler.js";
 import {boardsManager} from "./boardsManager.js";
 import {cardsManager} from "./cardsManager.js";
+import {formManager} from "./formManager.js";
 
 export let modalManager = {
     loadNewBordModal: function () {
@@ -16,6 +17,7 @@ export let modalManager = {
         }
 
         createModal(config)
+        formManager.oneInputModal(config)
         domManager.addEventListener(`#${config.formId}`, "submit", insertBoard)
         },
 
@@ -30,6 +32,8 @@ export let modalManager = {
         }
 
         createModal(config)
+        formManager.oneInputModal(config)
+
         domManager.addEventListener(`#${config.formId}`, "submit", async (event)=>{
             await editBoardTitle(event,config, boardId)
         })
@@ -46,6 +50,8 @@ export let modalManager = {
             label: "Card Title"
         }
         createModal(config)
+        formManager.oneInputModal(config)
+
     } ,
 
     editCardTitle: function(cardId, boardId) {
@@ -58,6 +64,8 @@ export let modalManager = {
             label: "Card Title"
         }
         createModal(config)
+        formManager.oneInputModal(config)
+
         domManager.addEventListener(`#${config.formId}`, "submit",async(event)=>{
             await editCardTitle(event, boardId, config, cardId)
         })

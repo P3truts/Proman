@@ -5,6 +5,7 @@ export const htmlTemplates = {
     newBoardBtn: 4,
     modal: 5,
     colBtn: 6,
+    oneInputForm:7
 };
 
 export const builderFunctions = {
@@ -14,6 +15,7 @@ export const builderFunctions = {
     [htmlTemplates.newBoardBtn]: newBtnBuilder,
     [htmlTemplates.modal]: newBoardModalBuilder,
     [htmlTemplates.colBtn]: colBtnBuilder,
+    [htmlTemplates.oneInputForm]: oneInputForm,
 };
 
 export function htmlFactory(template) {
@@ -84,14 +86,8 @@ function newBoardModalBuilder(config) {
                 <h5 class="modal-title" id="exampleModalLabel">${config.title}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
-                <form id="${config.formId}" action=${config.formApi} method="post">
-                  <div class="mb-3">
-                    <label for="title" class="col-form-label">${config.label}</label>
-                    <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
-                </form>
+              <div class="modal-body" id="modal-body-${config.id}">
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -106,4 +102,16 @@ function colBtnBuilder(board) {
     return `
                 <button class="add-column-button" data-board-id="${board}">Add Column</button>
     `;
+}
+
+function oneInputForm(config) {
+    return `
+    <form id="${config.formId}" action=${config.formApi} method="post">
+          <div class="mb-3">
+            <label for="title" class="col-form-label">${config.label}</label>
+            <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+    </form>
+    `
 }
