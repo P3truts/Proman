@@ -23,7 +23,7 @@ export let statusManager = {
         const colBtn = columnButton(boardId);
         domManager.addChild(`.board[data-board-id="${boardId}"]`, colBtn);
         domManager.addEventListener(
-            `.add-column-button[data-board-id="${boardId}"]`,
+            `.add-column-btn[data-board-id="${boardId}"]`,
             "click",
             addColBtnHandler
         );
@@ -44,7 +44,7 @@ export let statusManager = {
     clearColumnsHTML: async function (boardId, container) {
         domManager.removeChild(
             `.board[data-board-id="${boardId}"]`,
-            `.add-column-button[data-board-id="${boardId}"]`
+            `.add-column-btn[data-board-id="${boardId}"]`
         );
         container.innerHTML = "";
     }

@@ -102,7 +102,9 @@ function newBoardModalBuilder(config) {
 
 function colBtnBuilder(board) {
     return `
-        <button class="add-column-button" data-board-id="${board}">Add Column</button>
+        <button id="add-column-btn-${board.id}"  class="add-column-btn btn btn-success" data-board-id="${board}"
+        data-bs-toggle="modal" data-bs-target="#add-column-modal-${board.id}"
+        >Add Column</button>
     `;
 }
 
