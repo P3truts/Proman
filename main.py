@@ -57,6 +57,11 @@ def update_board(board_id):
     return queries.update_board_title(board_id, title)
 
 
+@app.get("/api/card_status/<status_id>")
+def get_card_status(status_id):
+    return queries.get_card_status(status_id)
+
+
 def main():
     app.run(debug=True)
 

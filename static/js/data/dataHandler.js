@@ -9,7 +9,7 @@ export let dataHandler = {
         return await apiGet("/api/statuses")
     },
     getStatus: async function (statusId) {
-        // the status is retrieved and then the callback function is called with the status
+        return await apiGet(`/api/card_status/${statusId}/`)
     },
     getCardsByBoardId: async function (boardId) {
         return await apiGet(`/api/boards/${boardId}/cards/`);
@@ -35,6 +35,7 @@ export let dataHandler = {
 async function apiGet(url) {
     try {
         let response = await fetch(url)
+        console.log(response)
         return await response.json();
     } catch(error) {
         console.log(error)

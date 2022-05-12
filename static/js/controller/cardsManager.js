@@ -8,6 +8,7 @@ export let cardsManager = {
     loadCards: async function (boardId) {
         const cards = await dataHandler.getCardsByBoardId(boardId);
         for (let card of cards) {
+            console.log(cards)
             const cardBuilder = htmlFactory(htmlTemplates.card);
             const content = cardBuilder(card);
             domManager.addChild(
@@ -19,12 +20,14 @@ export let cardsManager = {
                 "click",
                 deleteButtonHandler
             );
+            console.log(card)
         }
         const cards2 = document.querySelectorAll(".card");
         const columns = document.querySelectorAll(".board-column-content");
         cards2.forEach((card) => {
             card.addEventListener("dragstart", dragStart);
             card.addEventListener("dragend", dragEnd);
+            card.getAttribute("status_id")
         });
         columns.forEach((column) => {
             column.addEventListener("dragover", dragOver);
@@ -66,3 +69,4 @@ function dragDrop() {
     console.log("drag dropped");
     this.append(dragItem);
 }
+

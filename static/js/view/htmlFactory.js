@@ -38,13 +38,14 @@ function boardBuilder(board) {
 }
 
 function cardBuilder(card) {
-    return `<div class="card" draggable="true" data-card-id="${card.id}">${card.title}</div>`;
+    return `<div class="card" draggable="true" data-card-id="${card.id}" status-id="${card.status_id}">${card.title}</div>`;
 }
 
 function colBoardBuilder(status) {
+    console.log(status)
     return `
         <div class="board-column">
-            <div class="board-column-title">${
+            <div class="board-column-title" board-id-status="${status.id}">${
                 status.title[0].toUpperCase() + status.title.substring(1)
             }</div>
                 <div class="board-column-content"></div>
