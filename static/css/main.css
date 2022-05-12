@@ -14,15 +14,20 @@
     padding-left: 15px;
 }
 
-#edit-board-button {
+.border-green {
+    border: 5px solid green;
+}
+
+.edit-board-button {
     height: 30px;
     margin-right: 500px;
     margin-top: 10px;
-    background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
-
+    background: white;
 }
 
-#edit-board-button img {
+
+
+.edit-board-button img {
     width: 30px;
     height: 30px;
 }
