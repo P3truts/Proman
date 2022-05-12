@@ -76,7 +76,7 @@ def insert_board(title):
     )
 
 
-def update_board_title(id,title):
+def update_board_title(id, title):
     return data_manager.execute_select(
         """
         update boards
@@ -88,15 +88,16 @@ def update_board_title(id,title):
         fetchall=False
     )
 
-def insert_card(title):
+
+def insert_card(board_id, status_id, title, card_order):
     return data_manager.execute_select(
         """
-        insert  into cards(title)
-        values(%(title)s)
+        insert  into cards(board_id, status_id, title, card_order)
+        values(%(board_id)s, %(status_id)s, %(title)s, %(card_order)s)
         returning id, title
         ;
         """,
-        {"title": title},
+        {"board_id": board_id, "status_id": status_id, "title": title, "card_order": card_order},
         fetchall=False,
     )
 

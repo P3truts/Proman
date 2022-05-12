@@ -102,7 +102,7 @@ function newBoardModalBuilder(config) {
 
 function colBtnBuilder(board) {
     return `
-                <button class="add-column-button" data-board-id="${board}">Add Column</button>
+        <button class="add-column-button" data-board-id="${board}">Add Column</button>
     `;
 }
 
@@ -126,17 +126,17 @@ function InputWithCheckButtons(config) {
                 <label for="title" class="col-form-label">${config.label}</label>
                 <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
               </div>
-            ${config.statuses.map(createRadioBnt).join("")}
+                ${config.statuses.map(createRadioBnt).join("")}
               <button type="submit" class="btn btn-primary">Save changes</button>
-        </form>
+            </form>
     `
 }
 
 
-function createRadioBnt(status) {
+function createRadioBnt(status, index) {
     return `<div class="form-check">
-                <input class="form-check-input" type="radio" name="${status.title}" id="flexRadioDefault2">
-                <label class="form-check-label" for="flexRadioDefault2">
+                <input class="form-check-inpu" type="radio" name="status" id="flexRadioDefault2" value="${index + 1}">
+                <label class="form-check-labe" for="flexRadioDefault">
                     ${status.title}
                 </label>
             </div>

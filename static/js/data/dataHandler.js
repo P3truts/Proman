@@ -24,8 +24,9 @@ export let dataHandler = {
         // creates new board, saves it and calls the callback function with its data
         return await apiPost("/api/new-board",payload)
     },
-    createNewCard: async function (cardTitle, boardId, statusId) {
-        // creates new card, saves it and calls the callback function with its data
+    createNewCard: async function (payload,cardTitle, boardId, statusId) {
+        console.log(payload)
+        return await apiPost("/api/new-card", payload)
     },
     updateBoardTitle: async function (payload) {
         return await apiPost(`/api/board/${payload.id}`,payload)
@@ -39,7 +40,6 @@ export let dataHandler = {
 async function apiGet(url) {
     try {
         let response = await fetch(url)
-        console.log(response)
         return await response.json();
     } catch(error) {
         console.log(error)
@@ -47,6 +47,7 @@ async function apiGet(url) {
 }
 
 async function apiPost(url, payload) {
+        console.log(payload)
        const request = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
