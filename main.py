@@ -63,17 +63,14 @@ def update_card(card_id):
     return queries.update_card_title(card_id, title)
 
 
-@app.get("/api/card_status/<status_id>")
+@app.get("/api/card_status/<status_id>:<card_id>")
 def get_card_status(status_id):
     return queries.get_card_status(status_id)
 
 
-@app.post("/api/update-card/<card_id>")
+@app.post("/api/update-card/<card_id>/<status_id>")
 def update_card_status(card_id, status_id):
-    print(card_id)
-    print(status_id)
     return queries.update_card_status(card_id, status_id)
-
 
 
 @app.post("/api/new-card")

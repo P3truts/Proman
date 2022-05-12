@@ -102,7 +102,7 @@ def insert_card(board_id, status_id, title, card_order):
     )
 
 
-def update_card_title(id,title):
+def update_card_title(id, title):
     return data_manager.execute_select(
         """
         update cards
@@ -115,13 +115,14 @@ def update_card_title(id,title):
     )
 
 
-def update_card_status(status_id, card_id):
+def update_card_status(id, status_id):
     return data_manager.execute_select(
         """
         update cards
         set status_id = %(status_id)s
-        where id = %(card_id)s
+        where id = %(id)s
+        returning status_id, id
         """,
-        {"status_id": status_id, "card_id": card_id},
+        {"status_id": status_id, "id": id},
         fetchall=False
     )
