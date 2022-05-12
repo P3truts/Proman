@@ -30,10 +30,11 @@ export function htmlFactory(template) {
 
 function boardBuilder(board) {
     return `<div class="board-container mb-5">
-                <div class="board board-title" data-board-id=${board.id}>${board.title}
-                    <div class="board-columns" data-board-id=${board.id}></div>
-                </div>
-                <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
+                <section class="board" data-board-id=${board.id}>
+                    <div class="board board-title" data-board-id=${board.id}>${board.title}</div>
+                    <div class="board-columns"></div>
+                    <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
+                </section>
             </div>`;
 }
 
