@@ -133,7 +133,7 @@ function InputWithCheckButtons(config) {
 
 function createRadioBnt(status, index) {
     return `<div class="form-check">
-                <input class="form-check-inpu" type="radio" name="status" id="flexRadioDefault2" value="${index + 1}">
+                <input class="form-check-inpu" type="radio" name="status" id="flexRadioDefault2" value="${index + 1}" required>
                 <label class="form-check-labe" for="flexRadioDefault">
                     ${status.title}
                 </label>
