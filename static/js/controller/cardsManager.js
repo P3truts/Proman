@@ -30,6 +30,8 @@ export let cardsManager = {
                 column.addEventListener('dragleave', dragLeave);
                 column.addEventListener('drop', dragDrop);
             });
+            console.log(cards)
+            console.log(cards2)
         },
     }
 ;
