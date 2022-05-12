@@ -1,3 +1,5 @@
+import {buttonManager} from "../controller/buttonManager.js";
+
 export const htmlTemplates = {
     board: 1,
     card: 2,
@@ -33,6 +35,10 @@ function boardBuilder(board) {
                 <div class="board board-title" data-board-id=${board.id}>${board.title}
                     <div class="board-columns" data-board-id=${board.id}></div>
                 </div>
+                <button type="button" id="edit-board-button-${board.id}" class="edit-board-button"
+                        data-bs-toggle="modal" data-bs-target="#edit-title-board-modal-${board.id}">
+                            <img src="./static/assets/edit-btn.png" alt="edit btn">
+                </button>
                 <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
             </div>`;
 }
@@ -59,11 +65,7 @@ function newBtnBuilder(config) {
             ${JSON.stringify(config.modal) ? config.modal : null}
         >
 <!--        data-bs-toggle="modal" data-bs-target="#new-board-modal">-->
-            ${
-                config.name
-                    ? config.name
-                    : `<img src="${config.src}" alt="edit btn">`
-            }
+            ${config.name ? config.name : `<img src="${config.src}" alt="edit btn">`}
         </button>
     `;
 }
@@ -81,7 +83,7 @@ function newBoardModalBuilder(config) {
                 <form id="${config.formId}" action=${config.formApi} method="post">
                   <div class="mb-3">
                     <label for="title" class="col-form-label">Board Title</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
+                    <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
                   </div>
                   <button type="submit" class="btn btn-primary">Save changes</button>
                 </form>

@@ -28,7 +28,7 @@ export let buttonManager = {
         }
         const btnBuilder = htmlFactory(htmlTemplates.newBoardBtn);
         const content = btnBuilder(config);
-        domManager.addChild(config.parent, content);
+        // domManager.addChild(config.parent, content);
         domManager.addEventListener(`#${config.id}`, "click")
     }
 };
