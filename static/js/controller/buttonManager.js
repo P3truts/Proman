@@ -18,7 +18,7 @@ export let buttonManager = {
     );
 },
 
-    loadEditTitleBoard: function (boardId) {
+    loadEditTitleBoardBtn: function (boardId) {
         const config ={
             id: `edit-board-button-${boardId}`,
             class: "edit-board-button",
