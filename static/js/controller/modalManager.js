@@ -90,7 +90,7 @@ async function editCardTitle(event, boardId, config, cardId) {
                 $(`#${config.id}`).modal('hide')
                 await cardsManager.updateTitleCard(editedCard, boardId)
             } catch (error) {
-                alert('Please reload the page!')
+                alert(error)
             }
 
 }

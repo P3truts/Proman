@@ -14,8 +14,11 @@ export let cardsManager = {
         }
 
     },
+
     updateTitleCard: function (card,boardId) {
-        createCard(card, boardId, true)
+        domManager.removeCard(`.card[data-card-id="${card.id}"`)
+        createCard(card, boardId)
+        document.querySelector(`.card[data-card-id="${card.id}"`).classList.add("border-green")
         initDragEvents()
     }
 };
@@ -68,7 +71,7 @@ function dragDrop() {
     this.append(dragItem);
 }
 
-function createCard(card, boardId,position, update=false) {
+function createCard(card, boardId) {
         const cardBuilder = htmlFactory(htmlTemplates.card);
         const content = cardBuilder(card);
         modalManager.editCardTitle(card.id, boardId);

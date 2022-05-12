@@ -32,7 +32,6 @@ export let dataHandler = {
     },
 
     updateCardTitle: async function (payload) {
-        console.log(payload)
         return await apiPost(`/api/card/${payload.id}`,payload)
     }
 };

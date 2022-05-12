@@ -19,7 +19,8 @@ export let boardsManager = {
     },
 
     updateBoard: function (board) {
-        document.querySelector(`.board[data-board-id="${board.id}"] > .board-columns`).parentNode.parentNode.remove()
+        // document.querySelector(`.board[data-board-id="${board.id}"] > .board-columns`).parentNode.parentNode.remove()
+        domManager.removeBoard(`.board[data-board-id="${board.id}"]`)
         createBoard(board, "beforebegin", true)
         domManager.addClassToParent(`.board[data-board-id="${board.id}"]`, "border-green")
     }
