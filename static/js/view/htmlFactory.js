@@ -1,5 +1,3 @@
-import {buttonManager} from "../controller/buttonManager.js";
-
 export const htmlTemplates = {
     board: 1,
     card: 2,
