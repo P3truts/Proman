@@ -112,3 +112,15 @@ def update_card_title(id,title):
         , {"id": id, "title": title},
         fetchall=False
     )
+
+
+def update_card_status(status_id, card_id):
+    return data_manager.execute_select(
+        """
+        update cards
+        set status_id = %(status_id)s
+        where id = %(card_id)s
+        """,
+        {"status_id": status_id, "card_id": card_id},
+        fetchall=False
+    )

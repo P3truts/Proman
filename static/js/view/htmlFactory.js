@@ -46,16 +46,16 @@ function boardBuilder(board) {
 }
 
 function cardBuilder(card) {
-    return `<div class="card" data-card-id="${card.id}" draggable="true" card-status="${card.status_id}" >${card.title}</div>`;
+    return `<div class="card" data-card-id="${card.id}" draggable="true" data-cardstatus="${card.status_id}" >${card.title}</div>`;
 }
 
 function colBoardBuilder(status) {
     return `
         <div class="board-column">
-            <div class="board-column-title" board-id-status="${status.id}">${
+            <div class="board-column-title" data-idstatus="${status.id}">${
                 status.title[0].toUpperCase() + status.title.substring(1)
             }</div>
-                <div class="board-column-content"></div>
+                <div class="board-column-content" data-idstatus="${status.id}"></div>
             </div>
         </div>
 `;

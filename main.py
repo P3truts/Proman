@@ -56,15 +56,25 @@ def update_board(board_id):
     title = request.json.get("title") if request.is_json else request.form.get("title")
     return queries.update_board_title(board_id, title)
 
+
 @app.post("/api/card/<card_id>")
 def update_card(card_id):
     title = request.json.get("title")
         # if request.is_json else request.form.get("title")
     return queries.update_card_title(card_id, title)
 
+
 @app.get("/api/card_status/<status_id>")
 def get_card_status(status_id):
     return queries.get_card_status(status_id)
+
+
+@app.post("/api/update-card/<card_id>")
+def update_card_status(card_id, status_id):
+    print(card_id)
+    print(status_id)
+    return queries.update_card_status(card_id, status_id)
+
 
 
 def main():

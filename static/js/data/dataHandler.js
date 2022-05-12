@@ -33,6 +33,11 @@ export let dataHandler = {
 
     updateCardTitle: async function (payload) {
         return await apiPost(`/api/card/${payload.id}`,payload)
+    },
+
+    updateCardStatus: async function (payload) {
+        console.log(payload)
+        return await apiPost(`/api/update-card/${payload.id}`, payload)
     }
 };
 
@@ -47,6 +52,7 @@ async function apiGet(url) {
 }
 
 async function apiPost(url, payload) {
+        console.log(payload)
        const request = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },

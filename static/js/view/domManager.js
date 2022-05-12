@@ -33,6 +33,15 @@ export let domManager = {
         }
     },
 
+    getChild(childIdentifier) {
+        const child = document.querySelector(childIdentifier);
+        if (child) {
+            return child;
+        } else {
+            console.error("could not find such html element: " + childIdentifier);
+        }
+    },
+
     clearElement(element) {
         document.querySelector(element).innerHTML = ""
     },

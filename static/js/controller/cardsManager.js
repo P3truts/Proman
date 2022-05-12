@@ -10,8 +10,8 @@ export let cardsManager = {
         const cards = await dataHandler.getCardsByBoardId(boardId);
         for (let card of cards) {
             createCard(card, boardId)
-            initDragEvents()
         }
+        initDragEvents()
 
     },
 
@@ -24,14 +24,16 @@ export let cardsManager = {
 };
 
 
-function initDragEvents() {
+async function initDragEvents() {
         const cards2 = document.querySelectorAll(".card");
-        const columns = document.querySelectorAll(".board-column-content");
+        const columnsTitle = document.querySelectorAll(".board-column-title");
+        const columnsContent = document.querySelectorAll(".board-column-content");
+        console.log(columnsTitle)
         cards2.forEach((card) => {
             card.addEventListener("dragstart", dragStart);
             card.addEventListener("dragend", dragEnd);
         });
-        columns.forEach((column) => {
+        columnsContent.forEach(column => {
             column.addEventListener("dragover", dragOver);
             column.addEventListener("dragenter", dragEnter);
             column.addEventListener("dragleave", dragLeave);
@@ -66,9 +68,18 @@ function dragLeave() {
     console.log("drag left");
 }
 
-function dragDrop() {
+async function dragDrop() {
     console.log("drag dropped");
     this.append(dragItem);
+    console.log(this)
+    this.getAttribute("board-id-status");
+    const statusId = this.dataset.idstatus
+    const cardStatus = dragItem.dataset.cardstatus
+    const cardId = dragItem.dataset.cardId
+    let cardCheck = checkCardStatus(statusId, cardStatus)
+    if (!cardCheck) {
+        await dataHandler.updateCardStatus({id: cardId, status: statusId})
+    }
 }
 
 function createCard(card, boardId) {
@@ -94,4 +105,13 @@ function createCard(card, boardId) {
                 $(`#card_title_${card.id}`).modal('show')
             }
         );
+}
+
+
+function checkCardStatus(statusId, cardStatus) {
+    if (statusId === cardStatus) {
+        return true;
+    } else {
+        return false;
+    }
 }
