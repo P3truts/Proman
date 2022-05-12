@@ -1,6 +1,7 @@
 import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
+import {modalManager} from "./modalManager.js";
 
 let dragItem = null;
 
@@ -8,26 +9,27 @@ export let cardsManager = {
     loadCards: async function (boardId) {
         const cards = await dataHandler.getCardsByBoardId(boardId);
         for (let card of cards) {
-            console.log(cards)
-            const cardBuilder = htmlFactory(htmlTemplates.card);
-            const content = cardBuilder(card);
-            domManager.addChild(
-                `.board[data-board-id="${boardId}"] > .board-columns > .board-column > .board-column-content`,
-                content
-            );
-            domManager.addEventListener(
-                `.card[data-card-id="${card.id}"]`,
-                "click",
-                deleteButtonHandler
-            );
-            console.log(card)
+            createCard(card, boardId)
+            initDragEvents()
         }
+
+    },
+
+    updateTitleCard: function (card,boardId) {
+        domManager.removeCard(`.card[data-card-id="${card.id}"`)
+        createCard(card, boardId)
+        document.querySelector(`.card[data-card-id="${card.id}"`).classList.add("border-green")
+        initDragEvents()
+    }
+};
+
+
+function initDragEvents() {
         const cards2 = document.querySelectorAll(".card");
         const columns = document.querySelectorAll(".board-column-content");
         cards2.forEach((card) => {
             card.addEventListener("dragstart", dragStart);
             card.addEventListener("dragend", dragEnd);
-            card.getAttribute("status_id")
         });
         columns.forEach((column) => {
             column.addEventListener("dragover", dragOver);
@@ -35,8 +37,7 @@ export let cardsManager = {
             column.addEventListener("dragleave", dragLeave);
             column.addEventListener("drop", dragDrop);
         });
-    },
-};
+}
 
 function deleteButtonHandler(clickEvent) {}
 
@@ -70,3 +71,27 @@ function dragDrop() {
     this.append(dragItem);
 }
 
+function createCard(card, boardId) {
+        const cardBuilder = htmlFactory(htmlTemplates.card);
+        const content = cardBuilder(card);
+        modalManager.editCardTitle(card.id, boardId);
+
+        domManager.addChild(
+            `.board[data-board-id="${boardId}"] > .board-columns > .board-column > .board-column-content`,
+            content
+        );
+
+        domManager.addEventListener(
+            `.card[data-card-id="${card.id}"]`,
+            "click",
+            deleteButtonHandler
+        );
+
+        domManager.addEventListener(
+            `.card[data-card-id="${card.id}"]`,
+            "dblclick",
+            function (){
+                $(`#card_title_${card.id}`).modal('show')
+            }
+        );
+}

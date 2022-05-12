@@ -29,6 +29,10 @@ export let dataHandler = {
     },
     updateBoardTitle: async function (payload) {
         return await apiPost(`/api/board/${payload.id}`,payload)
+    },
+
+    updateCardTitle: async function (payload) {
+        return await apiPost(`/api/card/${payload.id}`,payload)
     }
 };
 

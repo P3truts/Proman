@@ -29,20 +29,27 @@ export function htmlFactory(template) {
 }
 
 function boardBuilder(board) {
-    return `<div class="board-container mb-5">
-                <div class="board board-title" data-board-id=${board.id}>${board.title}
-                    <div class="board-columns" data-board-id=${board.id}></div>
-                </div>
-                <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
-            </div>`;
+    return `
+        <div class="board-container mb-5">
+                <section class="board" data-board-id=${board.id}>
+                    <div class="board board-title" data-board-id=${board.id}>${board.title}</div>
+                    <button type="button" id="edit-board-button-${board.id}" class="edit-board-button"
+                        data-bs-toggle="modal" data-bs-target="#edit-title-board-modal-${board.id}">
+                            <img src="./static/assets/edit-btn.png" alt="edit btn">
+                    </button>
+                    <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
+                    <div class="board-columns"></div>
+                </section>
+            </div>;
+    
+    `
 }
 
 function cardBuilder(card) {
-    return `<div class="card" draggable="true" data-card-id="${card.id}" status-id="${card.status_id}">${card.title}</div>`;
+    return `<div class="card" data-card-id="${card.id}" draggable="true" card-status="${card.status_id}" >${card.title}</div>`;
 }
 
 function colBoardBuilder(status) {
-    console.log(status)
     return `
         <div class="board-column">
             <div class="board-column-title" board-id-status="${status.id}">${
@@ -60,11 +67,7 @@ function newBtnBuilder(config) {
             ${JSON.stringify(config.modal) ? config.modal : null}
         >
 <!--        data-bs-toggle="modal" data-bs-target="#new-board-modal">-->
-            ${
-                config.name
-                    ? config.name
-                    : `<img src="${config.src}" alt="edit btn">`
-            }
+            ${config.name ? config.name : `<img src="${config.src}" alt="edit btn">`}
         </button>
     `;
 }
@@ -82,7 +85,7 @@ function newBoardModalBuilder(config) {
                 <form id="${config.formId}" action=${config.formApi} method="post">
                   <div class="mb-3">
                     <label for="title" class="col-form-label">Board Title</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
+                    <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
                   </div>
                   <button type="submit" class="btn btn-primary">Save changes</button>
                 </form>

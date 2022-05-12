@@ -3,7 +3,6 @@ import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {cardsManager} from "./cardsManager.js";
 import {statusManager} from "./statusManager.js";
-import {buttonManager} from "./buttonManager.js";
 import {modalManager} from "./modalManager.js";
 
 export let boardsManager = {
@@ -20,8 +19,8 @@ export let boardsManager = {
     },
 
     updateBoard: function (board) {
-        console.log(board)
-        document.querySelector(`.board[data-board-id="${board.id}"] > .board-columns`).parentNode.parentNode.remove()
+        // document.querySelector(`.board[data-board-id="${board.id}"] > .board-columns`).parentNode.parentNode.remove()
+        domManager.removeBoard(`.board[data-board-id="${board.id}"]`)
         createBoard(board, "beforebegin", true)
         domManager.addClassToParent(`.board[data-board-id="${board.id}"]`, "border-green")
     }
@@ -31,7 +30,6 @@ function createBoard(board, position, update=false) {
     const boardBuilder = htmlFactory(htmlTemplates.board);
     const content = boardBuilder(board);
     domManager.addChild("#root", content, position);
-    buttonManager.loadEditTitleBoard(board.id)
 
     if (!update) {
         modalManager.loadEditBoardTitleModal(board.id)

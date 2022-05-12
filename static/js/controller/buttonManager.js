@@ -18,7 +18,7 @@ export let buttonManager = {
     );
 },
 
-    loadEditTitleBoard: function (boardId) {
+    loadEditTitleBoardBtn: function (boardId) {
         const config ={
             id: `edit-board-button-${boardId}`,
             class: "edit-board-button",
@@ -28,7 +28,7 @@ export let buttonManager = {
         }
         const btnBuilder = htmlFactory(htmlTemplates.newBoardBtn);
         const content = btnBuilder(config);
-        domManager.addChild(config.parent, content);
+        // domManager.addChild(config.parent, content);
         domManager.addEventListener(`#${config.id}`, "click")
     }
 };
