@@ -18,11 +18,11 @@ export let buttonManager = {
     );
 },
 
-    loadEditTitleBoardBtn: function (boardId) {
+    loadAddCardBtn: function (boardId) {
         const config ={
-            id: `edit-board-button-${boardId}`,
-            class: "edit-board-button",
-            src : "./static/assets/edit-btn.png",
+            id: `add-card-button-${boardId}`,
+            class: "add-board-button",
+            // src : "./static/assets/edit-btn.png",
             parent: `.board[data-board-id="${boardId}"]`,
             modal: `data-bs-toggle=modal data-bs-target= #edit-title-board-modal-${boardId}`
         }

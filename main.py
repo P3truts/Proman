@@ -59,8 +59,7 @@ def update_board(board_id):
 
 @app.post("/api/card/<card_id>")
 def update_card(card_id):
-    title = request.json.get("title")
-        # if request.is_json else request.form.get("title")
+    title = request.json.get("title")if request.is_json else request.form.get("title")
     return queries.update_card_title(card_id, title)
 
 
@@ -75,6 +74,15 @@ def update_card_status(card_id, status_id):
     print(status_id)
     return queries.update_card_status(card_id, status_id)
 
+
+
+@app.post("/api/new-card")
+def new_card():
+    title = request.json.get("title")if request.is_json else request.form.get("title")
+    board_id = request.json.get("board_id")if request.is_json else request.form.get("board_id")
+    order = request.json.get("card_order")if request.is_json else request.form.get("card_order")
+    status = request.json.get("status_id")if request.is_json else request.form.get("status_id")
+    return queries.insert_card(board_id,  status, title, order)
 
 
 def main():

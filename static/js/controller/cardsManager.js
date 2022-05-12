@@ -16,10 +16,16 @@ export let cardsManager = {
     },
 
     updateTitleCard: function (card,boardId) {
+        console.log(card)
         domManager.removeCard(`.card[data-card-id="${card.id}"`)
         createCard(card, boardId)
         document.querySelector(`.card[data-card-id="${card.id}"`).classList.add("border-green")
         initDragEvents()
+    },
+
+    newCard(card, boardId) {
+        createCard(card, boardId)
+        document.querySelector(`.card[data-card-id="${card.id}"`).classList.add("border-green")
     }
 };
 

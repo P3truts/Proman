@@ -3,6 +3,7 @@ import {domManager} from "../view/domManager.js";
 import {dataHandler} from "../data/dataHandler.js";
 import {boardsManager} from "./boardsManager.js";
 import {cardsManager} from "./cardsManager.js";
+import {formManager} from "./formManager.js";
 
 export let modalManager = {
     loadNewBordModal: function () {
@@ -11,9 +12,12 @@ export let modalManager = {
             title: "ADD BOARD",
             formApi: "/api/new-board",
             formId: "form-new-board",
-            parent: "#board-modal-div"
+            parent: "#board-modal-div",
+            label: "Board Title"
         }
+
         createModal(config)
+        formManager.oneInputModal(config)
         domManager.addEventListener(`#${config.formId}`, "submit", insertBoard)
         },
 
@@ -24,13 +28,35 @@ export let modalManager = {
             formApi: `/api/board/${boardId}`,
             parent: "#board-modal-div",
             formId: `form-edit-title-${boardId}`,
+            label: "Board Title"
         }
         createModal(config)
+        formManager.oneInputModal(config)
+
         domManager.addEventListener(`#${config.formId}`, "submit", async (event)=>{
             await editBoardTitle(event,config, boardId)
         })
 
     },
+
+    async loadNewCardModal(boardId) {
+        const config = {
+            id: `add-card-modal-${boardId}`,
+            title: "ADD Card",
+            formApi: "/api/new-card",
+            formId: `form-new-card-${boardId}`,
+            parent: "#board-modal-div",
+            label: "Card Title",
+        }
+        config.statuses = await dataHandler.getStatuses();
+        console.log(config.statuses)
+        createModal(config)
+        await formManager.newCardForm(config)
+          domManager.addEventListener(`#${config.formId}`, "submit", async (event)=>{
+              await insertCard(event, config, boardId)
+        })
+
+    } ,
 
     editCardTitle: function(cardId, boardId) {
         const config = {
@@ -39,8 +65,11 @@ export let modalManager = {
             formApi: `/api/card/${cardId}`,
             parent: "#board-modal-div",
             formId: `form-edit-card-title-${cardId}`,
+            label: "Card Title"
         }
         createModal(config)
+        formManager.oneInputModal(config)
+
         domManager.addEventListener(`#${config.formId}`, "submit",async(event)=>{
             await editCardTitle(event, boardId, config, cardId)
         })
@@ -83,8 +112,9 @@ async function editBoardTitle(event, config, boardId) {
 
 
 async function editCardTitle(event, boardId, config, cardId) {
-                event.preventDefault()
+            event.preventDefault()
             const title = event.target.title.value
+
             try {
                 const editedCard = await dataHandler.updateCardTitle({id: cardId, title: title})
                 $(`#${config.id}`).modal('hide')
@@ -94,4 +124,25 @@ async function editCardTitle(event, boardId, config, cardId) {
             }
 
 }
+
+
+async function insertCard(event, config,boardId) {
+    event.preventDefault()
+    const title = event.target.title.value
+    const status = event.target.status.value
+     const payload = {
+        board_id: boardId,
+         status_id: +status,
+        title: title,
+         card_order: 1
+     }
+    try {
+        const newCard = await dataHandler.createNewCard(payload)
+        $(`#${config.id}`).modal('hide')
+        cardsManager.newCard(newCard, boardId)
+    } catch (error) {
+        alert(error)
+    }
+}
+
 

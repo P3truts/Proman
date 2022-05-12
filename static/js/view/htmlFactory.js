@@ -5,6 +5,8 @@ export const htmlTemplates = {
     newBoardBtn: 4,
     modal: 5,
     colBtn: 6,
+    oneInputForm:7,
+    InputWithCheckButtons: 8
 };
 
 export const builderFunctions = {
@@ -14,6 +16,8 @@ export const builderFunctions = {
     [htmlTemplates.newBoardBtn]: newBtnBuilder,
     [htmlTemplates.modal]: newBoardModalBuilder,
     [htmlTemplates.colBtn]: colBtnBuilder,
+    [htmlTemplates.oneInputForm]: oneInputForm,
+    [htmlTemplates.InputWithCheckButtons]: InputWithCheckButtons
 };
 
 export function htmlFactory(template) {
@@ -37,11 +41,14 @@ function boardBuilder(board) {
                         data-bs-toggle="modal" data-bs-target="#edit-title-board-modal-${board.id}">
                             <img src="./static/assets/edit-btn.png" alt="edit btn">
                     </button>
-                    <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
+                    <button type="button" id="add-card-btn-${board.id}" class="add-card-btn btn btn-success"
+                        data-bs-toggle="modal" data-bs-target="#add-card-modal-${board.id}">
+                        Add Card
+                    </button>
+                    <button class="toggle-board-button btn btn-success" data-board-id="${board.id}">Show Cards</button>
                     <div class="board-columns"></div>
                 </section>
-            </div>;
-    
+            </div>
     `
 }
 
@@ -81,14 +88,8 @@ function newBoardModalBuilder(config) {
                 <h5 class="modal-title" id="exampleModalLabel">${config.title}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
-                <form id="${config.formId}" action=${config.formApi} method="post">
-                  <div class="mb-3">
-                    <label for="title" class="col-form-label">Board Title</label>
-                    <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
-                </form>
+              <div class="modal-body" id="modal-body-${config.id}">
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -101,6 +102,43 @@ function newBoardModalBuilder(config) {
 
 function colBtnBuilder(board) {
     return `
-                <button class="add-column-button" data-board-id="${board}">Add Column</button>
+        <button class="add-column-button" data-board-id="${board}">Add Column</button>
     `;
+}
+
+function oneInputForm(config) {
+    return `
+    <form id="${config.formId}" action=${config.formApi} method="post">
+          <div class="mb-3">
+            <label for="title" class="col-form-label">${config.label}</label>
+            <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+    </form>
+    `
+}
+
+
+function InputWithCheckButtons(config) {
+        return `
+            <form id="${config.formId}" action=${config.formApi} method="post">
+              <div class="mb-3">
+                <label for="title" class="col-form-label">${config.label}</label>
+                <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
+              </div>
+                ${config.statuses.map(createRadioBnt).join("")}
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
+    `
+}
+
+
+function createRadioBnt(status, index) {
+    return `<div class="form-check">
+                <input class="form-check-inpu" type="radio" name="status" id="flexRadioDefault2" value="${index + 1}">
+                <label class="form-check-labe" for="flexRadioDefault">
+                    ${status.title}
+                </label>
+            </div>
+    `
 }
