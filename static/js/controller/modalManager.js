@@ -41,7 +41,32 @@ export let modalManager = {
             }
         })
 
+    },
+    editCardTitle: function(cardId){
+       const config = {
+           id: `card_title_${cardId}`,
+           title: "Rename Card",
+           formApi:`/api/card/${cardId}`,
+           parent: "#board-modal-div",
+           formId: `form-edit-card-title-${cardId}`,
+       }
+       const modalBuilder = htmlFactory(htmlTemplates.modal);
+       const content = modalBuilder(config);
+       domManager.addChild(config.parent, content);
+       domManager.addEventListener(`#${config.formId}`, "submit", async (event)=>{
+            event.preventDefault()
+            const title = event.target.title.value
+            try {
+                const editedCard = await dataHandler.updateCardTitle({id: cardId, title: title})
+                $(`#${config.id}`).modal('hide')
+                await boardsManager.updateBoard(editedCard)
+            } catch (error) {
+                alert('Operation was not successful! Please try again')
+            }
+        })
     }
+
+
 }
 
 async function insertBoard(event) {

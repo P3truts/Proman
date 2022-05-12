@@ -87,3 +87,28 @@ def update_board_title(id,title):
         , {"id": id, "title": title},
         fetchall=False
     )
+
+def insert_card(title):
+    return data_manager.execute_select(
+        """
+        insert  into cards(title)
+        values(%(title)s)
+        returning id, title
+        ;
+        """,
+        {"title": title},
+        fetchall=False,
+    )
+
+
+def update_card_title(id,title):
+    return data_manager.execute_select(
+        """
+        update cards
+        set title = %(title)s
+        where id = %(id)s
+        returning id, title
+        """
+        , {"id": id, "title": title},
+        fetchall=False
+    )

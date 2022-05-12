@@ -5,7 +5,7 @@ import { modalManager } from "./controller/modalManager.js";
 function init() {
     buttonManager.loadNewBoardBtn()
     modalManager.loadNewBordModal()
-    boardsManager.loadBoards();
+    boardsManager.loadBoards()
 }
 
 init();

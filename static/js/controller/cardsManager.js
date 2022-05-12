@@ -1,6 +1,7 @@
 import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
+import {modalManager} from "./modalManager.js";
 
 let dragItem = null;
 
@@ -10,6 +11,8 @@ export let cardsManager = {
         for (let card of cards) {
             const cardBuilder = htmlFactory(htmlTemplates.card);
             const content = cardBuilder(card);
+            modalManager.editCardTitle(card.id);
+
             domManager.addChild(
                 `.board[data-board-id="${boardId}"] > .board-columns > .board-column > .board-column-content`,
                 content
@@ -19,7 +22,20 @@ export let cardsManager = {
                 "click",
                 deleteButtonHandler
             );
+            // card.addEventListener("dbclick", (event)=>{
+            //     console.log("test")
+            //     $(`#card_title_${card.id}`).modal('show')
+            // })
+            domManager.addEventListener(
+                `.card[data-card-id="${card.id}"]`,
+                "dblclick",
+                function (){
+                    console.log("rename card")
+                    $(`#card_title_${card.id}`).modal('show')
+                }
+            );
         }
+
         const cards2 = document.querySelectorAll(".card");
         const columns = document.querySelectorAll(".board-column-content");
         cards2.forEach((card) => {
@@ -65,4 +81,13 @@ function dragLeave() {
 function dragDrop() {
     console.log("drag dropped");
     this.append(dragItem);
+}
+
+function doubleclick(){
+    console.log("doubleclick")
+    $(`#card_title_${cardId}`).modal('show')
+}
+
+function editTitile(){
+
 }
