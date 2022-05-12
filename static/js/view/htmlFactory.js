@@ -29,16 +29,20 @@ export function htmlFactory(template) {
 }
 
 function boardBuilder(board) {
-    return `<div class="board-container mb-5">
-                <div class="board board-title" data-board-id=${board.id}>${board.title}
-                    <div class="board-columns" data-board-id=${board.id}></div>
-                </div>
-                <button type="button" id="edit-board-button-${board.id}" class="edit-board-button"
+    return `
+        <div class="board-container mb-5">
+                <section class="board" data-board-id=${board.id}>
+                    <div class="board board-title" data-board-id=${board.id}>${board.title}</div>
+                    <button type="button" id="edit-board-button-${board.id}" class="edit-board-button"
                         data-bs-toggle="modal" data-bs-target="#edit-title-board-modal-${board.id}">
                             <img src="./static/assets/edit-btn.png" alt="edit btn">
-                </button>
-                <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
-            </div>`;
+                    </button>
+                    <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
+                    <div class="board-columns"></div>
+                </section>
+            </div>;
+    
+    `
 }
 
 function cardBuilder(card) {
