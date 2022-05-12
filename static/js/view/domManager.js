@@ -1,8 +1,8 @@
 export let domManager = {
-    addChild(parentIdentifier, childContent) {
+    addChild(parentIdentifier, childContent, position="beforeend") {
         const parent = document.querySelector(parentIdentifier);
         if (parent) {
-            parent.insertAdjacentHTML("beforeend", childContent);
+            parent.insertAdjacentHTML(position, childContent);
         } else {
             console.error("could not find such html element: " + parentIdentifier);
         }
@@ -31,5 +31,13 @@ export let domManager = {
         } else {
             console.error("could not find such html element: " + parentIdentifier);
         }
+    },
+
+    clearElement(element) {
+        document.querySelector(element).innerHTML = ""
+    },
+
+    addClassToParent(element, className) {
+        document.querySelector(element).parentNode.classList.add(className)
     }
 };

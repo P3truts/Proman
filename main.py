@@ -3,7 +3,7 @@ from util import json_response
 import mimetypes
 import queries
 
-mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type("application/javascript", ".js")
 app = Flask(__name__)
 
 
@@ -12,7 +12,7 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    return render_template('index.html')
+    return render_template("index.html")
 
 
 @app.get("/api/boards")
@@ -51,9 +51,15 @@ def get_board(board_id):
     return queries.get_board_by_id(board_id)
 
 
+@app.post("/api/board/<board_id>")
+def update_board(board_id):
+    title = request.json.get("title") if request.is_json else request.form.get("title")
+    return queries.update_board_title(board_id, title)
+
+
 def main():
     app.run(debug=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

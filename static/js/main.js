@@ -1,11 +1,10 @@
-import {boardsManager} from "./controller/boardsManager.js";
-import {buttonManager} from "./controller/buttonManager.js";
-import {modalManager} from "./controller/modalManager.js";
+import { boardsManager } from "./controller/boardsManager.js";
+import { buttonManager } from "./controller/buttonManager.js";
+import { modalManager } from "./controller/modalManager.js";
 
 function init() {
-    buttonManager.loadEditTitleBoard()
     buttonManager.loadNewBoardBtn()
-    modalManager.loadModal()
+    modalManager.loadNewBordModal()
     boardsManager.loadBoards();
 }
 
