@@ -8,6 +8,7 @@ let dragItem = null;
 export let cardsManager = {
     loadCards: async function (boardId) {
         const cards = await dataHandler.getCardsByBoardId(boardId);
+        console.log(cards)
         for (let card of cards) {
             createCard(card, boardId)
         }
@@ -36,7 +37,6 @@ async function initDragEvents() {
         const cards2 = document.querySelectorAll(".card");
         const columnsTitle = document.querySelectorAll(".board-column-title");
         const columnsContent = document.querySelectorAll(".board-column-content");
-        console.log(columnsTitle)
         cards2.forEach((card) => {
             card.addEventListener("dragstart", dragStart);
             card.addEventListener("dragend", dragEnd);
@@ -93,26 +93,32 @@ async function dragDrop() {
 function createCard(card, boardId) {
         const cardBuilder = htmlFactory(htmlTemplates.card);
         const content = cardBuilder(card);
-        modalManager.editCardTitle(card.id, boardId);
-
-        domManager.addChild(
-            `.board[data-board-id="${boardId}"] > .board-columns > .board-column > .board-column-content`,
-            content
+        let statusId = card.status_id
+        let columnContent = document.querySelectorAll(".board-column-content")
+                domManager.addChild(
+                   `.board[data-board-id="${boardId}"] > .board-columns > .board-column > .board-column-content[data-idstatus="${statusId}"]`,
+                    content
         );
+                modalManager.editCardTitle(card.id, boardId);
 
-        domManager.addEventListener(
-            `.card[data-card-id="${card.id}"]`,
-            "click",
-            deleteButtonHandler
-        );
 
-        domManager.addEventListener(
-            `.card[data-card-id="${card.id}"]`,
-            "dblclick",
-            function (){
-                $(`#card_title_${card.id}`).modal('show')
+
+                domManager.addEventListener(
+                    `.card[data-card-id="${card.id}"]`,
+                    "click",
+                    deleteButtonHandler
+                );
+
+                domManager.addEventListener(
+                    `.card[data-card-id="${card.id}"]`,
+                    "dblclick",
+                    function (){
+                        $(`#card_title_${card.id}`).modal('show')
             }
         );
+
+
+
 }
 
 
