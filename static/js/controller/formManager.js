@@ -3,8 +3,17 @@ import {domManager} from "../view/domManager.js";
 
 export const formManager = {
     oneInputModal(config) {
-        const formBuilder = htmlFactory(htmlTemplates.oneInputForm);
-        const content = formBuilder(config);
-        domManager.addChild(`#modal-body-${config.id}`, content);
+        createForm(config, "oneInputForm")
+    },
+
+    newCardForm(config) {
+        createForm(config, "InputWithCheckButtons")
     }
+}
+
+
+function createForm(config, type) {
+    const formBuilder = htmlFactory(htmlTemplates[type]);
+    const content = formBuilder(config);
+    domManager.addChild(`#modal-body-${config.id}`, content);
 }

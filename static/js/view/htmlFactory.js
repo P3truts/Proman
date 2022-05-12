@@ -5,7 +5,8 @@ export const htmlTemplates = {
     newBoardBtn: 4,
     modal: 5,
     colBtn: 6,
-    oneInputForm:7
+    oneInputForm:7,
+    InputWithCheckButtons: 8
 };
 
 export const builderFunctions = {
@@ -16,6 +17,7 @@ export const builderFunctions = {
     [htmlTemplates.modal]: newBoardModalBuilder,
     [htmlTemplates.colBtn]: colBtnBuilder,
     [htmlTemplates.oneInputForm]: oneInputForm,
+    [htmlTemplates.InputWithCheckButtons]: InputWithCheckButtons
 };
 
 export function htmlFactory(template) {
@@ -113,5 +115,30 @@ function oneInputForm(config) {
           </div>
           <button type="submit" class="btn btn-primary">Save changes</button>
     </form>
+    `
+}
+
+
+function InputWithCheckButtons(config) {
+        return `
+            <form id="${config.formId}" action=${config.formApi} method="post">
+              <div class="mb-3">
+                <label for="title" class="col-form-label">${config.label}</label>
+                <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
+              </div>
+            ${config.statuses.map(createRadioBnt).join("")}
+              <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+    `
+}
+
+
+function createRadioBnt(status) {
+    return `<div class="form-check">
+                <input class="form-check-input" type="radio" name="${status.title}" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    ${status.title}
+                </label>
+            </div>
     `
 }

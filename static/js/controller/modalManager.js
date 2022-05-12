@@ -30,7 +30,6 @@ export let modalManager = {
             formId: `form-edit-title-${boardId}`,
             label: "Board Title"
         }
-
         createModal(config)
         formManager.oneInputModal(config)
 
@@ -40,17 +39,22 @@ export let modalManager = {
 
     },
 
-    loadNewCardModal(boardId) {
+    async loadNewCardModal(boardId) {
         const config = {
             id: `add-card-modal-${boardId}`,
             title: "ADD Card",
             formApi: "/api/new-card",
             formId: "form-new-card",
             parent: "#board-modal-div",
-            label: "Card Title"
+            label: "Card Title",
+            // statuses: [{id: 1, title: 'new'}, {id: 2, title: 'in progress'},
+            //     {id: 3, title: 'testing'},{id: 4, title: 'done'}]
         }
+        config.statuses = await dataHandler.getStatuses();
+
         createModal(config)
-        formManager.oneInputModal(config)
+        // formManager.oneInputModal(config)
+        await formManager.newCardForm(config)
 
     } ,
 

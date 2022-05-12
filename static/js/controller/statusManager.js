@@ -5,6 +5,7 @@ import { domManager } from "../view/domManager.js";
 export let statusManager = {
     loadStatuses: async function (boardId) {
         const statuses = await dataHandler.getStatuses();
+        console.log(statuses)
         for (let status of statuses) {
             const statusBuilder = htmlFactory(htmlTemplates.colBoard);
             const content = statusBuilder(status);
