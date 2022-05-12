@@ -58,7 +58,8 @@ def update_board(board_id):
 
 @app.post("/api/card/<card_id>")
 def update_card(card_id):
-    title = request.json.get("title") if request.is_json else request.form.get("title")
+    title = request.json.get("title")
+        # if request.is_json else request.form.get("title")
     return queries.update_card_title(card_id, title)
 
 def main():

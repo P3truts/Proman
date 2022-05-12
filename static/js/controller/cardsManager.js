@@ -22,10 +22,7 @@ export let cardsManager = {
                 "click",
                 deleteButtonHandler
             );
-            // card.addEventListener("dbclick", (event)=>{
-            //     console.log("test")
-            //     $(`#card_title_${card.id}`).modal('show')
-            // })
+
             domManager.addEventListener(
                 `.card[data-card-id="${card.id}"]`,
                 "dblclick",
@@ -83,11 +80,13 @@ function dragDrop() {
     this.append(dragItem);
 }
 
-function doubleclick(){
-    console.log("doubleclick")
-    $(`#card_title_${cardId}`).modal('show')
+cardsManager.updateCard = (card) => {
+    createCard(card, "beforebegin", true)
+    modalManager.editCardTitle(card.id);
 }
 
-function editTitile(){
-
+function createCard(card, position, update=false) {
+    const cardBuilder = htmlFactory(htmlTemplates.card);
+    const content = cardBuilder(card);
+    domManager.addChild("#.board[data-board-id=\"${boardId}\"] > .board-columns > .board-column > .board-column-content", content, position);
 }

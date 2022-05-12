@@ -107,7 +107,7 @@ def update_card_title(id,title):
         update cards
         set title = %(title)s
         where id = %(id)s
-        returning id, title
+        returning id, board_id, status_id, card_order, title
         """
         , {"id": id, "title": title},
         fetchall=False

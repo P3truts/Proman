@@ -2,6 +2,7 @@ import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {dataHandler} from "../data/dataHandler.js";
 import {boardsManager} from "./boardsManager.js";
+import {cardsManager} from "./cardsManager.js";
 
 export let modalManager = {
     loadNewBordModal: function () {
@@ -59,9 +60,9 @@ export let modalManager = {
             try {
                 const editedCard = await dataHandler.updateCardTitle({id: cardId, title: title})
                 $(`#${config.id}`).modal('hide')
-                await boardsManager.updateBoard(editedCard)
+                cardsManager.updateCard(editedCard)
             } catch (error) {
-                alert('Operation was not successful! Please try again')
+                alert('Please reload the page!')
             }
         })
     }
@@ -74,7 +75,7 @@ async function insertBoard(event) {
 
         const title = event.target.title.value
         try {
-            const newBoard = await dataHandler.createNewBoard({title: title})
+            const newBoard = await dataHandler.updateCardTitle({title: title})
             $('#new-board-modal').modal('hide')
             await boardsManager.loadNewBoard(newBoard)
         } catch (error) {
