@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import jsonify
+from flask import jsonify, request
 
 
 def json_response(func):
@@ -14,3 +14,8 @@ def json_response(func):
         return jsonify(func(*args, **kwargs))
 
     return decorated_function
+
+
+
+def get_submitted_data(key):
+    return request.json.get(key) if request.is_json else request.form.get(key)

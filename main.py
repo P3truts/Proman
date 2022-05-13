@@ -1,5 +1,5 @@
-from flask import Flask, render_template, url_for, request
-from util import json_response
+from flask import Flask, render_template, request
+from util import json_response, get_submitted_data
 import mimetypes
 import queries
 
@@ -42,7 +42,7 @@ def get_cards_for_board(board_id: int):
 
 @app.post("/api/new-board")
 def new_board():
-    title = request.json.get("title") if request.is_json else request.form.get("title")
+    title = get_submitted_data("title")
     return queries.insert_board(title)
 
 
@@ -53,13 +53,13 @@ def get_board(board_id):
 
 @app.post("/api/board/<board_id>")
 def update_board(board_id):
-    title = request.json.get("title") if request.is_json else request.form.get("title")
+    title = get_submitted_data("title")
     return queries.update_board_title(board_id, title)
 
 
 @app.post("/api/card/<card_id>")
 def update_card(card_id):
-    title = request.json.get("title") if request.is_json else request.form.get("title")
+    title = get_submitted_data("title")
     return queries.update_card_title(card_id, title)
 
 
@@ -75,22 +75,10 @@ def update_card_status(card_id, status_id):
 
 @app.post("/api/new-card")
 def new_card():
-    title = request.json.get("title") if request.is_json else request.form.get("title")
-    board_id = (
-        request.json.get("board_id")
-        if request.is_json
-        else request.form.get("board_id")
-    )
-    order = (
-        request.json.get("card_order")
-        if request.is_json
-        else request.form.get("card_order")
-    )
-    status = (
-        request.json.get("status_id")
-        if request.is_json
-        else request.form.get("status_id")
-    )
+    title = get_submitted_data("title")
+    board_id = get_submitted_data("board_id")
+    order = get_submitted_data("card_order")
+    status = get_submitted_data("status_id")
     return queries.insert_card(board_id, status, title, order)
 
 
