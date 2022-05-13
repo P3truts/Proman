@@ -1,0 +1,17 @@
+//  sass demo.scss demo.css > procesare automata
+
+@use "utilities";
+
+%bg222 {
+    background-color: #222;
+}
+
+button {
+    @extend %bg222;
+}
+
+h2 {
+    @extend %bg222;
+}
+
+
