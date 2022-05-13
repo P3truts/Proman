@@ -83,9 +83,9 @@ def update_board_title(id, title):
         set title = %(title)s
         where id = %(id)s
         returning id, title
-        """
-        , {"id": id, "title": title},
-        fetchall=False
+        """,
+        {"id": id, "title": title},
+        fetchall=False,
     )
 
 
@@ -97,7 +97,12 @@ def insert_card(board_id, status_id, title, card_order):
         returning id, board_id, status_id, title, card_order
         ;
         """,
-        {"board_id": board_id, "status_id": status_id, "title": title, "card_order": card_order},
+        {
+            "board_id": board_id,
+            "status_id": status_id,
+            "title": title,
+            "card_order": card_order,
+        },
         fetchall=False,
     )
 
@@ -109,9 +114,9 @@ def update_card_title(id, title):
         set title = %(title)s
         where id = %(id)s
         returning id, board_id, status_id, card_order, title
-        """
-        , {"id": id, "title": title},
-        fetchall=False
+        """,
+        {"id": id, "title": title},
+        fetchall=False,
     )
 
 
@@ -124,5 +129,5 @@ def update_card_status(id, status_id):
         returning status_id, id
         """,
         {"status_id": status_id, "id": id},
-        fetchall=False
+        fetchall=False,
     )
