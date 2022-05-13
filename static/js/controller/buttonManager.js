@@ -20,16 +20,20 @@ export let buttonManager = {
 
     loadAddCardBtn: function (boardId) {
         const config ={
-            id: `add-card-button-${boardId}`,
-            class: "add-board-button",
-            // src : "./static/assets/edit-btn.png",
+            id: `add-card-btn-${boardId}`,
+            class: "add-card-btn btn btn-success",
             parent: `.board[data-board-id="${boardId}"]`,
-            modal: `data-bs-toggle=modal data-bs-target= #edit-title-board-modal-${boardId}`
+            modal: `data-bs-toggle=modal data-bs-target= #add-card-modal-${boardId}`,
+            name: "Add card"
         }
         const btnBuilder = htmlFactory(htmlTemplates.newBoardBtn);
         const content = btnBuilder(config);
-        // domManager.addChild(config.parent, content);
+        domManager.addChild(config.parent, content);
         domManager.addEventListener(`#${config.id}`, "click")
     }
 };
 
+// <button type="button" id="add-card-btn-${board.id}" className="add-card-btn btn btn-success"
+//         data-bs-toggle="modal" data-bs-target="#add-card-modal-${board.id}">
+//     Add Card
+// </button>

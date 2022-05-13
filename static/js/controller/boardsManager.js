@@ -21,16 +21,16 @@ export let boardsManager = {
     updateBoard: function (board) {
         // document.querySelector(`.board[data-board-id="${board.id}"] > .board-columns`).parentNode.parentNode.remove()
         domManager.removeBoard(`.board[data-board-id="${board.id}"]`)
-        createBoard(board, "beforebegin", true)
+        createBoard(board,"beforeend", true)
         domManager.addClassToParent(`.board[data-board-id="${board.id}"]`, "border-green")
     }
 };
 
-function createBoard(board, position, update=false) {
+async function createBoard(board, position, update=false) {
     const boardBuilder = htmlFactory(htmlTemplates.board);
     const content = boardBuilder(board);
     domManager.addChild("#root", content, position);
-    modalManager.loadNewCardModal(board.id)
+    await modalManager.loadNewCardModal(board.id)
     if (!update) {
         modalManager.loadEditBoardTitleModal(board.id)
     }

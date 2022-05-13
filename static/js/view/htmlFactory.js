@@ -41,14 +41,10 @@ function boardBuilder(board) {
                         data-bs-toggle="modal" data-bs-target="#edit-title-board-modal-${board.id}">
                             <img src="./static/assets/edit-btn.png" alt="edit btn">
                     </button>
-                    <button type="button" id="add-card-btn-${board.id}" class="add-card-btn btn btn-success"
-                        data-bs-toggle="modal" data-bs-target="#add-card-modal-${board.id}">
-                        Add Card
-                    </button>
                     <button class="toggle-board-button btn btn-success" data-board-id="${board.id}">Show Cards</button>
                     <div class="board-columns"></div>
                 </section>
-            </div>
+        </div>
     `
 }
 
@@ -137,7 +133,7 @@ function InputWithCheckButtons(config) {
 
 function createRadioBnt(status, index) {
     return `<div class="form-check">
-                <input class="form-check-inpu" type="radio" name="status" id="flexRadioDefault2" value="${index + 1}">
+                <input class="form-check-inpu" type="radio" name="status" id="flexRadioDefault2" value="${index + 1}" required>
                 <label class="form-check-labe" for="flexRadioDefault">
                     ${status.title}
                 </label>

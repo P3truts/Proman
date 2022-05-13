@@ -94,7 +94,7 @@ def insert_card(board_id, status_id, title, card_order):
         """
         insert  into cards(board_id, status_id, title, card_order)
         values(%(board_id)s, %(status_id)s, %(title)s, %(card_order)s)
-        returning id, title
+        returning id, board_id, status_id, title, card_order
         ;
         """,
         {"board_id": board_id, "status_id": status_id, "title": title, "card_order": card_order},
