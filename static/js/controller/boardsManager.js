@@ -39,7 +39,6 @@ function createBoard(board, position, update=false) {
         `.toggle-board-button[data-board-id="${board.id}"]`,
         "click",
         showHideButtonHandler)
-
 }
 
 function showHideButtonHandler(clickEvent) {
@@ -51,5 +50,6 @@ function showHideButtonHandler(clickEvent) {
     } else {
         statusManager.loadStatuses(boardId);
         cardsManager.loadCards(boardId);
+        modalManager.loadNewStatusModal(boardId);
     }
 }

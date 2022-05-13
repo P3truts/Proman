@@ -74,7 +74,21 @@ export let modalManager = {
             await editCardTitle(event, boardId, config, cardId)
         })
 
-    }
+    },
+    loadNewStatusModal: function () {
+        const config = {
+            id: "new-status-modal",
+            title: "Add Column",
+            formApi: "/api/new-status",
+            formId: "form-new-status",
+            parent: "#board-modal-div",
+            label: "Status Title"
+        }
+
+        createModal(config)
+        formManager.oneInputModal(config)
+        domManager.addEventListener(`#${config.formId}`, "submit", insertStatus)
+        },
 }
 
 function createModal(config) {
@@ -143,6 +157,21 @@ async function insertCard(event, config,boardId) {
     } catch (error) {
         alert(error)
     }
+}
+
+
+async function insertStatus(event) {
+        event.preventDefault()
+
+        const title = event.target.title.value
+        try {
+            const newStatus = await dataHandler.createNewStatus({title: title})
+            $('#new-status-modal').modal('hide')
+            await statussManager.loadNewStatus(newStatus)
+        } catch (error) {
+            alert('!We have encountered some error: Retry to create a new board')
+        }
+
 }
 
 
