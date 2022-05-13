@@ -1,29 +1,29 @@
 import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
-import {buttonManager} from "./buttonManager.js";
+import { buttonManager } from "./buttonManager.js";
 
 export let statusManager = {
     loadStatuses: async function (boardId) {
         const statuses = await dataHandler.getStatuses();
-        buttonManager.loadAddCardBtn(boardId)
-        for (let status of statuses) {
-            const statusBuilder = htmlFactory(htmlTemplates.colBoard);
-            const content = statusBuilder(status);
+        buttonManager.loadAddCardBtn(boardId);
+
+        statuses.forEach((status) => {
             domManager.addChild(
                 `.board[data-board-id="${boardId}"] > .board-columns`,
-                content
+                htmlFactory(htmlTemplates.colBoard)(status)
             );
             domManager.addEventListener(
                 `.board-title[data-board-id="${boardId}"]`,
                 "click",
                 showHideButtonHandler
             );
-        }
-        const columnButton = htmlFactory(htmlTemplates.colBtn);
-        const colBtn = columnButton(boardId);
+        });
 
-        domManager.addChild(`.board[data-board-id="${boardId}"]`, colBtn);
+        domManager.addChild(
+            `.board[data-board-id="${boardId}"]`,
+            htmlFactory(htmlTemplates.colBtn)(boardId)
+        );
 
         domManager.addEventListener(
             `.add-column-btn[data-board-id="${boardId}"]`,
@@ -31,26 +31,13 @@ export let statusManager = {
             addColBtnHandler
         );
     },
-    // unloadStatuses: async function (boardId) {
-    //     domManager.removeChild(
-    //         `.board[data-board-id="${boardId}"]`,
-    //         `.add-column-button[data-board-id="${boardId}"]`
-    //     );
-    //     const statuses = await dataHandler.getStatuses();
-    //     for (let status of statuses) {
-    //         domManager.removeChild(
-    //             `.board[data-board-id="${boardId}"] .board-columns`,
-    //             ".board-column"
-    //         );
-    //     }
-    // },
     clearColumnsHTML: async function (boardId, container) {
         domManager.removeChild(
             `.board[data-board-id="${boardId}"]`,
             `.add-column-btn[data-board-id="${boardId}"]`
         );
         container.innerHTML = "";
-    }
+    },
 };
 
 function showHideButtonHandler(clickEvent) {
@@ -58,9 +45,8 @@ function showHideButtonHandler(clickEvent) {
     const columnsContainer = domManager.getParent(
         `.board[data-board-id="${boardId}"] > .board-columns`
     );
-    if (columnsContainer && columnsContainer.innerHTML.length > 0) {
+    if (columnsContainer && !!columnsContainer.innerHTML.length) {
         statusManager.clearColumnsHTML(boardId, columnsContainer);
-        console.log(columnsContainer.length);
     }
 }
 

@@ -1,44 +1,50 @@
-import {dataHandler} from "../data/dataHandler.js";
-import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
-import {domManager} from "../view/domManager.js";
-import {cardsManager} from "./cardsManager.js";
-import {statusManager} from "./statusManager.js";
-import {modalManager} from "./modalManager.js";
+import { dataHandler } from "../data/dataHandler.js";
+import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
+import { domManager } from "../view/domManager.js";
+import { cardsManager } from "./cardsManager.js";
+import { statusManager } from "./statusManager.js";
+import { modalManager } from "./modalManager.js";
 
 export let boardsManager = {
     loadBoards: async function () {
         const boards = await dataHandler.getBoards();
-        for (let board of boards) {
-            createBoard(board)
-        }
+        boards.forEach((board) => createBoard(board));
     },
 
-    loadNewBoard: function(board) {
-        createBoard(board, "beforebegin")
-        domManager.addClassToParent(`.board[data-board-id="${board.id}"]`, "border-green")
+    loadNewBoard: function (board) {
+        createBoard(board, "beforebegin");
+        domManager.addClassToParent(
+            `.board[data-board-id="${board.id}"]`,
+            "border-green"
+        );
     },
 
     updateBoard: function (board) {
-        // document.querySelector(`.board[data-board-id="${board.id}"] > .board-columns`).parentNode.parentNode.remove()
-        domManager.removeBoard(`.board[data-board-id="${board.id}"]`)
-        createBoard(board,"beforeend", true)
-        domManager.addClassToParent(`.board[data-board-id="${board.id}"]`, "border-green")
-    }
+        domManager.removeBoard(`.board[data-board-id="${board.id}"]`);
+        createBoard(board, "beforeend", true);
+        domManager.addClassToParent(
+            `.board[data-board-id="${board.id}"]`,
+            "border-green"
+        );
+    },
 };
 
-async function createBoard(board, position, update=false) {
-    const boardBuilder = htmlFactory(htmlTemplates.board);
-    const content = boardBuilder(board);
+async function createBoard(board, position, update = false) {
+    // const boardBuilder = htmlFactory(htmlTemplates.board);
+    // const content = boardBuilder(board);
+    //  shorter alternative below
+    const content = htmlFactory(htmlTemplates.board)(board);
     domManager.addChild("#root", content, position);
-    await modalManager.loadNewCardModal(board.id)
+    await modalManager.loadNewCardModal(board.id);
     if (!update) {
-        modalManager.loadEditBoardTitleModal(board.id)
+        modalManager.loadEditBoardTitleModal(board.id);
     }
 
     domManager.addEventListener(
         `.toggle-board-button[data-board-id="${board.id}"]`,
         "click",
-        showHideButtonHandler)
+        showHideButtonHandler
+    );
 }
 
 function showHideButtonHandler(clickEvent) {
@@ -46,8 +52,7 @@ function showHideButtonHandler(clickEvent) {
     const columnsContainer = domManager.getParent(
         `.board[data-board-id="${boardId}"] > .board-columns`
     );
-    if (columnsContainer.innerHTML.length > 0) {
-    } else {
+    if (!columnsContainer.innerHTML.length) {
         statusManager.loadStatuses(boardId);
         cardsManager.loadCards(boardId);
         modalManager.loadNewStatusModal(boardId);

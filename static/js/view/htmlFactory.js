@@ -1,3 +1,9 @@
+const uppper = (text) =>
+    text
+        .split(" ")
+        .map((word) => word[0].toUpperCase() + word.slice(1))
+        .join(" ");
+
 export const htmlTemplates = {
     board: 1,
     card: 2,
@@ -5,8 +11,8 @@ export const htmlTemplates = {
     newBoardBtn: 4,
     modal: 5,
     colBtn: 6,
-    oneInputForm:7,
-    InputWithCheckButtons: 8
+    oneInputForm: 7,
+    InputWithCheckButtons: 8,
 };
 
 export const builderFunctions = {
@@ -17,7 +23,7 @@ export const builderFunctions = {
     [htmlTemplates.modal]: newBoardModalBuilder,
     [htmlTemplates.colBtn]: colBtnBuilder,
     [htmlTemplates.oneInputForm]: oneInputForm,
-    [htmlTemplates.InputWithCheckButtons]: InputWithCheckButtons
+    [htmlTemplates.InputWithCheckButtons]: InputWithCheckButtons,
 };
 
 export function htmlFactory(template) {
@@ -27,116 +33,184 @@ export function htmlFactory(template) {
 
     console.error("Undefined template: " + template);
 
-    return () => {
-        return "";
-    };
+    return () => "";
 }
 
 function boardBuilder(board) {
     return `
-        <div class="board-container mb-5">
-                <section class="board" data-board-id=${board.id}>
-                    <div class="board board-title" data-board-id=${board.id}>${board.title}</div>
-                    <button type="button" id="edit-board-button-${board.id}" class="edit-board-button"
-                        data-bs-toggle="modal" data-bs-target="#edit-title-board-modal-${board.id}">
-                            <img src="./static/assets/edit-btn.png" alt="edit btn">
-                    </button>
-                    <button class="toggle-board-button btn btn-success" data-board-id="${board.id}">Show Cards</button>
-                    <div class="board-columns"></div>
-                </section>
+<div class="board-container mb-5">
+    <section class="board" data-board-id="${board.id}">
+        <div class="board board-title" data-board-id="${board.id}">
+            ${board.title}
         </div>
-    `
+        <button
+            type="button"
+            id="edit-board-button-${board.id}"
+            class="edit-board-button"
+            data-bs-toggle="modal"
+            data-bs-target="#edit-title-board-modal-${board.id}"
+        >
+            <img src="./static/assets/edit-btn.png" alt="edit btn" />
+        </button>
+        <button
+            class="toggle-board-button btn btn-success"
+            data-board-id="${board.id}"
+        >
+            Show Cards
+        </button>
+        <div class="board-columns"></div>
+    </section>
+</div>
+    `;
 }
 
 function cardBuilder(card) {
-    return `<div class="card" data-card-id="${card.id}" draggable="true" data-cardstatus="${card.status_id}" >${card.title}</div>`;
+    return `
+<div
+    class="card"
+    data-card-id="${card.id}"
+    draggable="true"
+    data-cardstatus="${card.status_id}"
+>
+    ${card.title}
+</div>
+`;
 }
 
 function colBoardBuilder(status) {
     return `
-        <div class="board-column">
-            <div class="board-column-title" data-idstatus="${status.id}">${
-                status.title[0].toUpperCase() + status.title.substring(1)
-            }</div>
-                <div class="board-column-content" data-idstatus="${status.id}"></div>
-            </div>
-        </div>
+<div class="board-column">
+    <div class="board-column-title" data-idstatus="${status.id}">
+        ${upper(status.title)}
+    </div>
+    <div class="board-column-content" data-idstatus="${status.id}"></div>
+</div>
 `;
 }
 
 function newBtnBuilder(config) {
     return `
-        <button type="button" id=${config.id} class="${config.class}"
-            ${JSON.stringify(config.modal) ? config.modal : null}
-        >
-<!--        data-bs-toggle="modal" data-bs-target="#new-board-modal">-->
-            ${config.name ? config.name : `<img src="${config.src}" alt="edit btn">`}
-        </button>
+<button
+    type="button"
+    id="${config.id}"
+    class="${config.class}"
+    ${JSON.stringify(config.modal) ? config.modal : null}
+>
+    ${ config.name ? config.name : `<img src="${config.src}" alt="edit btn" />` }
+</button>
     `;
 }
 
 function newBoardModalBuilder(config) {
     return `
-        <div class="modal fade" id="${config.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">${config.title}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body" id="modal-body-${config.id}">
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
+<div
+    class="modal fade"
+    id="${config.id}"
+    tabindex="-1"
+    aria-labelledby="modal-${config.id}-title"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-${config.id}-title">
+                    ${config.title}
+                </h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
             </div>
-          </div>
+            <div class="modal-body" id="modal-body-${config.id}"></div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Close
+                </button>
+            </div>
         </div>
+    </div>
+</div>
+
     `;
 }
 
 function colBtnBuilder(board) {
     return `
-        <button id="add-column-btn-${board.id}"  class="add-column-btn btn btn-success" data-board-id="${board}"
-        data-bs-toggle="modal" data-bs-target="#add-column-modal-${board.id}"
-        >Add Column</button>
+<button
+    id="add-column-btn-${board.id}"
+    class="add-column-btn btn btn-success"
+    data-board-id="${board}"
+    data-bs-toggle="modal"
+    data-bs-target="#add-column-modal-${board.id}"
+>
+    Add Column
+</button>
+
     `;
 }
 
 function oneInputForm(config) {
     return `
-    <form id="${config.formId}" action=${config.formApi} method="post">
-          <div class="mb-3">
-            <label for="title" class="col-form-label">${config.label}</label>
-            <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-    </form>
-    `
-}
+<form id="${config.formId}" action="${config.formApi}" method="post">
+    <div class="mb-3">
+        <label for="title" class="col-form-label">${config.label}</label>
+        <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            maxlength="15"
+            required
+        />
+    </div>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+</form>
 
+    `;
+}
 
 function InputWithCheckButtons(config) {
-        return `
-            <form id="${config.formId}" action=${config.formApi} method="post">
-              <div class="mb-3">
-                <label for="title" class="col-form-label">${config.label}</label>
-                <input type="text" class="form-control" id="title" name="title" maxlength="15" required>
-              </div>
-                ${config.statuses.map(createRadioBnt).join("")}
-              <button type="submit" class="btn btn-primary">Save changes</button>
-            </form>
-    `
+    return `
+<form id="${config.formId}" action="${config.formApi}" method="post">
+    <div class="mb-3">
+        <label for="title" class="col-form-label">${ config.label }</label>
+        <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            maxlength="15"
+            required
+        />
+    </div>
+    ${ config.statuses.map(createRadioBnt).join("") }
+    <button type="submit" class="btn btn-primary">Save changes</button>
+</form>
+
+    `;
 }
 
-
 function createRadioBnt(status, index) {
-    return `<div class="form-check">
-                <input class="form-check-inpu" type="radio" name="status" id="flexRadioDefault2" value="${index + 1}" required>
-                <label class="form-check-labe" for="flexRadioDefault">
-                    ${status.title}
-                </label>
-            </div>
-    `
+    return `
+<div class="form-check">
+    <input
+        class="form-check-input"
+        type="radio"
+        name="status"
+        id="status-${status}-${ index + 1 }-radio-btn"
+        value="${ index + 1 }"
+        required
+    />
+    <label class="form-check-label" for="status-${status}-${ index + 1 }-radio-btn">
+        ${status.title}
+    </label>
+</div>
+
+    `;
 }

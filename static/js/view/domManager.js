@@ -1,10 +1,12 @@
 export let domManager = {
-    addChild(parentIdentifier, childContent, position="beforeend") {
+    addChild(parentIdentifier, childContent, position = "beforeend") {
         const parent = document.querySelector(parentIdentifier);
         if (parent) {
             parent.insertAdjacentHTML(position, childContent);
         } else {
-            console.error("could not find such html element: " + parentIdentifier);
+            console.error(
+                "could not find such html element: " + parentIdentifier
+            );
         }
     },
     addEventListener(parentIdentifier, eventType, eventHandler) {
@@ -12,7 +14,9 @@ export let domManager = {
         if (parent) {
             parent.addEventListener(eventType, eventHandler);
         } else {
-            console.error("could not find such html element: " + parentIdentifier);
+            console.error(
+                "could not find such html element: " + parentIdentifier
+            );
         }
     },
     removeChild(parentIdentifier, childContent) {
@@ -21,7 +25,9 @@ export let domManager = {
         if (parent) {
             child.remove();
         } else {
-            console.error("could not find such html element: " + parentIdentifier);
+            console.error(
+                "could not find such html element: " + parentIdentifier
+            );
         }
     },
     getParent(parentIdentifier) {
@@ -29,7 +35,9 @@ export let domManager = {
         if (parent) {
             return parent;
         } else {
-            console.error("could not find such html element: " + parentIdentifier);
+            console.error(
+                "could not find such html element: " + parentIdentifier
+            );
         }
     },
 
@@ -38,24 +46,25 @@ export let domManager = {
         if (child) {
             return child;
         } else {
-            console.error("could not find such html element: " + childIdentifier);
+            console.error(
+                "could not find such html element: " + childIdentifier
+            );
         }
     },
 
     clearElement(element) {
-        document.querySelector(element).innerHTML = ""
+        document.querySelector(element).innerHTML = "";
     },
 
     removeBoard(element) {
-        document.querySelector(element).parentNode.remove()
+        document.querySelector(element).parentNode.remove();
     },
 
     removeCard(element) {
-        document.querySelector(element).remove()
-
+        document.querySelector(element).remove();
     },
 
     addClassToParent(element, className) {
-        document.querySelector(element).parentNode.classList.add(className)
-    }
+        document.querySelector(element).parentNode.classList.add(className);
+    },
 };
