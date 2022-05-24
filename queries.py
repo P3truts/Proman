@@ -115,3 +115,10 @@ def insert_status(title):
 def get_status():
     return data_manager.execute_select("SELECT * FROM statuses ORDER BY id DESC LIMIT 1;")
 
+
+def insert_user(user):
+    return data_manager.execute_select(
+        "INSERT INTO users (username, password) VALUES(%(username)s, %(password)s)",
+        {"username": user["username"], "password": user["password"]},
+        fetchall=False
+    )

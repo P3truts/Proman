@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request
+import psycopg2
+from flask import Flask, render_template, request, url_for, redirect, flash
 from util import json_response, get_submitted_data
 import mimetypes
 import queries
+import password_handling
 
 mimetypes.add_type("application/javascript", ".js")
 app = Flask(__name__)
+app.secret_key = "aslkghcaslkchfmkjguhlxamsczgflixskdxhrkfu"
 
 
 @app.route("/")
@@ -93,20 +96,19 @@ def register_user():
         "username": request.form["user"],
         "password": request.form["password"],
     }
-    # try:
-    #     if not user["username"] or not user["password"]:
-    #         raise ValueError()
-    #     user["password"] = password_handling.hash_password(user["password"])
-    #     data_manger.insert_user(user)
-    #     flash("Successful registration. Log in to continue!")
-    #     return redirect(url_for("login"))
-    # except ValueError:
-    #     flash("Please, fill in both fields")
-    #     return render_template("registration.html")
-    # except psycopg2.Error as e:
-    #     error = e.pgcode
-    #     flash("User already registered")
-    #     return render_template("registration.html")
+    try:
+        if not user["username"] or not user["password"]:
+            raise ValueError()
+        user["password"] = password_handling.hash_password(user["password"])
+        queries.insert_user(user)
+        return redirect(url_for("index"))
+    except ValueError:
+        flash("Please, fill in both fields")
+        return render_template("registration.html")
+    except psycopg2.Error as e:
+        error = e.pgcode
+        flash("User already registered")
+        return render_template("registration.html")
 
 
 @app.post("/api/new-status")
