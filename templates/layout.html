@@ -62,16 +62,20 @@
                   <a class="nav-link" href="#">Contact</a>
                 </li>
               </ul>
-            <button type="button" class="btn btn-success me-3">
-                  <a class="nav-link active" aria-current="page" href="{{ url_for("registration") }}">
-                      Registration
-                  </a>
-            </button>
-             <button type="button" class="btn btn-success">
-                  <a class="nav-link active" aria-current="page" href="{{ url_for("login") }}">
-                      Login
-                  </a>
-            </button>
+            {% if user %}
+                <div>Hi, {{ user }}</div>
+            {% else %}
+                <button type="button" class="btn btn-success me-3">
+                      <a class="nav-link active" aria-current="page" href="{{ url_for("registration") }}">
+                          Registration
+                      </a>
+                </button>
+                 <button type="button" class="btn btn-success">
+                      <a class="nav-link active" aria-current="page" href="{{ url_for("login") }}">
+                          Login
+                      </a>
+                </button>
+            {% endif %}
             </div>
           </div>
         </nav>
