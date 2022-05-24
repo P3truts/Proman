@@ -138,7 +138,7 @@ def update_status(status_id, status_title):
         SET title = %(status_title)s
         WHERE id = %(status_id)s;
         """,
-            { "status_id": status_id,"status_title": status_title.strip() },
+            { "status_id": status_id,"status_title": status_title },
             fetchall=False,
     )
 
