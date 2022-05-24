@@ -18,12 +18,7 @@ export let statusManager = {
                 "click",
                 showHideButtonHandler
             );
-            domManager.addEventListener(
-            `.board[data-board-id="${boardId}"] > .board-columns > .board-column > 
-            .board-column-title[data-idstatus="${status.id}"]`,
-            "dblclick",
-            () => $(`#edit-column-modal-${boardId}`).modal("show")
-            );
+            addEditEvent(boardId, status);
         });
 
         domManager.addChild(
@@ -56,22 +51,17 @@ export let statusManager = {
                 `.board[data-board-id="${boardId}"] > .board-columns`,
                 htmlFactory(htmlTemplates.colBoard)(status)
             );
-            domManager.addEventListener(
-            `.board[data-board-id="${boardId}"] > .board-columns > .board-column > 
-            .board-column-title[data-idstatus="${status.id}"]`,
-            "dblclick",
-            () => $(`#edit-column-modal-${boardId}`).modal("show")
-            );
+            addEditEvent(boardId, status);
         });
     },
-    updateStatusTitle: async function(boardId, status) {
-        domManager.removeElement(`.board[data-board-id="${boardId}"] > .board-columns > .board-column > 
-            .board-column-title[data-idstatus="${status.id}"]`);
-        domManager.addChild(
-            `.board[data-board-id="${boardId}"] > .board-columns`,
-            htmlFactory(htmlTemplates.colBoard)(status)
-        );
-    }
+    // updateStatusTitle: async function(boardId, status) {
+    //     domManager.removeElement(`.board[data-board-id="${boardId}"] > .board-columns > .board-column >
+    //         .board-column-title[data-idstatus="${status.id}"]`);
+    //     domManager.addChild(
+    //         `.board[data-board-id="${boardId}"] > .board-columns`,
+    //         htmlFactory(htmlTemplates.colBoard)(status)
+    //     );
+    // }
 };
 
 function showHideButtonHandler(clickEvent) {
@@ -91,6 +81,19 @@ function showHideButtonHandler(clickEvent) {
 //     await statusManager.loadNewStatus(boardId);
 // }
 
-function editStatusTitle(dblclickEvent) {
-    const statusTitle = dblclickEvent.target.dataset.statusId;
+
+function addEditEvent(boardId, status) {
+        // domManager.addEventListener(
+        // `.board[data-board-id="${boardId}"] > .board-columns > .board-column >
+        // .board-column-title[data-idstatus="${status.id}"]`,
+        // "dblclick",
+        // () => $(`#edit-column-modal-${boardId}`).modal("show")
+        // );
+        domManager.addEventListener(`.board-column-title[data-idstatus="${status.id}"]`,
+            'input', async function() {
+                await dataHandler.editStatus({ id: status.id, title: this.innerHTML });
+                console.log(this.innerHTML);
+            }
+        );
 }
+

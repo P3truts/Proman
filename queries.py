@@ -130,3 +130,21 @@ def get_user(user):
         {"username": user},
         fetchall=False
     )
+
+
+def update_status(status_id, status_title):
+    return data_manager.execute_select(
+        """
+            UPDATE statuses
+            SET title = %(status_title)s
+            WHERE id = %(status_id)s
+            RETURNING id, title;
+        """,
+        {
+            "status_id": status_id,
+            "status_title": status_title.strip(),
+        },
+        fetchall=False,
+    )
+
+

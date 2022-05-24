@@ -144,8 +144,12 @@ def new_status():
 @app.get("/api/status")
 @json_response
 def get_api_status():
-    h = queries.get_status()
     return queries.get_status()
+
+
+@app.post("/api/edit-status/<status_id>/<status_title>")
+def edit_status(status_id, status_title):
+    return queries.update_status(status_id, status_title)
 
 
 def main():

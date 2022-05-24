@@ -82,7 +82,7 @@ function cardBuilder(card) {
 function colBoardBuilder(status) {
     return `
 <div class="board-column">
-    <div class="board-column-title" data-idstatus="${status.id}">
+    <div contenteditable="true" class="board-column-title" data-idstatus="${status.id}">
         ${upper(status.title)}
     </div>
     <div class="board-column-content" data-idstatus="${status.id}"></div>

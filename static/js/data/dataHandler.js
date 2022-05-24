@@ -49,6 +49,11 @@ export let dataHandler = {
     getStatus: async function () {
         return await apiGet("/api/status");
     },
+    editStatus: async function (payload) {
+        // creates new status column, saves it and calls the callback function with its data
+        return await apiPost(`/api/edit-status/${payload.id}/${payload.title}`, payload);
+    },
+
 };
 
 async function apiGet(url) {

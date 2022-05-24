@@ -214,7 +214,7 @@ async function insertStatus(event, boardId) {
 
     const title = event.target.title.value;
     try {
-        await dataHandler.createNewStatus({ title: title });
+        await dataHandler.createNewStatus({ title: title.trim() });
         $(`#add-column-modal-${boardId}`).modal("hide");
         await statusManager.loadNewStatus(boardId);
     } catch (error) {
