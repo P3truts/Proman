@@ -1,6 +1,6 @@
 import psycopg2
 from flask import Flask, render_template, request, url_for, redirect, flash, session
-from util import json_response, get_submitted_data, get_verified_user
+from util import json_response, get_submitted_data, get_verified_user, get_logged_user
 import mimetypes
 import queries
 import password_handling
@@ -15,7 +15,8 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    return render_template("index.html")
+    user = get_logged_user(session, "user")
+    return render_template("index.html", user=user)
 
 
 @app.get("/api/boards")
@@ -128,7 +129,7 @@ def login_user():
     if is_verified_user:
         if "username" not in session:
             session["user"] = user["username"]
-            return redirect(url_for("login"))
+            return redirect(url_for("index"))
     else:
         flash("Wrong username or password")
         return render_template("login.html")

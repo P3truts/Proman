@@ -29,3 +29,7 @@ def get_verified_user(user):
             return user_db
     else:
         return False
+
+
+def get_logged_user(session, user):
+    return session[user] if user in session else None
