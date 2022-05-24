@@ -1,4 +1,4 @@
-const uppper = (text) =>
+const upper = (text) =>
     text
         .split(" ")
         .map((word) => word[0].toUpperCase() + word.slice(1))
