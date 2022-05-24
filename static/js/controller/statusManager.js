@@ -18,6 +18,12 @@ export let statusManager = {
                 "click",
                 showHideButtonHandler
             );
+            domManager.addEventListener(
+            `.board[data-board-id="${boardId}"] > .board-columns > .board-column > 
+            .board-column-title[data-idstatus="${status.id}"]`,
+            "dblclick",
+            () => $(`#edit-column-modal-${boardId}`).modal("show")
+            );
         });
 
         domManager.addChild(
@@ -36,6 +42,10 @@ export let statusManager = {
             `.board[data-board-id="${boardId}"]`,
             `.add-column-btn[data-board-id="${boardId}"]`
         );
+        domManager.removeChild(
+            `.board[data-board-id="${boardId}"]`,
+            `#edit-column-modal-${boardId}`
+        );
         buttonManager.removeBtn(boardId);
         container.innerHTML = "";
     },
@@ -46,8 +56,22 @@ export let statusManager = {
                 `.board[data-board-id="${boardId}"] > .board-columns`,
                 htmlFactory(htmlTemplates.colBoard)(status)
             );
+            domManager.addEventListener(
+            `.board[data-board-id="${boardId}"] > .board-columns > .board-column > 
+            .board-column-title[data-idstatus="${status.id}"]`,
+            "dblclick",
+            () => $(`#edit-column-modal-${boardId}`).modal("show")
+            );
         });
     },
+    updateStatusTitle: async function(boardId, status) {
+        domManager.removeElement(`.board[data-board-id="${boardId}"] > .board-columns > .board-column > 
+            .board-column-title[data-idstatus="${status.id}"]`);
+        domManager.addChild(
+            `.board[data-board-id="${boardId}"] > .board-columns`,
+            htmlFactory(htmlTemplates.colBoard)(status)
+        );
+    }
 };
 
 function showHideButtonHandler(clickEvent) {
@@ -66,3 +90,7 @@ function showHideButtonHandler(clickEvent) {
 //     const boardId = clickEvent.target.dataset.boardId;
 //     await statusManager.loadNewStatus(boardId);
 // }
+
+function editStatusTitle(dblclickEvent) {
+    const statusTitle = dblclickEvent.target.dataset.statusId;
+}

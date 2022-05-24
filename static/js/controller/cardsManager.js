@@ -14,7 +14,7 @@ export let cardsManager = {
 
     updateTitleCard: function (card, boardId) {
         removeModal(card.id)
-        domManager.removeCard(`.card[data-card-id="${card.id}"]`);
+        domManager.removeElement(`.card[data-card-id="${card.id}"]`);
         createCard(card, boardId);
         document
             .querySelector(`.card[data-card-id="${card.id}"]`)

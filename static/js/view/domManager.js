@@ -60,7 +60,7 @@ export let domManager = {
         document.querySelector(element).parentNode.remove();
     },
 
-    removeCard(element) {
+    removeElement(element) {
         document.querySelector(element).remove();
     },
 

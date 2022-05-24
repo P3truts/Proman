@@ -105,6 +105,27 @@ export let modalManager = {
         );
     },
 
+    loadEditStatusModal: function (boardId) {
+        const config = {
+            id: `edit-column-modal-${boardId}`,
+            title: "Edit Column",
+            formApi: "/api/edit-status",
+            formId: "form-edit-status",
+            parent: "#board-modal-div",
+            label: "Edit Status Title",
+        };
+
+        createModal(config);
+        formManager.oneInputModal(config);
+        domManager.addEventListener(
+            `#${config.formId}`,
+            "submit",
+            async(event) => {
+                await insertStatus(event, boardId)
+            }
+        );
+    },
+
     // loadUserRegistrationModal: function() {
     //       const config = {
     //         id: "user-registration-modal",

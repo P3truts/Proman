@@ -56,5 +56,6 @@ function showHideButtonHandler(clickEvent) {
         statusManager.loadStatuses(boardId);
         cardsManager.loadCards(boardId);
         modalManager.loadNewStatusModal(boardId);
+        modalManager.loadEditStatusModal(boardId);
     }
 }
