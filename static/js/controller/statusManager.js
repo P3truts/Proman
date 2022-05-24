@@ -34,12 +34,9 @@ export let statusManager = {
     clearColumnsHTML: function (boardId, container) {
         domManager.removeChild(
             `.board[data-board-id="${boardId}"]`,
-            `.add-card-btn`
-        );
-        domManager.removeChild(
-            `.board[data-board-id="${boardId}"]`,
             `.add-column-btn[data-board-id="${boardId}"]`
         );
+        buttonManager.removeBtn(boardId);
         container.innerHTML = "";
     },
     loadNewStatus: async function (boardId) {
@@ -58,12 +55,10 @@ function showHideButtonHandler(clickEvent) {
     const columnsContainer = domManager.getParent(
         `.board[data-board-id="${boardId}"] > .board-columns`
     );
+    domManager.removeChild('#board-modal-div', `#add-column-modal-${boardId}`)
     if (columnsContainer && !!columnsContainer.innerHTML.length) {
         statusManager.clearColumnsHTML(boardId, columnsContainer);
     }
-    domManager.removeChild(`#add-column-modal-${boardId}`, '#form-new-status');
-
-    // buttonManager.removeBtn(boardId);
 
 }
 
