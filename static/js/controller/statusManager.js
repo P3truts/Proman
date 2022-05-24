@@ -62,6 +62,8 @@ function showHideButtonHandler(clickEvent) {
     if (columnsContainer && !!columnsContainer.innerHTML.length) {
         statusManager.clearColumnsHTML(boardId, columnsContainer);
     }
+    buttonManager.removeBtn(boardId)
+
 }
 
 // async function addColBtnHandler(clickEvent) {
