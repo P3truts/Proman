@@ -8,7 +8,7 @@ export let dataHandler = {
     getStatuses: async function () {
         return await apiGet("/api/statuses");
     },
-    getStatus: async function (statusId) {
+    getCardStatus: async function (statusId) {
         return await apiGet(`/api/card_status/${statusId}/`);
     },
     getCardsByBoardId: async function (boardId) {
@@ -41,6 +41,13 @@ export let dataHandler = {
             `/api/update-card/${payload.id}/${payload.status}`,
             payload
         );
+    },
+    createNewStatus: async function (payload) {
+        // creates new status column, saves it and calls the callback function with its data
+        return await apiPost("/api/new-status", payload);
+    },
+    getStatus: async function () {
+        return await apiGet("/api/status");
     },
 };
 

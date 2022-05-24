@@ -16,6 +16,5 @@ def json_response(func):
     return decorated_function
 
 
-
 def get_submitted_data(key):
     return request.json.get(key) if request.is_json else request.form.get(key)

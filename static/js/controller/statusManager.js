@@ -25,19 +25,32 @@ export let statusManager = {
             htmlFactory(htmlTemplates.colBtn)(boardId)
         );
 
-        domManager.addEventListener(
-            `.add-column-btn[data-board-id="${boardId}"]`,
-            "click",
-            addColBtnHandler
-        );
+        // domManager.addEventListener(
+        //     `.add-column-btn[data-board-id="${boardId}"]`,
+        //     "click",
+        //     addColBtnHandler
+        // );
     },
-
-    clearColumnsHTML: async function (boardId, container) {
+    clearColumnsHTML: function (boardId, container) {
+        domManager.removeChild(
+            `.board[data-board-id="${boardId}"]`,
+            `.add-card-btn`
+        );
         domManager.removeChild(
             `.board[data-board-id="${boardId}"]`,
             `.add-column-btn[data-board-id="${boardId}"]`
         );
         container.innerHTML = "";
+    },
+    loadNewStatus: async function (boardId) {
+        const newStatus = await dataHandler.getStatus();
+        console.log(newStatus);
+        newStatus.forEach((status) => {
+            domManager.addChild(
+                `.board[data-board-id="${boardId}"] > .board-columns`,
+                htmlFactory(htmlTemplates.colBoard)(status)
+            );
+        });
     },
 };
 
@@ -53,6 +66,7 @@ function showHideButtonHandler(clickEvent) {
 
 }
 
-function addColBtnHandler(clickEvent) {
-    const boardId = clickEvent.target.dataset.boardId;
-}
+// async function addColBtnHandler(clickEvent) {
+//     const boardId = clickEvent.target.dataset.boardId;
+//     await statusManager.loadNewStatus(boardId);
+// }

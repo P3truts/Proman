@@ -26,7 +26,7 @@ def get_boards():
 
 @app.get("/api/statuses")
 @json_response
-def get_api():
+def get_statuses():
     return queries.get_statuses()
 
 
@@ -107,6 +107,19 @@ def register_user():
     #     error = e.pgcode
     #     flash("User already registered")
     #     return render_template("registration.html")
+
+
+@app.post("/api/new-status")
+def new_status():
+    title = get_submitted_data("title")
+    return queries.insert_status(title)
+
+
+@app.get("/api/status")
+@json_response
+def get_api_status():
+    h = queries.get_status()
+    return queries.get_status()
 
 
 def main():

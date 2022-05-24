@@ -102,3 +102,16 @@ def update_card_status(id, status_id):
         },
         fetchall=False,
     )
+
+
+def insert_status(title):
+    return data_manager.execute_select(
+        "INSERT INTO statuses (title) VALUES (%(title)s) RETURNING id, title;",
+        {"title": title},
+        fetchall=False,
+    )
+
+
+def get_status():
+    return data_manager.execute_select("SELECT * FROM statuses ORDER BY id DESC LIMIT 1;")
+

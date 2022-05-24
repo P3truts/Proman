@@ -4,6 +4,7 @@ import { dataHandler } from "../data/dataHandler.js";
 import { boardsManager } from "./boardsManager.js";
 import { cardsManager } from "./cardsManager.js";
 import { formManager } from "./formManager.js";
+import {statusManager} from "./statusManager.js";
 
 export let modalManager = {
     loadNewBordModal: function () {
@@ -83,9 +84,9 @@ export let modalManager = {
             }
         );
     },
-    loadNewStatusModal: function () {
+    loadNewStatusModal: function (boardId) {
         const config = {
-            id: "new-status-modal",
+            id: `add-column-modal-${boardId}`,
             title: "Add Column",
             formApi: "/api/new-status",
             formId: "form-new-status",
@@ -98,7 +99,9 @@ export let modalManager = {
         domManager.addEventListener(
             `#${config.formId}`,
             "submit",
-            insertStatus
+            async(event) => {
+                await insertStatus(event, boardId)
+            }
         );
     },
 
@@ -185,16 +188,17 @@ async function insertCard(event, config, boardId) {
     }
 }
 
-async function insertStatus(event) {
+async function insertStatus(event, boardId) {
     event.preventDefault();
 
     const title = event.target.title.value;
     try {
-        const newStatus = await dataHandler.createNewStatus({ title: title });
-        $("#new-status-modal").modal("hide");
-        await statussManager.loadNewStatus(newStatus);
+        await dataHandler.createNewStatus({ title: title });
+        $(`#add-column-modal-${boardId}`).modal("hide");
+        await statusManager.loadNewStatus(boardId);
     } catch (error) {
-        alert("!We have encountered some error: Retry to create a new board");
+        alert("!We have encountered some error: Retry to create a new status column");
+        console.log(error);
     }
 }
 
