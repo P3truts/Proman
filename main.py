@@ -1,6 +1,6 @@
 import psycopg2
-from flask import Flask, render_template, request, url_for, redirect, flash
-from util import json_response, get_submitted_data
+from flask import Flask, render_template, request, url_for, redirect, flash, session
+from util import json_response, get_submitted_data, get_verified_user
 import mimetypes
 import queries
 import password_handling
@@ -109,6 +109,29 @@ def register_user():
         error = e.pgcode
         flash("User already registered")
         return render_template("registration.html")
+
+
+@app.get("/login")
+def login():
+    return render_template("login.html")
+
+
+@app.post("/login")
+def login_user():
+    user = {
+        "username": request.form["user"],
+        "password": request.form["password"]
+    }
+
+    is_verified_user = get_verified_user(user)
+
+    if is_verified_user:
+        if "username" not in session:
+            session["user"] = user["username"]
+            return redirect(url_for("login"))
+    else:
+        flash("Wrong username or password")
+        return render_template("login.html")
 
 
 @app.post("/api/new-status")

@@ -122,3 +122,11 @@ def insert_user(user):
         {"username": user["username"], "password": user["password"]},
         fetchall=False
     )
+
+
+def get_user(user):
+    return data_manager.execute_select(
+        "SELECT * FROM users WHERE username=%(username)s",
+        {"username": user},
+        fetchall=False
+    )

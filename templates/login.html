@@ -1,0 +1,14 @@
+{% extends "registration.html" %}
+
+{% block load_script %}
+ <script
+    type="module"
+    src="{{ url_for('static', filename='js/login.js') }}"
+    defer
+></script>
+{% endblock %}
+
+{% block content %}
+     <div id="login-container" class="container-fluid d-flex justify-content-center">
+     </div>
+{% endblock %}
