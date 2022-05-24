@@ -140,14 +140,14 @@ function newBoardModalBuilder(config) {
     `;
 }
 
-function colBtnBuilder(board) {
+function colBtnBuilder(boardId) {
     return `
 <button
-    id="add-column-btn-${board.id}"
+    id="add-column-btn-${boardId}"
     class="add-column-btn btn btn-success"
-    data-board-id="${board}"
+    data-board-id="${boardId}"
     data-bs-toggle="modal"
-    data-bs-target="#add-column-modal-${board.id}"
+    data-bs-target="#add-column-modal-${boardId}"
 >
     Add Column
 </button>
