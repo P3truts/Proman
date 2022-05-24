@@ -1,7 +1,7 @@
 const upper = (text) =>
     text
         .split(" ")
-        .map((word) => word[0].toUpperCase() + word.slice(1))
+        .map((word) => (word[0]) ? (word[0].toUpperCase() + word.slice(1)) : (word.slice(1)))
         .join(" ");
 
 export const htmlTemplates = {
@@ -78,6 +78,8 @@ function cardBuilder(card) {
 }
 
 function colBoardBuilder(status) {
+    console.log(status);
+    console.log(status.title);
     return `
 <div class="board-column">
     <div class="board-column-title" data-idstatus="${status.id}">
