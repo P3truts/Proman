@@ -7,5 +7,13 @@ export const UserManager = {
             formApi: "/registration",
         }
         formManager.userPassword(config,"#registration-container")
+    },
+
+    loadUserLoginForm() {
+        const config = {
+            formId: "login-form",
+            formApi: "/login",
+        }
+        formManager.userPassword(config,"#login-container")
     }
 }
