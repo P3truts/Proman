@@ -104,6 +104,18 @@ export let modalManager = {
             }
         );
     },
+
+    // loadUserRegistrationModal: function() {
+    //       const config = {
+    //         id: "user-registration-modal",
+    //         title: "Registration",
+    //         formApi: "/api/new-status",
+    //         formId: "form-user-registration",
+    //         parent: "#board-modal-div",
+    //         label: "Status Title",
+    //     };
+    //       createModal(config);
+    // }
 };
 
 function createModal(config) {

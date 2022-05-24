@@ -82,6 +82,33 @@ def new_card():
     return queries.insert_card(board_id, status, title, order)
 
 
+@app.get("/registration")
+def registration():
+    return render_template("registration.html")
+
+
+@app.post("/registration")
+def register_user():
+    user = {
+        "username": request.form["user"],
+        "password": request.form["password"],
+    }
+    # try:
+    #     if not user["username"] or not user["password"]:
+    #         raise ValueError()
+    #     user["password"] = password_handling.hash_password(user["password"])
+    #     data_manger.insert_user(user)
+    #     flash("Successful registration. Log in to continue!")
+    #     return redirect(url_for("login"))
+    # except ValueError:
+    #     flash("Please, fill in both fields")
+    #     return render_template("registration.html")
+    # except psycopg2.Error as e:
+    #     error = e.pgcode
+    #     flash("User already registered")
+    #     return render_template("registration.html")
+
+
 @app.post("/api/new-status")
 def new_status():
     title = get_submitted_data("title")
