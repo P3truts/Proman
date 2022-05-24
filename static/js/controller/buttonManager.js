@@ -27,17 +27,16 @@ export let buttonManager = {
         domManager.addEventListener(`#${config.id}`, "click");
     },
 
-    loadUserRegistration: function (){
-        const config = {
-            id: "registration-btn",
-            class: "btn btn-success",
-            parent: "#navbarToggler",
-            modal:"",
-            name: "Registration"
-        }
-        const content = htmlFactory(htmlTemplates.newBoardBtn)(config);
-        domManager.addChild(config.parent, content);
-    },
+    // loadUserRegistration: function (){
+    //     const config = {
+    //         id: "registration-btn",
+    //         class: "btn btn-success",
+    //         parent: "#navbarToggler",
+    //         name: `<a class="nav-link active" aria-current="page" href="registration.html">Registration</a>`
+    //     }
+    //     const content = htmlFactory(htmlTemplates.newBoardBtn)(config);
+    //     domManager.addChild(config.parent, content);
+    // },
 
     removeBtn(boardId) {
      domManager.removeChild(

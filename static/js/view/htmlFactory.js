@@ -13,6 +13,7 @@ export const htmlTemplates = {
     colBtn: 6,
     oneInputForm: 7,
     InputWithCheckButtons: 8,
+    userPasswordForm: 9,
 };
 
 export const builderFunctions = {
@@ -24,6 +25,7 @@ export const builderFunctions = {
     [htmlTemplates.colBtn]: colBtnBuilder,
     [htmlTemplates.oneInputForm]: oneInputForm,
     [htmlTemplates.InputWithCheckButtons]: InputWithCheckButtons,
+    [htmlTemplates.userPasswordForm]: userPasswordForm,
 };
 
 export function htmlFactory(template) {
@@ -192,7 +194,22 @@ function InputWithCheckButtons(config) {
     ${ config.statuses.map(createRadioBnt).join("") }
     <button type="submit" class="btn btn-primary">Save changes</button>
 </form>
+`;
+}
 
+function userPasswordForm(config) {
+    return `
+    <form id="${config.formId}" action="${config.formApi}" method="post">
+      <div class="mb-3">
+        <label for="user" class="form-label">Username</label>
+        <input type="text" class="form-control" id="user" name="user">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
     `;
 }
 

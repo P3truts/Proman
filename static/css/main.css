@@ -12,6 +12,11 @@
     background-color: var(--green);
 }
 
+nav button a{
+    color: white !important;
+    text-decoration: none;
+}
+
 .board-container,
 .title-container {
     max-width: 960px;
