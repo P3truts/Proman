@@ -28,7 +28,7 @@ def get_cards_for_board(board_id):
 
 
 def get_statuses():
-    return data_manager.execute_select("SELECT * FROM statuses;")
+    return data_manager.execute_select("SELECT * FROM statuses ORDER BY id ASC;")
 
 
 def insert_board(title):
@@ -133,18 +133,13 @@ def get_user(user):
 
 
 def update_status(status_id, status_title):
-    return data_manager.execute_select(
-        """
-            UPDATE statuses
-            SET title = %(status_title)s
-            WHERE id = %(status_id)s
-            RETURNING id, title;
+    return data_manager.execute_select("""
+        UPDATE statuses
+        SET title = %(status_title)s
+        WHERE id = %(status_id)s;
         """,
-        {
-            "status_id": status_id,
-            "status_title": status_title.strip(),
-        },
-        fetchall=False,
+            { "status_id": status_id,"status_title": status_title.strip() },
+            fetchall=False,
     )
 
 
