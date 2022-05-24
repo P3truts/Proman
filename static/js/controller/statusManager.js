@@ -31,6 +31,7 @@ export let statusManager = {
             addColBtnHandler
         );
     },
+
     clearColumnsHTML: async function (boardId, container) {
         domManager.removeChild(
             `.board[data-board-id="${boardId}"]`,
@@ -48,6 +49,8 @@ function showHideButtonHandler(clickEvent) {
     if (columnsContainer && !!columnsContainer.innerHTML.length) {
         statusManager.clearColumnsHTML(boardId, columnsContainer);
     }
+    buttonManager.removeBtn(boardId)
+
 }
 
 function addColBtnHandler(clickEvent) {

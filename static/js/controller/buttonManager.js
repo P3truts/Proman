@@ -37,5 +37,14 @@ export let buttonManager = {
         }
         const content = htmlFactory(htmlTemplates.newBoardBtn)(config);
         domManager.addChild(config.parent, content);
+    },
+
+    removeBtn(boardId) {
+     domManager.removeChild(
+         `.board[data-board-id="${boardId}"]`,
+         `#add-card-btn-${boardId}`
+     );
     }
 };
+
+
