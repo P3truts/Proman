@@ -1,7 +1,7 @@
 import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
-import { modalManager } from "./modalManager.js";
+import { modalManager, removeModal } from "./modalManager.js";
 
 let dragItem = null;
 
@@ -13,6 +13,7 @@ export let cardsManager = {
     },
 
     updateTitleCard: function (card, boardId) {
+        removeModal(card.id)
         domManager.removeCard(`.card[data-card-id="${card.id}"]`);
         createCard(card, boardId);
         document
@@ -102,3 +103,4 @@ function createCard(card, boardId) {
 function checkCardStatus(statusId, cardStatus) {
     return statusId === cardStatus;
 }
+

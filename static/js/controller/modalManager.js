@@ -185,3 +185,11 @@ async function insertStatus(event) {
         alert("!We have encountered some error: Retry to create a new board");
     }
 }
+
+
+export function removeModal(cardId) {
+    const modal = document.querySelector(`#card_title_${cardId}`)
+    const parent = document.querySelector("#board-modal-div")
+    parent.removeChild(modal)
+
+}
