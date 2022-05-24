@@ -80,8 +80,6 @@ function cardBuilder(card) {
 }
 
 function colBoardBuilder(status) {
-    console.log(status);
-    console.log(status.title);
     return `
 <div class="board-column">
     <div class="board-column-title" data-idstatus="${status.id}">

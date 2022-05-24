@@ -44,7 +44,6 @@ export let statusManager = {
     },
     loadNewStatus: async function (boardId) {
         const newStatus = await dataHandler.getStatus();
-        console.log(newStatus);
         newStatus.forEach((status) => {
             domManager.addChild(
                 `.board[data-board-id="${boardId}"] > .board-columns`,
@@ -62,7 +61,9 @@ function showHideButtonHandler(clickEvent) {
     if (columnsContainer && !!columnsContainer.innerHTML.length) {
         statusManager.clearColumnsHTML(boardId, columnsContainer);
     }
-    buttonManager.removeBtn(boardId)
+    domManager.removeChild(`#add-column-modal-${boardId}`, '#form-new-status');
+
+    // buttonManager.removeBtn(boardId);
 
 }
 
