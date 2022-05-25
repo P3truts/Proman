@@ -149,13 +149,13 @@ def update_status(status_id, status_title):
        )
 
 
-def delete_board(board_id):
+def delete_board(board_id, user_id):
     return data_manager.execute_select("""
-        DELETE FROM  boards
-        WHERE id=%(board_id)s;
-        
         DELETE FROM cards
         WHERE board_id=%(board_id)s;
+        
+        DELETE FROM  boards
+        WHERE id=%(board_id)s;
     """,
         {"board_id": board_id},
         fetchall=False)
