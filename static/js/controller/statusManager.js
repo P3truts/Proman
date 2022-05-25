@@ -89,10 +89,25 @@ function addEditEvent(boardId, status) {
         // "dblclick",
         // () => $(`#edit-column-modal-${boardId}`).modal("show")
         // );
+        // domManager.addEventListener(`.board-column-title[data-idstatus="${status.id}"]`,
+        //     'input', async function() {
+        //         await dataHandler.editStatus({ id: status.id, title: this.innerHTML });
+        //         console.log(this.innerHTML);
+        //     }
+        // );
+        const title = domManager.getParent(`.board-column-title[data-idstatus="${status.id}"]`).innerText;
         domManager.addEventListener(`.board-column-title[data-idstatus="${status.id}"]`,
-            'input', async function() {
-                await dataHandler.editStatus({ id: status.id, title: this.innerHTML });
-                console.log(this.innerHTML);
+            'keydown', async function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    let statusId = (status.id).toString();
+                    let statusTitle = this.innerText;
+                    await dataHandler.editStatus({id: statusId, title: statusTitle });
+                    alert(`The new status title: "${this.innerText}" has been saved!`);
+                } else if (event.key === "Escape") {
+                    this.innerText = title;
+                    alert(`No changes have been saved!`);
+                }
             }
         );
 }
