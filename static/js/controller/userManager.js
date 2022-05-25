@@ -5,6 +5,7 @@ export const UserManager = {
         const config = {
             formId: "registration-form",
             formApi: "/registration",
+            confirmPassword: true
         }
         formManager.userPassword(config,"#registration-container")
     },
