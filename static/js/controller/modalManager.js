@@ -168,6 +168,7 @@ async function insertBoard(event) {
     try {
         const newBoard = await dataHandler.createNewBoard({ title: title });
         $("#new-board-modal").modal("hide");
+        $("#new-private-board-modal").modal("hide");
         await boardsManager.loadNewBoard(newBoard);
     } catch (error) {
         alert("!We have encountered some error: Retry to create a new board");
