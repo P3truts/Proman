@@ -48,7 +48,7 @@ async function createBoard(board, position, update = false) {
 }
 
 function editableTitleDiv(board) {
-     const titleDivValue = document.querySelector(`.board-title[data-board-id="${board.id}"]`).innerText
+    const titleDivValue = document.querySelector(`.board-title[data-board-id="${board.id}"]`).innerText
     domManager.addEventListener(`.board-title[data-board-id="${board.id}"]`, 'keyup',
         (event)=> getBoardTitle(event, board.id, titleDivValue))
 }

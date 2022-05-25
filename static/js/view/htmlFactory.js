@@ -68,7 +68,7 @@ function boardBuilder(board) {
 
 function cardBuilder(card) {
     return `
-<div
+<div contenteditable="true"
     class="card"
     data-card-id="${card.id}"
     draggable="true"
