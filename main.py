@@ -96,13 +96,15 @@ def register_user():
     user = {
         "username": request.form["user"],
         "password": request.form["password"],
+        "password2": request.form["password-confirm"]
     }
     try:
         if not user["username"] or not user["password"]:
             raise ValueError()
         user["password"] = password_handling.hash_password(user["password"])
         queries.insert_user(user)
-        return redirect(url_for("index"))
+        flash("Registration successful registration. Log in to continue!")
+        return redirect(url_for("login"))
     except ValueError:
         flash("Please, fill in both fields")
         return render_template("registration.html")

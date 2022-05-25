@@ -208,7 +208,14 @@ function userPasswordForm(config) {
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" id="password" name="password" required>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      ${config.confirmPassword ? `
+        <div class="mb-3">
+        <label for="password-confirm" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="password-confirm" name="password-confirm" required>
+      </div>
+      <div id="password-result"></div>
+      ` : ""}
+     <button id="password-btn" type="submit" class="btn btn-primary">Submit</button>
     </form>
     `;
 }
