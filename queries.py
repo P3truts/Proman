@@ -16,8 +16,14 @@ def get_card_status(status_id):
     )
 
 
-def get_boards():
-    return data_manager.execute_select("SELECT * FROM boards;")
+def get_boards(user_id):
+    if user_id:
+        return data_manager.execute_select("""
+        SELECT * FROM boards 
+        WHERE user_id='0' OR user_id=%(user_id)s ORDER BY id ASC;
+        """, {'user_id': user_id})
+    else:
+        return data_manager.execute_select("SELECT * FROM boards WHERE user_id='0' ORDER BY id ASC;")
 
 
 def get_cards_for_board(board_id):
@@ -31,10 +37,10 @@ def get_statuses():
     return data_manager.execute_select("SELECT * FROM statuses ORDER BY id ASC;")
 
 
-def insert_board(title):
+def insert_board(title, user_id):
     return data_manager.execute_select(
-        "INSERT INTO boards (title) VALUES (%(title)s) RETURNING id, title;",
-        {"title": title},
+        "INSERT INTO boards (title, user_id) VALUES (%(title)s, %(user_id)s) RETURNING id, title, user_id;",
+        {"title": title, "user_id": user_id},
         fetchall=False,
     )
 

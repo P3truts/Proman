@@ -25,7 +25,13 @@ def get_boards():
     """
     All the boards
     """
-    return queries.get_boards()
+    user = get_logged_user(session, "user")
+    if user:
+        user_data = queries.get_user(user)
+        user_id = user_data['user_id']
+    else:
+        user_id = False
+    return queries.get_boards(user_id)
 
 
 @app.get("/api/statuses")
@@ -47,7 +53,13 @@ def get_cards_for_board(board_id: int):
 @app.post("/api/new-board")
 def new_board():
     title = get_submitted_data("title")
-    return queries.insert_board(title)
+    user = get_logged_user(session, "user")
+    if user:
+        user_data = queries.get_user(user)
+        return queries.insert_board(title, user_data['user_id'])
+    else:
+        user_id = 0
+        return queries.insert_board(title, user_id)
 
 
 @app.get("/api/board/<board_id>")

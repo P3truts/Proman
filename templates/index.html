@@ -12,12 +12,12 @@
     <div class="container-fluid d-flex">
         <div class="title-container mb-5 d-inline-flex">
             <h1>Proman</h1>
+        {% if user %}
+            <div class="user-board-add"></div>
+        {% endif %}
         </div>
     </div>
 
-
     <div id="root"></div>
     <div id="board-modal-div"></div>
-
-
 {% endblock %}

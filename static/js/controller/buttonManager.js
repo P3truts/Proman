@@ -4,7 +4,7 @@ import { domManager } from "../view/domManager.js";
 export let buttonManager = {
     loadNewBoardBtn: function () {
         const config = {
-            name: "Add Board",
+            name: "Add Public Board",
             id: "new-board-button",
             class: "btn btn-primary",
             modal: 'data-bs-toggle="modal" data-bs-target="#new-board-modal"',
