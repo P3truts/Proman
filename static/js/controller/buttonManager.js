@@ -38,7 +38,23 @@ export let buttonManager = {
          `.board[data-board-id="${boardId}"]`,
          `#add-card-btn-${boardId}`
      );
-    }
+    },
+
+    loadNewPrivateBoardBtn: function () {
+        const config = {
+            name: "Add Private Board",
+            id: "new-private-board-button",
+            class: "btn btn-primary",
+            modal: 'data-bs-toggle="modal" data-bs-target="#new-private-board-modal"',
+        };
+        const content = htmlFactory(htmlTemplates.newBoardBtn)(config);
+        let container = domManager.getParent(".user-container");
+
+        if (container) {
+            domManager.addChild(".user-container", content);
+            domManager.addEventListener("#new-private-board-button", "click");
+        }
+    },
 };
 
 

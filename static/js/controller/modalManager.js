@@ -7,7 +7,7 @@ import { formManager } from "./formManager.js";
 import {statusManager} from "./statusManager.js";
 
 export let modalManager = {
-    loadNewBordModal: function () {
+    loadNewBoardModal: function () {
         const config = {
             id: "new-board-modal",
             title: "ADD BOARD",
@@ -136,7 +136,22 @@ export let modalManager = {
     //         label: "Status Title",
     //     };
     //       createModal(config);
-    // }
+    // },
+
+    loadNewPrivateBoardModal: function () {
+        const config = {
+            id: "new-private-board-modal",
+            title: "ADD PRIVATE BOARD",
+            formApi: "/api/new-board",
+            formId: "form-new-private-board",
+            parent: "#board-modal-div",
+            label: "Board Title",
+        };
+
+        createModal(config);
+        formManager.oneInputModal(config);
+        domManager.addEventListener(`#${config.formId}`, "submit", insertBoard);
+    },
 };
 
 function createModal(config) {

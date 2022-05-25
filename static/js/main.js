@@ -4,7 +4,9 @@ import { modalManager } from "./controller/modalManager.js";
 
 async function init() {
     buttonManager.loadNewBoardBtn();
-    modalManager.loadNewBordModal();
+    buttonManager.loadNewPrivateBoardBtn();
+    modalManager.loadNewBoardModal();
+    modalManager.loadNewPrivateBoardModal();
     await boardsManager.loadBoards();
 }
 
