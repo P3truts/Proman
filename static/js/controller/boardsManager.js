@@ -39,16 +39,18 @@ async function createBoard(board, position, update = false) {
     if (!update) {
         modalManager.loadEditBoardTitleModal(board.id);
     }
-
-    const titleDivValue = document.querySelector(`.board-title[data-board-id="${board.id}"]`).innerText
-    domManager.addEventListener(`.board-title[data-board-id="${board.id}"]`, 'keyup',
-        (event)=> getBoardTitle(event, board.id, titleDivValue))
-
+    editableTitleDiv(board)
     domManager.addEventListener(
         `.toggle-board-button[data-board-id="${board.id}"]`,
         "click",
         showHideButtonHandler
     );
+}
+
+function editableTitleDiv(board) {
+     const titleDivValue = document.querySelector(`.board-title[data-board-id="${board.id}"]`).innerText
+    domManager.addEventListener(`.board-title[data-board-id="${board.id}"]`, 'keyup',
+        (event)=> getBoardTitle(event, board.id, titleDivValue))
 }
 
 function showHideButtonHandler(clickEvent) {
