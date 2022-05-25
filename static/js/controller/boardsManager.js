@@ -21,7 +21,7 @@ export let boardsManager = {
 
     updateBoard: function (board) {
         domManager.removeBoard(`.board[data-board-id="${board.id}"]`);
-        createBoard(board, "beforeend", true);
+        createBoard(board, "beforebegin", true);
         domManager.addClassToParent(
             `.board[data-board-id="${board.id}"]`,
             "border-green"
@@ -40,6 +40,10 @@ async function createBoard(board, position, update = false) {
         modalManager.loadEditBoardTitleModal(board.id);
     }
 
+    const titleDivValue = document.querySelector(`.board-title[data-board-id="${board.id}"]`).innerText
+    domManager.addEventListener(`.board-title[data-board-id="${board.id}"]`, 'keyup',
+        (event)=> getBoardTitle(event, board.id, titleDivValue))
+
     domManager.addEventListener(
         `.toggle-board-button[data-board-id="${board.id}"]`,
         "click",
@@ -57,5 +61,29 @@ function showHideButtonHandler(clickEvent) {
         cardsManager.loadCards(boardId);
         modalManager.loadNewStatusModal(boardId);
         modalManager.loadEditStatusModal(boardId);
+    }
+}
+
+async function getBoardTitle(event, boardId, titleDivValue) {
+    if(event.key === "Enter") {
+        event.preventDefault()
+        await editBoardTitle(event, boardId)
+
+    } else if (event.key === "Escape") {
+        event.currentTarget.innerText =titleDivValue
+    }
+}
+
+async function editBoardTitle(event, boardId) {
+    event.preventDefault();
+    const title = event.currentTarget.innerText;
+    try {
+        const editedBoard = await dataHandler.updateBoardTitle({
+            id: boardId,
+            title: title,
+        });
+        await boardsManager.updateBoard(editedBoard);
+    } catch (error) {
+        alert("Operation was not successful! Please try again");
     }
 }

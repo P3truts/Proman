@@ -42,7 +42,7 @@ function boardBuilder(board) {
     return `
 <div class="board-container mb-5">
     <section class="board" data-board-id="${board.id}">
-        <div class="board board-title" data-board-id="${board.id}">
+        <div contenteditable="true" class="board board-title" data-board-id="${board.id}">
             ${board.title}
         </div>
         <button
