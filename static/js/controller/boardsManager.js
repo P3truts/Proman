@@ -4,6 +4,7 @@ import { domManager } from "../view/domManager.js";
 import { cardsManager } from "./cardsManager.js";
 import { statusManager } from "./statusManager.js";
 import { modalManager } from "./modalManager.js";
+import {buttonManager} from "./buttonManager.js";
 
 export let boardsManager = {
     loadBoards: async function () {
@@ -21,7 +22,7 @@ export let boardsManager = {
 
     updateBoard: function (board) {
         domManager.removeBoard(`.board[data-board-id="${board.id}"]`);
-        createBoard(board, "beforeend", true);
+        createBoard(board, "beforebegin", true);
         domManager.addClassToParent(
             `.board[data-board-id="${board.id}"]`,
             "border-green"
@@ -35,16 +36,23 @@ async function createBoard(board, position, update = false) {
     //  shorter alternative below
     const content = htmlFactory(htmlTemplates.board)(board);
     domManager.addChild("#root", content, position);
+    buttonManager.deleteBoardBtn(board)
     await modalManager.loadNewCardModal(board.id);
     if (!update) {
         modalManager.loadEditBoardTitleModal(board.id);
     }
-
+    ediTableTitleDiv(board)
     domManager.addEventListener(
         `.toggle-board-button[data-board-id="${board.id}"]`,
         "click",
         showHideButtonHandler
     );
+}
+
+function ediTableTitleDiv(board) {
+    const titleDivValue = document.querySelector(`.board-title[data-board-id="${board.id}"]`).innerText
+    domManager.addEventListener(`.board-title[data-board-id="${board.id}"]`, 'keydown',
+        (event)=> getBoardTitle(event, board.id, titleDivValue))
 }
 
 function showHideButtonHandler(clickEvent) {
@@ -57,5 +65,29 @@ function showHideButtonHandler(clickEvent) {
         cardsManager.loadCards(boardId);
         modalManager.loadNewStatusModal(boardId);
         modalManager.loadEditStatusModal(boardId);
+    }
+}
+
+async function getBoardTitle(event, boardId, titleDivValue) {
+    if(event.key === "Enter") {
+        event.preventDefault()
+        await editBoardTitle(event, boardId)
+
+    } else if (event.key === "Escape") {
+        event.currentTarget.innerText =titleDivValue
+    }
+}
+
+async function editBoardTitle(event, boardId) {
+    event.preventDefault();
+    const title = event.currentTarget.innerText;
+    try {
+        const editedBoard = await dataHandler.updateBoardTitle({
+            id: boardId,
+            title: title.trim(),
+        });
+        await boardsManager.updateBoard(editedBoard);
+    } catch (error) {
+        alert("Operation was not successful! Please try again");
     }
 }

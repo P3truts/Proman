@@ -42,17 +42,15 @@ function boardBuilder(board) {
     return `
 <div class="board-container mb-5">
     <section class="board" data-board-id="${board.id}">
-        <div class="board board-title" data-board-id="${board.id}">
+        <div contenteditable="true" class="board board-title" data-board-id="${board.id}">
             ${board.title}
         </div>
         <button
             type="button"
             id="edit-board-button-${board.id}"
             class="edit-board-button"
-            data-bs-toggle="modal"
-            data-bs-target="#edit-title-board-modal-${board.id}"
         >
-            <img src="./static/assets/edit-btn.png" alt="edit btn" />
+            <img src="./static/assets/delete.png" alt="delete btn" />
         </button>
         <button
             class="toggle-board-button btn btn-success"
@@ -68,7 +66,7 @@ function boardBuilder(board) {
 
 function cardBuilder(card) {
     return `
-<div
+<div contenteditable="true"
     class="card"
     data-card-id="${card.id}"
     draggable="true"

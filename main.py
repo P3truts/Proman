@@ -172,6 +172,12 @@ def edit_status(status_id, status_title):
     return queries.update_status(status_id, status_title)
 
 
+@app.delete("/api/board/<board_id>")
+@json_response
+def delete_board(board_id):
+    return queries.delete_board(int(board_id))
+
+
 def main():
     app.run(debug=True)
 

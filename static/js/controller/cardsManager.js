@@ -13,7 +13,7 @@ export let cardsManager = {
     },
 
     updateTitleCard: function (card, boardId) {
-        removeModal(card.id)
+        // removeModal(card.id)
         domManager.removeElement(`.card[data-card-id="${card.id}"]`);
         createCard(card, boardId);
         document
@@ -85,7 +85,8 @@ function createCard(card, boardId) {
         `.board[data-board-id="${boardId}"] > .board-columns > .board-column > .board-column-content[data-idstatus="${statusId}"]`,
         content
     );
-    modalManager.editCardTitle(card.id, boardId);
+    // modalManager.editCardTitle(card.id, boardId);
+    addEditCardTitle(card, boardId)
 
     domManager.addEventListener(
         `.card[data-card-id="${card.id}"]`,
@@ -103,4 +104,38 @@ function createCard(card, boardId) {
 function checkCardStatus(statusId, cardStatus) {
     return statusId === cardStatus;
 }
+
+
+function addEditCardTitle(card, boardId) {
+    const titleDivValue = document.querySelector(`.card[data-card-id="${card.id}"]`).innerText
+    domManager.addEventListener(`.card[data-card-id="${card.id}"]`, 'keyup',
+        (event)=> getBoardTitle(event, boardId, card.id, titleDivValue))
+}
+
+
+
+async function getBoardTitle(event, boardId,cardId, titleDivValue) {
+    if(event.key === "Enter") {
+        event.preventDefault()
+        await updateCardTitle(event, boardId, cardId)
+
+    } else if (event.key === "Escape") {
+        event.currentTarget.innerText =titleDivValue
+    }
+}
+
+async function updateCardTitle(event, boardId, cardId) {
+    event.preventDefault();
+    const title = event.currentTarget.innerText;
+        try {
+        const editedCard = await dataHandler.updateCardTitle({
+            id: cardId,
+            title: title,
+        });
+        await cardsManager.updateTitleCard(editedCard, boardId);
+    } catch (error) {
+        alert(error);
+    }
+}
+
 

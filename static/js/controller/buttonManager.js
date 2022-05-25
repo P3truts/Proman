@@ -1,5 +1,6 @@
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
+import {dataHandler} from "../data/dataHandler.js";
 
 export let buttonManager = {
     loadNewBoardBtn: function () {
@@ -27,16 +28,10 @@ export let buttonManager = {
         domManager.addEventListener(`#${config.id}`, "click");
     },
 
-    // loadUserRegistration: function (){
-    //     const config = {
-    //         id: "registration-btn",
-    //         class: "btn btn-success",
-    //         parent: "#navbarToggler",
-    //         name: `<a class="nav-link active" aria-current="page" href="registration.html">Registration</a>`
-    //     }
-    //     const content = htmlFactory(htmlTemplates.newBoardBtn)(config);
-    //     domManager.addChild(config.parent, content);
-    // },
+    deleteBoardBtn(board) {
+        domManager.addEventListener(`#edit-board-button-${board.id}`, "click",
+            async ()=>await deleteBoard(board.id))
+    },
 
     removeBtn(boardId) {
      domManager.removeChild(
@@ -45,5 +40,11 @@ export let buttonManager = {
      );
     }
 };
+
+
+async function deleteBoard(boardId) {
+    await dataHandler.deleteBoard(boardId)
+    domManager.removeBoard(`.board[data-board-id="${boardId}"]`);
+}
 
 
