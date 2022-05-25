@@ -75,6 +75,8 @@ async function apiPost(url, payload) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
     });
+    console.log(payload);
+    console.log(request);
     try {
         return await request.json();
     } catch (error) {
