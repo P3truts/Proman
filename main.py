@@ -135,6 +135,12 @@ def login_user():
         return render_template("login.html")
 
 
+@app.get("/logout")
+def logout():
+    session.pop("user", None)
+    return redirect(url_for('index'))
+
+
 @app.post("/api/new-status")
 def new_status():
     title = get_submitted_data("title")

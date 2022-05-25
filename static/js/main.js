@@ -8,4 +8,4 @@ async function init() {
     await boardsManager.loadBoards();
 }
 
-init();
+await init();
