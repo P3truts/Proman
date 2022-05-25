@@ -50,7 +50,7 @@ function boardBuilder(board) {
             id="edit-board-button-${board.id}"
             class="edit-board-button"
         >
-            <img src="./static/assets/edit-btn.png" alt="edit btn" />
+            <img src="./static/assets/delete.png" alt="delete btn" />
         </button>
         <button
             class="toggle-board-button btn btn-success"
