@@ -49,8 +49,6 @@ function boardBuilder(board) {
             type="button"
             id="edit-board-button-${board.id}"
             class="edit-board-button"
-            data-bs-toggle="modal"
-            data-bs-target="#edit-title-board-modal-${board.id}"
         >
             <img src="./static/assets/edit-btn.png" alt="edit btn" />
         </button>

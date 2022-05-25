@@ -4,6 +4,7 @@ import { domManager } from "../view/domManager.js";
 import { cardsManager } from "./cardsManager.js";
 import { statusManager } from "./statusManager.js";
 import { modalManager } from "./modalManager.js";
+import {buttonManager} from "./buttonManager.js";
 
 export let boardsManager = {
     loadBoards: async function () {
@@ -35,11 +36,12 @@ async function createBoard(board, position, update = false) {
     //  shorter alternative below
     const content = htmlFactory(htmlTemplates.board)(board);
     domManager.addChild("#root", content, position);
+    buttonManager.deleteBoardBtn(board)
     await modalManager.loadNewCardModal(board.id);
     if (!update) {
         modalManager.loadEditBoardTitleModal(board.id);
     }
-    editableTitleDiv(board)
+    ediTableTitleDiv(board)
     domManager.addEventListener(
         `.toggle-board-button[data-board-id="${board.id}"]`,
         "click",
@@ -47,9 +49,9 @@ async function createBoard(board, position, update = false) {
     );
 }
 
-function editableTitleDiv(board) {
+function ediTableTitleDiv(board) {
     const titleDivValue = document.querySelector(`.board-title[data-board-id="${board.id}"]`).innerText
-    domManager.addEventListener(`.board-title[data-board-id="${board.id}"]`, 'keyup',
+    domManager.addEventListener(`.board-title[data-board-id="${board.id}"]`, 'keydown',
         (event)=> getBoardTitle(event, board.id, titleDivValue))
 }
 
@@ -82,7 +84,7 @@ async function editBoardTitle(event, boardId) {
     try {
         const editedBoard = await dataHandler.updateBoardTitle({
             id: boardId,
-            title: title,
+            title: title.trim(),
         });
         await boardsManager.updateBoard(editedBoard);
     } catch (error) {

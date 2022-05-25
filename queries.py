@@ -17,7 +17,7 @@ def get_card_status(status_id):
 
 
 def get_boards():
-    return data_manager.execute_select("SELECT * FROM boards;")
+    return data_manager.execute_select("SELECT * FROM boards ORDER BY id DESC ;")
 
 
 def get_cards_for_board(board_id):
@@ -138,8 +138,18 @@ def update_status(status_id, status_title):
         SET title = %(status_title)s
         WHERE id = %(status_id)s;
         """,
-            { "status_id": status_id,"status_title": status_title },
-            fetchall=False,
-    )
+       {"status_id": status_id, "status_title": status_title},
+       fetchall=False,
+       )
 
 
+def delete_board(board_id):
+    return data_manager.execute_select("""
+        DELETE FROM  boards
+        WHERE id=%(board_id)s;
+        
+        DELETE FROM cards
+        WHERE board_id=%(board_id)s;
+    """,
+        {"board_id": board_id},
+        fetchall=False)

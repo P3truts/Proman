@@ -54,6 +54,10 @@ export let dataHandler = {
         return await apiPost(`/api/edit-status/${payload.id}/${payload.title}`, payload);
     },
 
+    deleteBoard: async function (boardId) {
+        return await apiDelete(`/api/board/${boardId}`)
+    }
+
 };
 
 async function apiGet(url) {
