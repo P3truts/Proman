@@ -71,12 +71,12 @@ function boardBuilder(board) {
 function cardBuilder(card) {
     return `
 <div contenteditable="true"
-    class="card"
+    class="list-group-card card"
     data-card-id="${card.id}"
     draggable="true"
     data-cardstatus="${card.status_id}"
->
-    ${card.title}
+xmlns="http://www.w3.org/1999/html">
+    ${card.title} <img src="./static/assets/delete.png" alt="delete btn" width="15" id="delete-card-${card.id}" data-card-id="${card.id}"  />
 </div>
 `;
 }

@@ -2,13 +2,14 @@ import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
 import { modalManager, removeModal } from "./modalManager.js";
+import { buttonManager } from "./buttonManager.js";
 
 let dragItem = null;
 
 export let cardsManager = {
     loadCards: async function (boardId) {
         const cards = await dataHandler.getCardsByBoardId(boardId);
-        cards.forEach((card) => createCard(card, boardId));
+        cards.forEach((card) => createCard(card, boardId))
         initDragEvents();
     },
 
@@ -30,10 +31,18 @@ export let cardsManager = {
         newCard.classList.add("border-green");
         initDragEvents();
     },
+
 };
 
 function initDragEvents() {
-    document.querySelectorAll(".card").forEach((card) => {
+    const columns = document.querySelectorAll(".board-column-content");
+    columns.forEach((column) => {
+        new Sortable(column, {
+            group: "shared",
+            animation: 150,
+        });
+    });
+    document.querySelectorAll(".list-group-card").forEach((card) => {
         card.addEventListener("dragstart", dragStart);
         card.addEventListener("dragend", dragEnd);
     });
@@ -45,7 +54,11 @@ function initDragEvents() {
     });
 }
 
-function deleteButtonHandler(clickEvent) {}
+async function deleteButtonHandler(boardId) {
+    let cardId = this.dataset.cardId
+    await dataHandler.deleteCard(cardId)
+    domManager.removeChild(`.board-column-content`, `.card[data-card-id="${cardId}"]`)
+}
 
 function dragStart() {
     dragItem = this;
@@ -89,7 +102,7 @@ function createCard(card, boardId) {
     addEditCardTitle(card, boardId)
 
     domManager.addEventListener(
-        `.card[data-card-id="${card.id}"]`,
+        `#delete-card-${card.id}`,
         "click",
         deleteButtonHandler
     );
@@ -97,7 +110,7 @@ function createCard(card, boardId) {
     domManager.addEventListener(
         `.card[data-card-id="${card.id}"]`,
         "dblclick",
-        () => $(`#card_title_${card.id}`).modal("show")
+        () => (`#card_title_${card.id}`).modal("show")
     );
 }
 
@@ -137,5 +150,8 @@ async function updateCardTitle(event, boardId, cardId) {
         alert(error);
     }
 }
+
+
+
 
 

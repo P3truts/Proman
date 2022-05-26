@@ -60,8 +60,11 @@ export let dataHandler = {
 
     deleteStatus: async function (statusId) {
         return await apiDelete(`/api/delete-status/${statusId}`)
-    }
+    },
 
+    deleteCard: async function (cardId) {
+        return await apiDelete(`/api/delete-card/${cardId}`)
+    }
 };
 
 async function apiGet(url) {

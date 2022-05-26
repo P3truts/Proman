@@ -184,6 +184,12 @@ def delete_status(status_id):
     return queries.delete_status(status_id)
 
 
+@app.delete("/api/delete-card/<card_id>")
+@json_response
+def delete_card(card_id):
+    return queries.delete_card(card_id)
+
+
 def main():
     app.run(debug=True)
 

@@ -35,10 +35,10 @@ export let buttonManager = {
     },
 
     removeBtn(boardId) {
-     domManager.removeChild(
-         `.board[data-board-id="${boardId}"]`,
-         `#add-card-btn-${boardId}`
-     );
+        domManager.removeChild(
+            `.board[data-board-id="${boardId}"]`,
+            `#add-card-btn-${boardId}`
+        );
     },
 
     loadNewPrivateBoardBtn: function () {
@@ -59,6 +59,10 @@ export let buttonManager = {
     deleteStatusBtn(boardId, status) {
         domManager.addEventListener(`#delete-status-button-${status.id}`, "click");
     },
-};
+
+    removeCardBtn(card) {
+        domManager.addEventListener(`#delete-card-${card.id}`, "click")
+    }
+}
 
 

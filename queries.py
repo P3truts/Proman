@@ -173,3 +173,10 @@ def delete_status(status_id):
        fetchall=False)
 
 
+def delete_card(card_id):
+    return data_manager.execute_select("""
+    DELETE FROM cards
+    WHERE id=%(card_id)s;
+    """,
+                                       {"card_id": card_id},
+                                       fetchall=False)
