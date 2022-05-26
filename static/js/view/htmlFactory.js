@@ -52,7 +52,7 @@ function boardBuilder(board) {
             id="delete-board-button-${board.id}"
             class="delete-board-button"
             data-bs-toggle="modal"
-            data-bs-target="#del-confirm-modal-${board.id}"
+            data-bs-target="#board-del-confirm-modal-${board.id}"
         >
             <img src="./static/assets/delete.png" alt="delete btn" />
         </button>
@@ -83,7 +83,7 @@ function cardBuilder(card) {
 
 function colBoardBuilder(status) {
     return `
-<div class="board-column" >
+<div class="board-column" data-idstatus="${status.id}" >
     <div contenteditable="true" class="board-column-title" data-idstatus="${status.id}">
         ${upper(status.title)}
     </div>
@@ -93,7 +93,7 @@ function colBoardBuilder(status) {
         id="delete-status-button-${status.id}"
         class="delete-status-button"
         data-bs-toggle="modal"
-        data-bs-target="#del-status-confirm-modal-${status.id}">
+        data-bs-target="#status-del-confirm-modal-${status.id}">
             <img src="./static/assets/delete.png" alt="delete btn" />
         </button>
 </div>

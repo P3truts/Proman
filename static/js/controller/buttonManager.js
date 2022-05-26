@@ -31,7 +31,7 @@ export let buttonManager = {
 
     deleteBoardBtn(board) {
         domManager.addEventListener(`#delete-board-button-${board.id}`, "click");
-        modalManager.loadDelConfirmModal(board);
+        modalManager.loadBoardDelConfirmModal(board);
     },
 
     removeBtn(boardId) {
@@ -55,6 +55,9 @@ export let buttonManager = {
             domManager.addChild(".title-container", content);
             domManager.addEventListener("#new-private-board-button", "click");
         }
+    },
+    deleteStatusBtn(boardId, status) {
+        domManager.addEventListener(`#delete-status-button-${status.id}`, "click");
     },
 };
 

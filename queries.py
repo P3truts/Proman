@@ -159,3 +159,17 @@ def delete_board(board_id):
     """,
         {"board_id": board_id},
         fetchall=False)
+
+
+def delete_status(status_id):
+    return data_manager.execute_select("""
+        DELETE FROM cards
+        WHERE status_id=%(status_id)s;
+
+        DELETE FROM  statuses
+        WHERE id=%(status_id)s;
+    """,
+       {"status_id": status_id},
+       fetchall=False)
+
+
