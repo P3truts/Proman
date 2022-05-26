@@ -14,6 +14,7 @@ export const htmlTemplates = {
     oneInputForm: 7,
     InputWithCheckButtons: 8,
     userPasswordForm: 9,
+    delForm: 10,
 };
 
 export const builderFunctions = {
@@ -26,6 +27,7 @@ export const builderFunctions = {
     [htmlTemplates.oneInputForm]: oneInputForm,
     [htmlTemplates.InputWithCheckButtons]: InputWithCheckButtons,
     [htmlTemplates.userPasswordForm]: userPasswordForm,
+    [htmlTemplates.delForm]: delForm,
 };
 
 export function htmlFactory(template) {
@@ -47,8 +49,10 @@ function boardBuilder(board) {
         </div>
         <button
             type="button"
-            id="edit-board-button-${board.id}"
-            class="edit-board-button"
+            id="delete-board-button-${board.id}"
+            class="delete-board-button"
+            data-bs-toggle="modal"
+            data-bs-target="#del-confirm-modal-${board.id}"
         >
             <img src="./static/assets/delete.png" alt="delete btn" />
         </button>
@@ -79,11 +83,19 @@ function cardBuilder(card) {
 
 function colBoardBuilder(status) {
     return `
-<div class="board-column">
+<div class="board-column" >
     <div contenteditable="true" class="board-column-title" data-idstatus="${status.id}">
         ${upper(status.title)}
     </div>
     <div class="board-column-content" data-idstatus="${status.id}"></div>
+    <button
+        type="button"
+        id="delete-status-button-${status.id}"
+        class="delete-status-button"
+        data-bs-toggle="modal"
+        data-bs-target="#del-status-confirm-modal-${status.id}">
+            <img src="./static/assets/delete.png" alt="delete btn" />
+        </button>
 </div>
 `;
 }
@@ -236,3 +248,17 @@ function createRadioBnt(status, index) {
 
     `;
 }
+
+
+function delForm(config) {
+    return `
+<form id="${config.formId}" action="${config.formApi}" method="delete">
+    <div class="mb-3">
+        <label for="title" class="col-form-label">${config.label}</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm</button>
+</form>
+
+    `;
+}
+

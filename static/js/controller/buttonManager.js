@@ -1,6 +1,7 @@
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
 import {dataHandler} from "../data/dataHandler.js";
+import {modalManager} from "./modalManager.js";
 
 export let buttonManager = {
     loadNewBoardBtn: function () {
@@ -29,8 +30,8 @@ export let buttonManager = {
     },
 
     deleteBoardBtn(board) {
-        domManager.addEventListener(`#edit-board-button-${board.id}`, "click",
-            async ()=>await deleteBoard(board.id))
+        domManager.addEventListener(`#delete-board-button-${board.id}`, "click");
+        modalManager.loadDelConfirmModal(board);
     },
 
     removeBtn(boardId) {
@@ -56,11 +57,5 @@ export let buttonManager = {
         }
     },
 };
-
-
-async function deleteBoard(boardId) {
-    await dataHandler.deleteBoard(boardId)
-    domManager.removeBoard(`.board[data-board-id="${boardId}"]`);
-}
 
 

@@ -12,7 +12,11 @@ export const formManager = {
 
     userPassword(config, parent=null) {
         createForm(config, 'userPasswordForm', parent)
-    }
+    },
+
+    delModal(config, parent=null) {
+        createForm(config, "delForm", parent);
+    },
 };
 
 function createForm(config, type, parent=null) {

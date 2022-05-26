@@ -36,7 +36,7 @@ async function createBoard(board, position, update = false) {
     //  shorter alternative below
     const content = htmlFactory(htmlTemplates.board)(board);
     domManager.addChild("#root", content, position);
-    buttonManager.deleteBoardBtn(board)
+    buttonManager.deleteBoardBtn(board);
     await modalManager.loadNewCardModal(board.id);
     if (!update) {
         modalManager.loadEditBoardTitleModal(board.id);
