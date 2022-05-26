@@ -92,6 +92,7 @@ async function apiDelete(url) {
     try {
         return await request.json();
     } catch (error) {
+        console.log(request);
         console.error(error);
     }
 }

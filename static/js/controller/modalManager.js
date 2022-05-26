@@ -152,6 +152,21 @@ export let modalManager = {
         formManager.oneInputModal(config);
         domManager.addEventListener(`#${config.formId}`, "submit", insertBoard);
     },
+    loadDelConfirmModal: function (item) {
+        const config = {
+            id: `del-confirm-modal-${item.id}`,
+            title: "DELETION CONFIRMATION",
+            formApi: `/api/delete-board/${item.id}`,
+            formId: `form-delete-board-${item.id}`,
+            parent: "#board-modal-div",
+            label: `Are you sure you want to delete this item: ${item.title}?`,
+        };
+
+        createModal(config);
+        formManager.delModal(config);
+        domManager.addEventListener(`#${config.formId}`, "submit",
+        async (event)=>await deleteBoard(event, item.id));
+    },
 };
 
 function createModal(config) {
@@ -245,4 +260,12 @@ export function removeModal(cardId) {
     const parent = document.querySelector("#board-modal-div")
     parent.removeChild(modal)
 
+}
+
+async function deleteBoard(event, boardId) {
+    event.preventDefault();
+    $(`#del-confirm-modal-${boardId}`).modal("hide");
+    domManager.removeBoard(`.board[data-board-id="${boardId}"]`)
+    await dataHandler.deleteBoard(boardId)
+    domManager.removeChild("#board-modal-div", `#del-confirm-modal-${boardId}`);
 }

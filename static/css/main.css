@@ -38,31 +38,46 @@ nav button a{
 }
 
 .card,
+.delete-board-button,
+.delete-status-button,
 .edit-board-button {
     position: relative;
 }
 
 .edit-board-button img,
+.delete-board-button,
+.delete-board-button img,
+.delete-status-button,
+.delete-status-button img,
 .edit-board-button {
     height: 30px;
 }
 
 .edit-board-button,
+.delete-board-button,
+.delete-status-button,
 .board-container,
 .board-header {
     background-color: var(--white);
 }
 
-.edit-board-button {
+.edit-board-button,
+.delete-board-button {
     left: 40px;
     margin-right: 500px;
+}
+
+.delete-status-button {
+    margin-left: 25%;
 }
 
 .add-card-btn {
     margin-right: 50px;
 }
 
-.edit-board-button img {
+.edit-board-button img,
+.delete-board-button img,
+.delete-status-button img {
     width: 30px;
 }
 
