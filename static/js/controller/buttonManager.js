@@ -51,7 +51,7 @@ export let buttonManager = {
         let container = domManager.getParent(".user-container");
 
         if (container) {
-            domManager.addChild(".user-container", content);
+            domManager.addChild(".title-container", content);
             domManager.addEventListener("#new-private-board-button", "click");
         }
     },

@@ -13,7 +13,7 @@ export let cardsManager = {
     },
 
     updateTitleCard: function (card, boardId) {
-        // removeModal(card.id)
+        removeModal(card.id)
         domManager.removeElement(`.card[data-card-id="${card.id}"]`);
         createCard(card, boardId);
         document
@@ -85,7 +85,7 @@ function createCard(card, boardId) {
         `.board[data-board-id="${boardId}"] > .board-columns > .board-column > .board-column-content[data-idstatus="${statusId}"]`,
         content
     );
-    // modalManager.editCardTitle(card.id, boardId);
+    modalManager.editCardTitle(card.id, boardId);
     addEditCardTitle(card, boardId)
 
     domManager.addEventListener(

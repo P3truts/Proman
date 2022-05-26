@@ -12,6 +12,3 @@ async function init() {
 
 await init();
 
-function getUser() {
-
-}
