@@ -61,7 +61,7 @@ export let domManager = {
     },
 
     removeElement(element) {
-        document.querySelector(element).remove();
+        document.querySelector(element).parentNode.remove();
     },
 
     addClassToParent(element, className) {

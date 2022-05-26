@@ -178,6 +178,12 @@ def delete_board(board_id):
     return queries.delete_board(board_id)
 
 
+@app.delete("/api/delete-status/<status_id>")
+@json_response
+def delete_status(status_id):
+    return queries.delete_status(status_id)
+
+
 def main():
     app.run(debug=True)
 

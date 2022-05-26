@@ -2,6 +2,7 @@ import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
 import { buttonManager } from "./buttonManager.js";
+import {modalManager} from "./modalManager.js";
 
 export let statusManager = {
     loadStatuses: async function (boardId) {
@@ -19,6 +20,8 @@ export let statusManager = {
                 showHideButtonHandler
             );
             addEditEvent(boardId, status);
+            buttonManager.deleteStatusBtn(boardId, status);
+            modalManager.loadStatusDelConfirmModal(boardId, status)
         });
 
         domManager.addChild(
@@ -32,7 +35,7 @@ export let statusManager = {
         //     addColBtnHandler
         // );
     },
-    clearColumnsHTML: function (boardId, container) {
+    clearColumnsHTML: function (boardId, statusId, container) {
         domManager.removeChild(
             `.board[data-board-id="${boardId}"]`,
             `.add-column-btn[data-board-id="${boardId}"]`
@@ -41,6 +44,12 @@ export let statusManager = {
             `.board[data-board-id="${boardId}"]`,
             `#edit-column-modal-${boardId}`
         );
+        if (statusId) {
+            domManager.removeChild(
+                `#board-modal-div"]`,
+                `status-del-confirm-modal-${statusId}`
+            );
+        }
         buttonManager.removeBtn(boardId);
         container.innerHTML = "";
     },
@@ -51,7 +60,14 @@ export let statusManager = {
                 `.board[data-board-id="${boardId}"] > .board-columns`,
                 htmlFactory(htmlTemplates.colBoard)(status)
             );
+            domManager.addEventListener(
+                `.board-title[data-board-id="${boardId}"]`,
+                "click",
+                showHideButtonHandler
+            );
             addEditEvent(boardId, status);
+            buttonManager.deleteStatusBtn(boardId, status);
+            modalManager.loadStatusDelConfirmModal(boardId, status)
         });
     },
     // updateStatusTitle: async function(boardId, status) {
@@ -66,12 +82,12 @@ export let statusManager = {
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
+    const statusId = clickEvent.target.dataset.statusId;
     const columnsContainer = domManager.getParent(
-        `.board[data-board-id="${boardId}"] > .board-columns`
-    );
+        `.board[data-board-id="${boardId}"] > .board-columns`);
     domManager.removeChild('#board-modal-div', `#add-column-modal-${boardId}`)
     if (columnsContainer && !!columnsContainer.innerHTML.length) {
-        statusManager.clearColumnsHTML(boardId, columnsContainer);
+        statusManager.clearColumnsHTML(boardId, statusId, columnsContainer);
     }
 
 }
@@ -111,4 +127,3 @@ function addEditEvent(boardId, status) {
             }
         );
 }
-
