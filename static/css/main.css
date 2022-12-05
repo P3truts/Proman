@@ -1,0 +1,211 @@
+:root {
+    --border-radius: 3px;
+    --status-1: #590000;
+    --status-2: #594300;
+    --status-3: #525900;
+    --status-4: #085900;
+    --green: rgb(0, 128, 0);
+    --white: #fff;
+}
+
+#boards {
+    background-color: var(--green);
+}
+
+nav button a{
+    color: white !important;
+    text-decoration: none;
+}
+
+.board-container,
+.title-container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.title-container {
+    justify-content: space-between;
+    width: 80%;
+}
+
+.title-container h1 {
+    font-size: 3em;
+    padding-left: 15px;
+}
+
+.border-green {
+    border: 5px solid var(--green);
+}
+
+.card,
+.delete-board-button,
+.delete-status-button,
+.edit-board-button {
+    position: relative;
+}
+
+.edit-board-button img,
+.delete-board-button,
+.delete-board-button img,
+.delete-status-button,
+.delete-status-button img,
+.edit-board-button {
+    height: 30px;
+}
+
+.edit-board-button,
+.delete-board-button,
+.delete-status-button,
+.board-container,
+.board-header {
+    background-color: var(--white);
+}
+
+.edit-board-button,
+.delete-board-button {
+    left: 40px;
+    margin-right: 500px;
+}
+
+.delete-status-button {
+    margin-left: 5vw;
+}
+
+.add-card-btn {
+    margin-right: 50px;
+}
+
+.edit-board-button img,
+.delete-board-button img,
+.delete-status-button img {
+    width: 30px;
+}
+
+button,
+body {
+    font-family: sans-serif;
+}
+
+body {
+    min-width: 620px;
+    background: #ddd
+        url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
+}
+
+h1,
+.board-title,
+.board-column-title {
+    font-weight: 100;
+}
+
+h1 {
+    font-size: 4em;
+    letter-spacing: 5px;
+    transform: scale(1.2, 1);
+}
+
+.card,
+button {
+    background: #222;
+    color: var(--white);
+}
+
+button {
+    border: none;
+    font-size: 14px;
+    padding: 4px 10px;
+}
+
+.board-container {
+    font-size: 2em;
+}
+
+section.board {
+    margin: 20px;
+    border: aliceblue;
+    background: #ffffff90;
+    border-radius: var(--border-radius);
+}
+
+.board-header {
+    height: 50px;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.board-title {
+    margin: 13px;
+    font-size: 20px;
+    width: 160px;
+}
+.board-title,
+.board-add,
+.board-toggle {
+    display: inline-block;
+}
+
+.board-toggle {
+    float: right;
+    margin: 13px;
+}
+
+.board-columns {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.board-column {
+    padding: 10px;
+    flex: 1;
+}
+
+.board-column-content {
+    min-height: 49px;
+}
+
+.board-column-content:empty {
+    /*This only works if the tag is really empty and there is not even whitespace inside*/
+    border: 4px solid #cdcdcd;
+    margin-top: 4px;
+    border-radius: 10px;
+    background: #eee;
+}
+
+h1,
+.board-column-title {
+    text-align: center;
+}
+
+.card {
+    border-radius: var(--border-radius);
+    margin: 4px 0;
+    padding: 4px;
+}
+
+.board-column:nth-of-type(1) .card {
+    background: var(--status-1);
+}
+
+.board-column:nth-of-type(2) .card {
+    background: var(--status-2);
+}
+
+.board-column:nth-of-type(3) .card {
+    background: var(--status-3);
+}
+
+.board-column:nth-of-type(4) .card {
+    background: var(--status-4);
+}
+
+.card-remove {
+    display: block;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.card-title {
+    padding-right: 16px;
+}

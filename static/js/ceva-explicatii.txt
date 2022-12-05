@@ -1,0 +1,12 @@
+// forEach => { functie care ruleaza pentru fiecare element }
+// map => { functie care creaza un array nou }
+// find => { functie care extrage primul element care corespunde } -> bool
+// filter => { functie care extrage toate elementele care corespund } -> bool
+
+(elementul_curent, indexul_elementului_curent, tot_array - ul) => {
+    
+}
+
+
+data-ceva-variabila => dataset.cevaVariabila
+data-una-alta-si-inca-una => dataset.unaAltaSiIncaUna

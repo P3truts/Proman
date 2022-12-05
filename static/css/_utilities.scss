@@ -1,0 +1,10 @@
+$sizes: (
+    "s": 480px,
+    "m": 960px,
+    "l": 1024px,
+);
+
+@each $size, $index in $sizes {
+    .pad-#{$size} { padding: $index; }
+    .container-#{$size} { max-width: $index; }
+}

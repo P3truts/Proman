@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>{% block page_title %}Proman{% endblock %}</title>
+
+        <link
+            rel="shortcut icon"
+            href="{{ url_for('static', filename='favicon/favicon.ico') }}"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}"
+        />
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{{ url_for('static', filename='css/main.css') }}"
+        />
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+        {% block load_script %}
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light ps-5 pe-5">
+
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for("index") }}">Proman</a>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" href="{{ url_for("index") }}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Contact</a>
+                </li>
+              </ul>
+            {% if user %}
+                <div class="me-3">Hi, {{ user }}</div>
+                 <button type="button" class="btn btn-success">
+                      <a class="nav-link active" aria-current="page" href="{{ url_for("logout") }}">
+                          Logout
+                      </a>
+                </button>
+            {% else %}
+                <button type="button" class="btn btn-success me-3">
+                      <a class="nav-link active" aria-current="page" href="{{ url_for("registration") }}">
+                          Registration
+                      </a>
+                </button>
+                 <button type="button" class="btn btn-success">
+                      <a class="nav-link active" aria-current="page" href="{{ url_for("login") }}">
+                          Login
+                      </a>
+                </button>
+            {% endif %}
+            </div>
+          </div>
+        </nav>
+
+        <div class="container-fluid mt-5">
+            {% block content %}{% endblock %}
+        </div>
+
+    {% block flash_messages %}
+        <div class="text-center mt-5 ">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <h3 class="text-danger">{{ message }}</h3>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block load_script %}
+ <script
+    type="module"
+    src="{{ url_for('static', filename='js/register.js') }}"
+    defer
+></script>
+{% endblock %}
+
+{% block content %}
+
+     <div id="registration-container" class="container-fluid d-flex justify-content-center">
+     </div>
+{% endblock %}

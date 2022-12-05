@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block load_script %}
+ <script
+    type="module"
+    src="{{ url_for('static', filename='js/main.js') }}"
+    defer
+ ></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid d-flex">
+        <div class="title-container mb-5 d-inline-flex">
+            <h1>Proman</h1>
+        </div>
+    {% if user %}
+        <div class="user-container mb-5 d-inline-flex">
+            <h1> </h1>
+        </div>
+    {% endif %}
+    </div>
+
+    <div id="root"></div>
+    <div id="board-modal-div"></div>
+{% endblock %}
